@@ -1,0 +1,27 @@
+<!doctype html>
+<!--
+  hover1: hover, focus and active variants
+
+  Prefix a utility with a variant to apply it only in that state:
+  hover:bg-sky-700, focus:outline-2, active:bg-sky-800. The variant goes
+  before the utility, separated by a colon; the utility itself is unchanged.
+  (In v4, hover: only applies on devices that can hover, via
+  @media (hover: hover), so taps on phones don't leave "stuck" hover styles.)
+
+  Task: the "Buy" button is sky-600, turns sky-700 on hover, sky-800 while
+  pressed, and shows a 2px sky-500 outline, offset by 2px, when focused.
+
+  Preview: npm run preview hover1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>hover1</title>
+  </head>
+  <body class="p-8">
+    <button id="buy" class="rounded-md bg-sky-600 px-4 py-2 font-semibold text-white hover-bg-sky-700 focus:outline-sky-500 bg-sky-800:active">
+      Buy
+    </button>
+  </body>
+</html>

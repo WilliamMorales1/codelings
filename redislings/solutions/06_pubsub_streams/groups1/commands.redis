@@ -1,0 +1,5 @@
+# groups1 — consumer groups: XGROUP, XREADGROUP, XACK
+
+XGROUP CREATE events mailer 0
+XREADGROUP GROUP mailer w1 COUNT 2 STREAMS events >
+XACK events mailer 1700000000000-0

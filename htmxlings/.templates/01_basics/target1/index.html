@@ -1,0 +1,30 @@
+<!doctype html>
+<!--
+  target1 - extended hx-target selectors
+
+  hx-target takes a CSS selector, plus a few htmx extras that are relative
+  to the element making the request:
+    this, closest <sel>, find <sel>, next <sel>, previous <sel>
+
+  TASK: every "Details" button fills the *first* .details box, because
+  ".details" matches the first one on the page. Make each button fill the
+  .details box in its own <li>, without adding ids.
+
+  Try it in a browser: npm run serve target1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>target1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Planets</h1>
+  <ul>
+    <li>Mercury <button hx-get="/details/mercury" hx-target=".details">Details</button> <span class="details"></span></li>
+    <li>Venus <button hx-get="/details/venus" hx-target=".details">Details</button> <span class="details"></span></li>
+    <li>Mars <button hx-get="/details/mars" hx-target=".details">Details</button> <span class="details"></span></li>
+  </ul>
+</body>
+</html>

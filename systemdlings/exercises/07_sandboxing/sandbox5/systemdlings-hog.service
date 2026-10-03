@@ -1,0 +1,25 @@
+# sandbox5: resource limits - MemoryMax=, MemorySwapMax=, CPUQuota=
+#
+# Every unit runs in its own cgroup, so the kernel can cap its resources:
+#   MemoryHigh=   soft limit: above it the unit is throttled and reclaimed
+#   MemoryMax=    hard limit: above it the kernel's OOM killer steps in
+#   MemorySwapMax= how much swap the unit may use. With swap (zram on
+#                 many distros) a unit at MemoryMax= is pushed into swap
+#                 instead of being killed, and just gets slow
+#   CPUQuota=50%  at most half of one CPU
+# In the user manager these work when the controllers are delegated to
+# user@.service (the default on Arch: cpu, memory, io, pids). Check with
+#   cat /sys/fs/cgroup/user.slice/user-$(id -u).slice/user@$(id -u).service/cgroup.controllers
+#
+# Task: the hog must never take more than 64M of memory, without escaping
+# into swap - it should be OOM-killed instead of dragging the laptop down.
+# Also cap it at half a CPU. The check reads the properties first and only
+# starts the hog once the limits are in place.
+
+[Unit]
+Description=systemdlings: memory hog
+
+[Service]
+Type=oneshot
+MemoryHigh=64M
+ExecStart=/usr/bin/sh %t/systemdlings/sandbox5/hog.sh

@@ -1,0 +1,14 @@
+# hashes1 — HSET: an object as a hash
+#
+# Learn: a hash maps field names to string values under one key, a good
+# fit for a record. Unlike a JSON blob in a string, each field can be
+# read, changed or incremented on its own, without rewriting the rest.
+#
+# Task: store user 7 as a hash at user:7 with the fields
+#   name  = Grace Hopper
+#   email = grace@navy.mil
+#   visits = 0
+# The current version stores a JSON string instead.
+#
+
+SET user:7 '{"name": "Grace Hopper", "email": "grace@navy.mil", "visits": 0}'

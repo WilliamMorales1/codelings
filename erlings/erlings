@@ -1,0 +1,315 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+%% erlings: rustlings-style runner for the exercises in this repository.
+
+-mode(compile).
+
+-define(EXERCISES,
+        ["sequential/installing", "sequential/filter_numbers", "sequential/hello",
+         "sequential/hello_pattern", "sequential/lists", "sequential/bank_accounts",
+         "sequential/calculate_bmi", "sequential/insert_element_at",
+         "sequential/filter_fibonacci_numbers", "sequential/maps", "sequential/regex",
+         "concurrent/parallel_map", "concurrent/calculator", "concurrent/priority",
+         "concurrent/ring_benchmark",
+         "otp/shopping_cart", "otp/pool"]).
+-define(PROGRESS, ".erlings-progress").
+-define(WATCH_MS, 700).
+
+usage() ->
+    "erlings - small exercises to get you used to reading and writing Erlang\n\n"
+    "USAGE:\n"
+    "    erlings [verify]        Check exercises in order, stopping at the first unsolved one (default)\n"
+    "    erlings watch           Same as verify, but re-checks every time you save a file\n"
+    "    erlings run [NAME]      Check one exercise (defaults to the next unsolved one)\n"
+    "    erlings hint [NAME]     Print the exercise's task from its README\n"
+    "    erlings list            Show every exercise, its status and the file to edit\n"
+    "    erlings solution NAME   Print the reference solution\n"
+    "    erlings reset NAME      Restore an exercise's src/ to its original state\n"
+    "    erlings doctor          Show which external tools are installed and how to get the rest\n"
+    "    erlings help            Show this message\n\n"
+    "NAME is an exercise directory such as hello or sequential/hello.\n"
+    "An exercise is done when its tests pass; there is no marker to delete.\n".
+
+main(Args) ->
+    ok = io:setopts([{encoding, unicode}]),
+    ok = file:set_cwd(root()),
+    halt(dispatch(Args)).
+
+dispatch([]) -> verify();
+dispatch(["verify"]) -> verify();
+dispatch(["watch"]) -> watch();
+dispatch(["run"]) -> with_next(fun run/1);
+dispatch(["run", N]) -> with_named(N, fun run/1);
+dispatch(["hint"]) -> with_next(fun hint/1);
+dispatch(["hint", N]) -> with_named(N, fun hint/1);
+dispatch(["list"]) -> list();
+dispatch(["solution", N]) -> with_named(N, fun solution/1);
+dispatch(["reset", N]) -> with_named(N, fun reset/1);
+dispatch(["doctor"]) -> doctor();
+dispatch([H | _]) when H =:= "help"; H =:= "-h"; H =:= "--help" -> io:put_chars(usage()), 0;
+dispatch(_) -> io:put_chars(usage()), 2.
+
+root() ->
+    filename:dirname(filename:absname(escript:script_name())).
+
+%% ---------------------------------------------------------------- output
+
+color() ->
+    os:getenv("NO_COLOR", "") =:= "" andalso io:columns() =/= {error, enotsup}.
+
+paint(Code, S) ->
+    case color() of
+        true -> ["\e[", Code, "m", S, "\e[0m"];
+        false -> S
+    end.
+
+say(Code, Fmt, Args) -> io:put_chars([paint(Code, io_lib:format(Fmt, Args)), $\n]).
+
+%% OSC 8 hyperlink to the absolute file; terminals without support just show the label.
+file_link(Path) ->
+    case color() of
+        true -> ["\e]8;;file://", filename:absname(Path), "\e\\", Path, "\e]8;;\e\\"];
+        false -> Path
+    end.
+
+bar(Done, Total) ->
+    Filled = case Total of 0 -> 0; _ -> 32 * Done div Total end,
+    io_lib:format("Progress: [~s] ~b/~b",
+                  [paint("32", lists:duplicate(Filled, $#) ++ lists:duplicate(32 - Filled, $-)),
+                   Done, Total]).
+
+indent(Text) ->
+    Lines = string:split(string:trim(Text, trailing), "\n", all),
+    [io:put_chars(["    ", L, $\n]) || L <- Lines, Text =/= ""],
+    ok.
+
+%% ---------------------------------------------------------------- exercises
+
+name(Ex) -> filename:basename(Ex).
+
+find(Needle) ->
+    N = string:trim(Needle, trailing, "/"),
+    case [E || E <- ?EXERCISES, E =:= N orelse name(E) =:= N] of
+        [E | _] -> {ok, E};
+        [] -> error
+    end.
+
+with_named(N, F) ->
+    case find(N) of
+        {ok, E} -> F(E);
+        error -> say("31", "no exercise named `~s` (try `erlings list`)", [N]), 2
+    end.
+
+with_next(F) ->
+    case [E || E <- ?EXERCISES, not done(E)] of
+        [E | _] -> F(E);
+        [] -> say("32", "Every exercise passes.", []), 0
+    end.
+
+%% main_file is the module the learner edits: the .erl in src/.
+main_file(Ex) ->
+    case filelib:wildcard(filename:join([Ex, "src", "*.erl"])) of
+        [F | _] -> F;
+        [] -> filename:join(Ex, "README.md")
+    end.
+
+%% stamp is a cheap change token over src/: path, mtime and size.
+stamp(Ex) ->
+    Files = lists:sort(filelib:wildcard(filename:join([Ex, "src", "**", "*"]))),
+    erlang:phash2([{F, filelib:last_modified(F), filelib:file_size(F)} || F <- Files]).
+
+%% Passing exercises are remembered with their stamp, so list/verify stay fast and
+%% an edit after passing sends the exercise back to the queue.
+progress() ->
+    case file:consult(?PROGRESS) of
+        {ok, [M]} when is_map(M) -> M;
+        _ -> #{}
+    end.
+
+done(Ex) -> maps:get(Ex, progress(), undefined) =:= stamp(Ex).
+
+record(Ex, Passed) ->
+    P0 = progress(),
+    P = case Passed of
+            true -> P0#{Ex => stamp(Ex)};
+            false -> maps:remove(Ex, P0)
+        end,
+    file:write_file(?PROGRESS, io_lib:format("~p.~n", [P])).
+
+%% check runs the exercise's Common Test suite with rebar3, as `make` used to.
+check(Ex) ->
+    Port = open_port({spawn_executable, os:find_executable("rebar3")},
+                     [{args, ["as", "test", "ct"]}, {cd, Ex}, exit_status, stderr_to_stdout, binary]),
+    collect(Port, []).
+
+collect(Port, Acc) ->
+    receive
+        {Port, {data, D}} -> collect(Port, [Acc, D]);
+        {Port, {exit_status, S}} -> {S =:= 0, unicode:characters_to_list(iolist_to_binary(Acc))}
+    end.
+
+report(Ex) ->
+    {Ok, Out} = check(Ex),
+    record(Ex, Ok),
+    case Ok of
+        true ->
+            say("32", "v ~s passes!", [Ex]),
+            true;
+        false ->
+            say("31", "x ~s fails.", [Ex]),
+            io:put_chars(["  File: ", file_link(main_file(Ex)), $\n]),
+            indent(failure_lines(Out)),
+            io:format("~n  Stuck? `erlings hint ~s`~n", [name(Ex)]),
+            false
+    end.
+
+%% rebar3's output is long; keep the compiler errors and the failing assertions.
+failure_lines(Out) ->
+    Lines = drop_warnings(string:split(Out, "\n", all), []),
+    Keep = [L || L <- Lines,
+                 string:find(L, "===> Verifying") =:= nomatch,
+                 string:find(L, "===> Analyzing") =:= nomatch,
+                 string:find(L, "===> Compiling") =:= nomatch,
+                 string:find(L, "===> Running Common Test") =:= nomatch,
+                 string:trim(L) =/= ""],
+    lists:join("\n", lists:sublist(Keep, 40)).
+
+%% Unused-variable warnings are expected in untouched stubs and bury the real error.
+drop_warnings([], Acc) -> lists:reverse(Acc);
+drop_warnings([L | Rest] = All, Acc) ->
+    case string:find(L, "┌─") of
+        nomatch -> drop_warnings(Rest, [L | Acc]);
+        _ ->
+            {Block, After} = lists:splitwith(fun(X) -> string:find(X, "╰─") =:= nomatch end, Rest),
+            case After of
+                [End | Tail] ->
+                    case string:find(End, "Warning:") of
+                        nomatch -> drop_warnings(Tail, lists:reverse([L | Block] ++ [End]) ++ Acc);
+                        _ -> drop_warnings(Tail, Acc)
+                    end;
+                [] -> lists:reverse(Acc) ++ All
+            end
+    end.
+
+%% ---------------------------------------------------------------- commands
+
+verify() ->
+    verify(?EXERCISES, 0).
+
+verify([], N) ->
+    io:put_chars([bar(N, N), $\n]),
+    say("32", "All ~b exercises complete. Let it crash, but not today.", [N]),
+    0;
+verify([Ex | Rest], I) ->
+    case done(Ex) of
+        true -> verify(Rest, I + 1);
+        false ->
+            io:put_chars([bar(I, length(?EXERCISES)), "\n\n"]),
+            case report(Ex) of
+                true -> verify(Rest, I + 1);
+                false -> 1
+            end
+    end.
+
+watch() ->
+    watch(undefined).
+
+watch(Last) ->
+    Now = [stamp(E) || E <- ?EXERCISES],
+    case Now =:= Last of
+        true -> ok;
+        false ->
+            color() andalso io:put_chars("\e[2J\e[H"),
+            verify(),
+            say("2", "~nwatching... (Ctrl-C twice to quit)", [])
+    end,
+    timer:sleep(?WATCH_MS),
+    watch(Now).
+
+run(Ex) ->
+    case report(Ex) of
+        true -> 0;
+        false -> 1
+    end.
+
+%% The README's "Exercise" section is the task; everything above it is reading material.
+hint(Ex) ->
+    {ok, Readme} = file:read_file(filename:join(Ex, "README.md")),
+    Text = unicode:characters_to_list(Readme),
+    Task = case string:split(Text, "## Exercise") of
+               [_, After] -> After;
+               [_] -> Text
+           end,
+    say("1", "~s", [Ex]),
+    say("36", "Hint:", []),
+    indent(Task),
+    io:put_chars(["  File: ", file_link(main_file(Ex)), $\n]),
+    0.
+
+list() ->
+    Done = lists:foldl(
+             fun(Ex, Acc) ->
+                     D = done(Ex),
+                     Label = case D of
+                                 true -> paint("32", "DONE   ");
+                                 false -> paint("33", "PENDING")
+                             end,
+                     io:format("~s  ~-34s ~s~n", [Label, Ex, file_link(main_file(Ex))]),
+                     Acc + case D of true -> 1; false -> 0 end
+             end, 0, ?EXERCISES),
+    io:format("~n~s~n", [bar(Done, length(?EXERCISES))]),
+    0.
+
+solution(Ex) ->
+    case filelib:wildcard(filename:join([Ex, "solution", "*"])) of
+        [] ->
+            say("33", "~s has no reference solution", [Ex]),
+            1;
+        Files ->
+            say("1", "Solution for ~s:", [Ex]),
+            [begin
+                 {ok, B} = file:read_file(F),
+                 io:put_chars(["\n", paint("36", ["==> ", F]), "\n", B])
+             end || F <- lists:sort(Files)],
+            0
+    end.
+
+reset(Ex) ->
+    Template = filename:join([".templates", Ex, "src"]),
+    case filelib:is_dir(Template) of
+        false ->
+            say("31", "no pristine copy at ~s", [Template]),
+            1;
+        true ->
+            Src = filename:join(Ex, "src"),
+            ok = file:del_dir_r(Src),
+            [begin
+                 Dst = filename:join(Src, string:prefix(F, Template ++ "/")),
+                 ok = filelib:ensure_dir(Dst),
+                 {ok, _} = file:copy(F, Dst)
+             end || F <- filelib:wildcard(Template ++ "/**/*"), filelib:is_regular(F)],
+            record(Ex, false),
+            say("33", "reset ~s to its original state", [Ex]),
+            0
+    end.
+
+doctor() ->
+    Tools = [{"erl", "install erlang"},
+             {"rebar3", "install rebar3"}],
+    Missing = lists:foldl(
+                fun({T, Install}, Acc) ->
+                        case os:find_executable(T) of
+                            false ->
+                                io:format("~s ~-8s ~s~n", [paint("31", "missing"), T, Install]),
+                                Acc + 1;
+                            Path ->
+                                io:format("~s ~-8s ~s~n", [paint("32", "ok     "), T, Path]),
+                                Acc
+                        end
+                end, 0, Tools),
+    io:format("~s ~-8s OTP ~s~n", [paint("32", "ok     "), "otp", erlang:system_info(otp_release)]),
+    io:nl(),
+    case Missing of
+        0 -> say("32", "Everything is installed.", []), 0;
+        _ -> say("33", "~b missing.", [Missing]), 1
+    end.

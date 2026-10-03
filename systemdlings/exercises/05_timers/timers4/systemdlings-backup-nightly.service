@@ -1,0 +1,8 @@
+# timers4: the backup job (nothing to change here)
+
+[Unit]
+Description=systemdlings: nightly backup
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/echo "backing up"

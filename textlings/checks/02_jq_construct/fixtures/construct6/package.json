@@ -1,0 +1,25 @@
+{
+  "name": "billing-dashboard",
+  "version": "2.3.1",
+  "private": true,
+  "type": "module",
+  "description": "Storefront web app",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "vue": "^3.5.22",
+    "pinia": "^3.0.3",
+    "date-fns": "4.1.0"
+  },
+  "devDependencies": {
+    "vite": "^7.1.7",
+    "@vitejs/plugin-vue": "^6.0.1"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "vitest run",
+    "lint": "eslint ."
+  }
+}

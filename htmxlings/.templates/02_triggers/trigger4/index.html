@@ -1,0 +1,30 @@
+<!doctype html>
+<!--
+  trigger4 - throttle and once
+
+  Two more modifiers:
+    throttle:1s  fire at most once per second; extra events in that
+                 window are dropped (delay, by contrast, restarts)
+    once         fire only the first time, ever
+
+  TASK: impatient users hammer "Refresh prices" and hit the server once
+  per click - throttle it to one request per 1s. And "Claim coupon"
+  must only ever send one request, no matter how often it is clicked.
+
+  Try it in a browser: npm run serve trigger4
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>trigger4</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Prices</h1>
+  <button id="refresh" hx-get="/prices" hx-target="#prices">Refresh prices</button>
+  <div id="prices"></div>
+  <button id="claim" hx-post="/coupon" hx-target="#coupon">Claim coupon</button>
+  <div id="coupon"></div>
+</body>
+</html>

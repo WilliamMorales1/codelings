@@ -1,0 +1,28 @@
+// maps1: map fields
+//
+// `map<K, V> name = N;` is a Go map. Keys must be an integer type, bool or
+// string (no floats, bytes, enums or messages); values can be anything except
+// another map. A map is already a collection, so it cannot be `repeated`.
+// On the wire a map is just a repeated entry message, and ORDER IS NOT KEPT.
+//
+// Task:
+//   1. Fix both map fields so this compiles. Shelves are keyed by their
+//      location code string, e.g. "A-12".
+//   2. Implement LowStock in stock.go.
+
+syntax = "proto3";
+
+package inventory.v1;
+
+option go_package = "grpclings/exercises/02_proto_advanced/maps1;maps1";
+
+message Shelf {
+  string location_code = 1;
+  int32 capacity = 2;
+}
+
+message Warehouse {
+  string id = 1;
+  map<string, int32> stock_by_sku = 2;
+  map<string, Shelf> shelves = 3;
+}

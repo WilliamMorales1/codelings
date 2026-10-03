@@ -1,0 +1,2 @@
+# jq command-line flags for this exercise, as shell words (e.g. -r -c).
+-r

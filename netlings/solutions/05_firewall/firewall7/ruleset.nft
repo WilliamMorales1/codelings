@@ -1,0 +1,13 @@
+# firewall7: stateful filtering
+
+flush ruleset
+
+table inet filter {
+  chain input {
+    type filter hook input priority filter; policy drop;
+    iif lo accept
+    ct state established,related accept
+    ct state invalid drop
+    tcp dport 22 accept
+  }
+}

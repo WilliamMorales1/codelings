@@ -1,0 +1,9 @@
+# timers4: laptops sleep - Persistent= and RandomizedDelaySec=
+
+[Unit]
+Description=systemdlings: nightly backup timer
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+RandomizedDelaySec=30min

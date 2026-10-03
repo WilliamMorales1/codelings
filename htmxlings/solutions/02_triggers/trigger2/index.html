@@ -1,0 +1,26 @@
+<!doctype html>
+<!--
+  trigger2 - hx-trigger="load"
+
+  Every element has a natural trigger: click for buttons and divs, change
+  for inputs and selects, submit for forms. The special "load" trigger
+  fires once, as soon as htmx processes the element - handy for filling
+  in slow parts of a page after the first render.
+
+  TASK: the stats box only loads when somebody clicks it. Make it load
+  GET /stats by itself when the page loads (it swaps into itself).
+
+  Try it in a browser: npm run serve trigger2
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>trigger2</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Dashboard</h1>
+  <div id="stats" hx-get="/stats" hx-trigger="load">Loading stats...</div>
+</body>
+</html>

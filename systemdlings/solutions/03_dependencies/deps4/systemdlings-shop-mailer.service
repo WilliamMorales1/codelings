@@ -1,0 +1,9 @@
+# deps4: PartOf= - stop and restart together
+
+[Unit]
+Description=systemdlings: shop mailer
+PartOf=systemdlings-shop.target
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/sleep infinity

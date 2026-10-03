@@ -1,0 +1,27 @@
+<!doctype html>
+<!--
+  inner1 - outerHTML versus innerHTML
+
+  innerHTML (the default) keeps the target and replaces its children.
+  outerHTML replaces the target element itself. When the server sends
+  back a new version of the *same* element, you want outerHTML -
+  otherwise the new button ends up nested inside the old one.
+
+  TASK: clicking Follow should turn the button into an Unfollow button
+  (the server sends a whole new <button>), and back again. Right now the
+  buttons pile up inside each other.
+
+  Try it in a browser: npm run serve inner1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>inner1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>@htmx_org</h1>
+  <button class="follow" hx-post="/follow">Follow</button>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<!--
+  deleterow - the Delete Row pattern
+
+  One set of attributes on <tbody> is inherited by every delete button:
+  confirm first, target the button's own row (closest tr), replace it
+  with the (empty) response.
+  (https://htmx.org/examples/delete-row/)
+
+  TASK, two bugs:
+  1. index.html: the buttons delete themselves, not their row. Target
+     the closest <tr>.
+  2. handlers.js: DELETE answers 204 No Content - and htmx 2 does not
+     swap 204 responses at all, so nothing disappears. Answer 200 with
+     an empty body instead.
+
+  Try it in a browser: npm run serve deleterow
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>deleterow</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Contacts</h1>
+  <table>
+    <tbody hx-confirm="Delete this contact?" hx-swap="outerHTML">
+      <tr><td>Ada</td><td><button hx-delete="/contacts/1">Delete</button></td></tr>
+      <tr><td>Grace</td><td><button hx-delete="/contacts/2">Delete</button></td></tr>
+      <tr><td>Katherine</td><td><button hx-delete="/contacts/3">Delete</button></td></tr>
+    </tbody>
+  </table>
+</body>
+</html>

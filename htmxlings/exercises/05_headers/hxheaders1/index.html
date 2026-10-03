@@ -1,0 +1,32 @@
+<!doctype html>
+<!--
+  hxheaders1 - hx-headers (and attribute inheritance)
+
+  hx-headers='{"X-Name": "value"}' adds request headers. Like most
+  htmx attributes it is inherited: put it on <body> and every request
+  in the page carries it. hx-vals is different: it sends *parameters*,
+  in the query string or body.
+
+  TASK: the server rejects requests without the header
+  X-CSRF-Token: s3cr3t (a common CSRF defence). Someone put the token in
+  hx-vals instead. Send it as a header on every request in the page,
+  with a single attribute.
+
+  Try it in a browser: npm run serve hxheaders1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>hxheaders1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Settings</h1>
+  <div hx-vals='{"X-CSRF-Token": "s3cr3t"}'>
+    <button id="save" hx-post="/save" hx-target="#out">Save</button>
+    <button id="reset" hx-post="/reset" hx-target="#out">Reset</button>
+  </div>
+  <p id="out"></p>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<!--
+  form2 - hx-include
+
+  A request carries the value of the element that made it (if it has a
+  name) and, inside a form, the whole form. Anything else has to be
+  pulled in with hx-include="<css selector>" (extended selectors like
+  "closest form" work too).
+
+  TASK: changing the sort order forgets the search text. Make the sort
+  <select> also send the value of the #q input.
+
+  Try it in a browser: npm run serve form2
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>form2</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Books</h1>
+  <input id="q" name="q" placeholder="Filter by title">
+  <select name="sort" hx-get="/books" hx-target="#books" hx-include="#q">
+    <option value="title">Title</option>
+    <option value="year">Year</option>
+  </select>
+  <ul id="books"></ul>
+</body>
+</html>

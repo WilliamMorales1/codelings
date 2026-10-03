@@ -1,0 +1,26 @@
+# firewall2: first match wins
+#
+# Rules are checked top to bottom and the first accept or drop ends the
+# search. So "block this host" has to come before "allow this port", or the
+# port rule lets the blocked host in anyway.
+#
+# The check puts three hosts on one switch:
+#     h1 10.0.0.1  the server, runs 22 (ssh-like) and 80 (http); this ruleset goes here
+#     h2 10.0.0.2  an office PC:  must reach 22, 80 and ping h1
+#     h3 10.0.0.3  compromised:   must reach NOTHING on h1, not even ssh or ping
+#
+# Your task: h3 can still ssh in. Fix it without weakening h2's access.
+
+flush ruleset
+
+table inet filter {
+  chain input {
+    type filter hook input priority filter; policy drop;
+    iif lo accept
+    ct state established,related accept
+    tcp dport 22 accept
+    ip saddr 10.0.0.3 drop
+    tcp dport 80 accept
+    icmp type echo-request accept
+  }
+}

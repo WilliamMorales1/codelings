@@ -1,0 +1,12 @@
+# streams1 — XADD
+#
+# Learn: a stream is an append-only log of entries, each a small set of
+# field/value pairs with an ID "<milliseconds>-<sequence>". IDs must only
+# grow. Pass * and the server picks the next ID from its clock, which is
+# what you want almost always.
+#
+# Task: append a signup event (type = signup, user = 42) to the stream
+# events, which already has entries. The command below is rejected.
+#
+
+XADD events 1 type signup user 42

@@ -1,0 +1,6 @@
+# bitmaps1 — daily active users with bitmaps
+
+SETBIT active:2026-09-29 5 1
+SETBIT active:2026-09-29 9 1
+BITOP AND active:both active:2026-09-28 active:2026-09-29
+BITCOUNT active:both

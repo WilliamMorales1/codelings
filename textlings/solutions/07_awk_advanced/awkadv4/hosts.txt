@@ -1,0 +1,5 @@
+# ip           name
+203.0.113.7    lb-1.acme.io
+203.0.113.18   office-vpn.acme.io
+10.0.4.12      monitoring.internal
+198.51.100.3   ci-runner-3.acme.io

@@ -1,0 +1,8 @@
+"number","title","author","state","comments"
+407,"Bump golang.org/x/net from 0.42.0 to 0.44.0","defunkt","open",11
+406,"Speed up JSON encoding","octocat","closed",14
+405,"Drop Go 1.25 support","mojombo","open",5
+404,"Remove deprecated flags","pjhyett","open",18
+403,"Add retry to webhook sender","mona","open",15
+402,"Fix race in cache invalidation","octocat","closed",3
+401,"Fix race in cache invalidation","mojombo","open",24

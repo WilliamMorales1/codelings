@@ -1,0 +1,3 @@
+lab-1/monitoring/prometheus-10506c3a2-c3a2e: 1 restarts
+lab-1/monitoring/prometheus-3040ae68c-e68cd: 3 restarts
+lab-1/monitoring/prometheus-82fbc9954-9954f: 3 restarts

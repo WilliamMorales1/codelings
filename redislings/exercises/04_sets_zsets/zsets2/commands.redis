@@ -1,0 +1,10 @@
+# zsets2 — top N with ZRANGE ... REV WITHSCORES
+#
+# Learn: ZRANGE key start stop walks the set from the LOWEST score up.
+# Add REV to walk from the highest (the older spelling is ZREVRANGE), and
+# WITHSCORES to get each score right after its member.
+#
+# Task: print the top 3 players of lb:weekly, best first, with scores.
+#
+
+ZRANGE lb:weekly 0 2 WITHSCORES

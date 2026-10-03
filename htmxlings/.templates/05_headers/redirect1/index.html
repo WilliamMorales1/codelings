@@ -1,0 +1,33 @@
+<!doctype html>
+<!--
+  redirect1 - HX-Redirect instead of 302
+
+  htmx uses XMLHttpRequest, which follows a 302 redirect silently: the
+  page at the new URL gets swapped into your little target, header and
+  all, and the address bar never changes. To send the whole browser
+  somewhere, answer the htmx request with a normal 200 plus the header
+  HX-Redirect: /somewhere, and htmx does a full navigation.
+
+  TASK: in handlers.js, a successful POST /login redirects with 302, so
+  the dashboard page appears *inside* the login box. Use HX-Redirect
+  for htmx requests (keep the 302 for a plain, non-htmx form post).
+
+  Try it in a browser: npm run serve redirect1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>redirect1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Log in</h1>
+  <form id="login" hx-post="/login" hx-target="#message">
+    <input name="user" placeholder="user">
+    <input name="password" type="password" placeholder="password">
+    <button>Log in</button>
+    <div id="message"></div>
+  </form>
+</body>
+</html>

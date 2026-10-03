@@ -1,0 +1,15 @@
+# deps3: targets group units
+#
+# A .target has no processes of its own. It is a name for "this set of
+# units", and a synchronisation point for ordering. default.target,
+# timers.target and graphical-session.target are targets; you can write
+# your own. `systemctl --user start foo.target` starts everything the target
+# Wants=/Requires=.
+#
+# Task: make `systemctl --user start systemdlings-stack.target` bring up both
+# systemdlings-api.service and systemdlings-worker.service. Only edit this
+# file.
+
+[Unit]
+Description=systemdlings: the whole pretend stack
+# TODO: pull in the api and the worker

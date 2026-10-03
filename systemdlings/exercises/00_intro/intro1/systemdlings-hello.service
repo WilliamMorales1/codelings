@@ -1,0 +1,26 @@
+# intro1: your first unit
+#
+# Welcome to systemdlings! Every exercise is a directory of unit files (and
+# sometimes a script). The check copies them into your *user* manager
+# ($XDG_RUNTIME_DIR/systemd/user, gone after a reboot), runs
+# `systemctl --user daemon-reload`, starts what it needs, reads the result
+# back with `systemctl --user show` and `journalctl --user`, and then stops
+# and removes everything again. Only units called systemdlings-* are touched.
+# Once the check passes, the exercise is done and the runner moves on.
+#
+# Task: the check looks for the line `hello from systemdlings` in this unit's
+# journal. Fix the greeting that ExecStart prints and save.
+#
+# Try it by hand, too:
+#   ln -s $PWD/systemdlings-hello.service $XDG_RUNTIME_DIR/systemd/user/
+#   systemctl --user daemon-reload
+#   systemctl --user start systemdlings-hello.service
+#   journalctl --user -u systemdlings-hello.service
+#   rm $XDG_RUNTIME_DIR/systemd/user/systemdlings-hello.service && systemctl --user daemon-reload
+
+[Unit]
+Description=systemdlings: say hello
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/echo "hello from somewhere"

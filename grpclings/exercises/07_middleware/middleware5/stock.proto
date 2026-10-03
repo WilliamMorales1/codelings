@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package stock.v1;
+
+option go_package = "grpclings/exercises/07_middleware/middleware5;middleware5";
+
+message GetStockRequest {
+  string sku = 1;
+}
+
+message GetStockResponse {
+  int32 count = 1;
+}
+
+service StockService {
+  rpc GetStock(GetStockRequest) returns (GetStockResponse);
+}

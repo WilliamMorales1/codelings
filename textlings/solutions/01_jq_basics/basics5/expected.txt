@@ -1,0 +1,13 @@
+Speed up JSON encoding
+Log request IDs
+Make timeouts configurable
+docs: clarify rate limits
+Drop Go 1.25 support
+Refactor config loader
+Fix race in cache invalidation
+docs: clarify rate limits
+Support ARM64 builds
+Handle empty payloads, part 2
+Fix typo in README
+Fix race in cache invalidation
+Fix typo in README

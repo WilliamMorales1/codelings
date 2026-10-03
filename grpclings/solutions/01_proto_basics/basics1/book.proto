@@ -1,0 +1,28 @@
+// basics1: messages and field numbers
+//
+// A message is a named list of typed fields. Every field has a NUMBER, and the
+// number, not the name, is what goes over the wire. So numbers must be unique
+// within a message, and 19000-19999 belong to protobuf itself. Numbers 1-15
+// encode in a single byte; give them to the fields you send most often.
+//
+// Task: make this compile and match the spec:
+//   title       string  1
+//   author      string  2
+//   page_count  int32   3
+//   isbn        string  4
+//
+// Run `protoc -I . --descriptor_set_out=/dev/null book.proto` in this directory
+// to see what protoc thinks, or just watch grpclings.
+
+syntax = "proto3";
+
+package library.v1;
+
+option go_package = "grpclings/exercises/01_proto_basics/basics1;basics1";
+
+message Book {
+  string title = 1;
+  string author = 2;
+  int32 page_count = 3;
+  string isbn = 4;
+}

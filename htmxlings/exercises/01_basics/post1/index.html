@@ -1,0 +1,28 @@
+<!doctype html>
+<!--
+  post1 - hx-post and HTML responses
+
+  htmx expects HTML back from the server, not JSON: whatever the server
+  returns is swapped straight into the page. That is the whole trick of
+  hypermedia - the server decides what the user sees next.
+
+  TASK: the page is fine. The POST /like handler in handlers.js returns
+  JSON, so the page ends up showing raw {"likes":1}. Make it return the
+  <span id="likes"> fragment instead (it replaces the old span, see
+  hx-swap="outerHTML" on the button), e.g. <span id="likes">3 likes</span>.
+
+  Try it in a browser: npm run serve post1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>post1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>A post worth liking</h1>
+  <p><span id="likes">0 likes</span></p>
+  <button hx-post="/like" hx-target="#likes" hx-swap="outerHTML">Like</button>
+</body>
+</html>

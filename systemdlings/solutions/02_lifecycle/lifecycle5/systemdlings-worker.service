@@ -1,0 +1,10 @@
+# lifecycle5: ExecStop= versus ExecStopPost=
+
+[Unit]
+Description=systemdlings: worker with a lock file
+
+[Service]
+Type=exec
+ExecStartPre=/usr/bin/touch %t/systemdlings/lifecycle5/worker.lock
+ExecStart=/usr/bin/sh %t/systemdlings/lifecycle5/worker.sh
+ExecStopPost=/usr/bin/rm -f %t/systemdlings/lifecycle5/worker.lock

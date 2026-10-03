@@ -1,0 +1,58 @@
+{
+   "blockdevices": [
+      {
+         "name": "nvme0n1",
+         "size": 512110190592,
+         "type": "disk",
+         "mountpoints": [
+            null
+         ],
+         "children": [
+            {
+               "name": "nvme0n1p1",
+               "size": 1073741824,
+               "type": "part",
+               "mountpoints": [
+                  "/boot"
+               ]
+            },
+            {
+               "name": "nvme0n1p2",
+               "size": 511034351616,
+               "type": "part",
+               "mountpoints": [
+                  "/",
+                  "/home",
+                  "/var/cache"
+               ]
+            }
+         ]
+      },
+      {
+         "name": "sda",
+         "size": 64023257088,
+         "type": "disk",
+         "mountpoints": [
+            null
+         ],
+         "children": [
+            {
+               "name": "sda1",
+               "size": 64022208512,
+               "type": "part",
+               "mountpoints": [
+                  "/run/media/learner1/USB"
+               ]
+            }
+         ]
+      },
+      {
+         "name": "zram0",
+         "size": 8267046912,
+         "type": "disk",
+         "mountpoints": [
+            "[SWAP]"
+         ]
+      }
+   ]
+}

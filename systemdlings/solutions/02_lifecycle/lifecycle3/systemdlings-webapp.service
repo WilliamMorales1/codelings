@@ -1,0 +1,9 @@
+# lifecycle3: ExecStartPre= and the "-" prefix
+
+[Unit]
+Description=systemdlings: web app with a config check
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/test -f %t/systemdlings/lifecycle3/app.conf
+ExecStart=/usr/bin/cat %t/systemdlings/lifecycle3/app.conf

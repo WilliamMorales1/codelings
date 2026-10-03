@@ -1,0 +1,24 @@
+{
+  "name": "tslings",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Small rustlings-style exercises for TypeScript's type system",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "start": "node tslings.ts",
+    "verify": "node tslings.ts verify",
+    "watch": "node tslings.ts watch",
+    "list": "node tslings.ts list",
+    "hint": "node tslings.ts hint",
+    "doctor": "node tslings.ts doctor",
+    "verify-all": "bash scripts/verify-all.sh"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.2"
+  }
+}

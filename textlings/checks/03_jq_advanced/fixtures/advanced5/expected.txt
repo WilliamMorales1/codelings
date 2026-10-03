@@ -1,0 +1,5 @@
+{
+  "kubelet.service": 8,
+  "postgresql.service": 4,
+  "sshd.service": 2
+}

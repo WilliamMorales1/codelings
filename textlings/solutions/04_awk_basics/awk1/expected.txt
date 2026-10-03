@@ -1,0 +1,13 @@
+PID COMMAND
+1 /usr/bin/NetworkManager
+274 /usr/lib/systemd/systemd-udevd
+940 -bash
+1168 /usr/lib/systemd/systemd-journald
+1948 /usr/libexec/gnome-terminal-server
+2593 /usr/bin/postgres
+3280 nginx:
+3316 postgres:
+4036 /usr/bin/nautilus
+4834 /usr/bin/dbus-broker-launch
+4879 nginx:
+4892 nvim

@@ -1,0 +1,23 @@
+{
+  "name": "htmxlings",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Small rustlings-style exercises for htmx",
+  "scripts": {
+    "start": "node htmxlings.js",
+    "verify": "node htmxlings.js verify",
+    "watch": "node htmxlings.js watch",
+    "list": "node htmxlings.js list",
+    "hint": "node htmxlings.js hint",
+    "serve": "node htmxlings.js serve",
+    "doctor": "node htmxlings.js doctor",
+    "verify-all": "bash scripts/verify-all.sh"
+  },
+  "devDependencies": {
+    "htmx-ext-json-enc": "^2.0.3",
+    "htmx.org": "^2.0.11",
+    "jsdom": "^30.1.1",
+    "vitest": "^5.0.2"
+  }
+}

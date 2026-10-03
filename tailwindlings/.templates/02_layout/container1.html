@@ -1,0 +1,26 @@
+<!doctype html>
+<!--
+  container1: centred, width-capped page content
+
+  `container` sets width: 100% and a max-width equal to the largest
+  breakpoint the viewport has reached (40rem at sm, 48rem at md, 64rem at
+  lg ...). Unlike some frameworks it does NOT centre itself or add padding:
+  pair it with mx-auto and px-*.
+
+  Task: make the wrapper a centred container with 1rem side padding.
+
+  Preview: npm run preview container1 (resize the window)
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>container1</title>
+  </head>
+  <body class="bg-gray-100">
+    <div id="wrapper" class="container bg-white py-8">
+      <h1 class="text-2xl font-bold">Changelog</h1>
+      <p class="mt-2">The wrapper is never wider than the current breakpoint.</p>
+    </div>
+  </body>
+</html>

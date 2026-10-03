@@ -1,0 +1,27 @@
+# sandbox1: ProtectSystem=strict and ReadWritePaths=
+#
+# systemd can take filesystem access away from a service with mount
+# namespaces, no code changes needed:
+#   ProtectSystem=yes     /usr and /boot read-only
+#   ProtectSystem=full    ... and /etc
+#   ProtectSystem=strict  the WHOLE filesystem read-only (except /dev, /proc,
+#                         /sys and a few API mounts)
+# With strict, you then open exactly the places the service must write:
+#   ReadWritePaths=/var/lib/foo %t/something
+# (StateDirectory=, CacheDirectory=, RuntimeDirectory= create and open
+# dedicated directories for you - worth a look afterwards.)
+#
+# In the user manager these options work too: systemd sets them up inside an
+# unprivileged user namespace.
+#
+# Task: the counter is locked down with ProtectSystem=strict, and now it
+# cannot write its state any more. Let it write to its state directory,
+# %t/systemdlings/sandbox1/state, and nowhere else. Keep strict.
+
+[Unit]
+Description=systemdlings: sandboxed counter
+
+[Service]
+Type=oneshot
+ProtectSystem=strict
+ExecStart=/usr/bin/sh %t/systemdlings/sandbox1/counter.sh

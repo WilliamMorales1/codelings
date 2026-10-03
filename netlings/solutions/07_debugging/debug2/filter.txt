@@ -1,0 +1,2 @@
+# debug2: capture filters (BPF)
+dst host 10.0.0.2 and tcp dst port 80 and tcp[tcpflags] == tcp-syn

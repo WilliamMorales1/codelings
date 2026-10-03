@@ -1,0 +1,31 @@
+<!doctype html>
+<!--
+  oob1 - out-of-band swaps (hx-swap-oob)
+
+  One response, several updates. Any top-level element in a response
+  that carries hx-swap-oob="true" and an id is pulled out and swapped
+  in place of the element with that id elsewhere in the page; the rest
+  of the response goes to the normal target.
+
+  TASK: adding a todo appends it to the list, but the "N todos" counter
+  in the header never changes. In handlers.js, also send the counter
+  back as an out-of-band swap: <span id="count" hx-swap-oob="true">...
+
+  Try it in a browser: npm run serve oob1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>oob1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Todos (<span id="count">0 todos</span>)</h1>
+  <form hx-post="/todos" hx-target="#todos" hx-swap="beforeend">
+    <input name="title" placeholder="What needs doing?">
+    <button>Add</button>
+  </form>
+  <ul id="todos"></ul>
+</body>
+</html>

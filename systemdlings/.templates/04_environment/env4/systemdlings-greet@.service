@@ -1,0 +1,20 @@
+# env4: template units and %i
+#
+# A file named foo@.service is a template. `systemctl start foo@bob.service`
+# creates the instance foo@bob.service from it, and inside the file the
+# instance name ("bob") is available as the specifier %i. One file, any
+# number of instances - think getty@tty1, wg-quick@wg0, or one worker per
+# queue.
+#
+# Other specifiers you will meet: %n full unit name, %p prefix ("foo"),
+# %h home directory, %t runtime directory, %u user name.
+#
+# Task: every instance should greet its own name, e.g. starting
+# systemdlings-greet@alice.service logs "hello alice".
+
+[Unit]
+Description=systemdlings: greet someone
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/echo "hello world"

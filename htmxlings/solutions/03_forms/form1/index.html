@@ -1,0 +1,30 @@
+<!doctype html>
+<!--
+  form1 - hx-post on a form
+
+  Put hx-post on a <form> and htmx takes over its submit event: the
+  fields are sent as a normal urlencoded body, but over AJAX, and the
+  response is swapped in instead of the browser loading a new page.
+
+  TASK: this form still does a full-page POST (the tests' browser
+  cannot even follow it). Make htmx submit it to /subscribe and put the
+  response into #result.
+
+  Try it in a browser: npm run serve form1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>form1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Newsletter</h1>
+  <form hx-post="/subscribe" hx-target="#result">
+    <input name="email" type="email" placeholder="you@example.com">
+    <button>Subscribe</button>
+  </form>
+  <div id="result"></div>
+</body>
+</html>

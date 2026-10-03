@@ -1,0 +1,38 @@
+# k8s2 -- Deployment selectors
+#
+# A Deployment manages Pods through a ReplicaSet. It finds "its" Pods with
+# spec.selector, and it stamps new Pods from spec.template. The API server
+# refuses a Deployment whose selector does not match its own template's
+# labels ("selector does not match template labels"), and the selector is
+# immutable once created -- so it pays to get it right the first time.
+#
+# Task: a Deployment `web` with 3 replicas of nginx:1.27-alpine whose
+# selector matches its Pod template.
+#
+#   kubeconform -strict -summary deployment.yaml
+#   yq '.spec.selector, .spec.template.metadata.labels' deployment.yaml
+#
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  labels:
+    app: web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: web
+        tier: frontend
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.27-alpine
+          ports:
+            - containerPort: 80

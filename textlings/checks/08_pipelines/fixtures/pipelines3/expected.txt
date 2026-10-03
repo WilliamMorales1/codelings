@@ -1,0 +1,4 @@
+- staging/api/api=ghcr.io/acme/api:1.0.0
+- staging/api/log-shipper=docker.io/fluent/fluent-bit:4.1.0
++ staging/api/api=ghcr.io/acme/api:1.1.0
++ staging/api/log-shipper=docker.io/fluent/fluent-bit:4.1.1

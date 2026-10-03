@@ -1,0 +1,114 @@
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "creationTimestamp": "2026-09-29T12:04:33Z",
+        "generateName": "payments-ba0a76c19-",
+        "labels": {
+            "pod-template-hash": "ba0a76c19"
+        },
+        "name": "payments-ba0a76c19-6c196",
+        "namespace": "prod",
+        "ownerReferences": [
+            {
+                "apiVersion": "apps/v1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "ReplicaSet",
+                "name": "payments-ba0a76c19",
+                "uid": "fd70bdda-cb4d-eeec-0b0c-995e96e6bc4d"
+            }
+        ],
+        "resourceVersion": "359865",
+        "uid": "0112ff0f-0948-ecca-f887-7acf26c377c1"
+    },
+    "spec": {
+        "containers": [
+            {
+                "name": "payments",
+                "image": "registry.acme.io/payments:1.5.4",
+                "imagePullPolicy": "IfNotPresent",
+                "ports": [
+                    {
+                        "containerPort": 8080,
+                        "protocol": "TCP"
+                    }
+                ],
+                "resources": {
+                    "limits": {
+                        "memory": "128Mi"
+                    },
+                    "requests": {
+                        "cpu": "250m",
+                        "memory": "64Mi"
+                    }
+                },
+                "env": [
+                    {
+                        "name": "LOG_LEVEL",
+                        "value": "info"
+                    },
+                    {
+                        "name": "PORT",
+                        "value": "8080"
+                    }
+                ]
+            },
+            {
+                "name": "istio-proxy",
+                "image": "docker.io/istio/proxyv2:1.27.1",
+                "imagePullPolicy": "IfNotPresent",
+                "resources": {
+                    "limits": {
+                        "memory": "256Mi"
+                    },
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "40Mi"
+                    }
+                }
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "nodeName": "ip-10-1-2-3",
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30
+    },
+    "status": {
+        "phase": "Running",
+        "hostIP": "10.0.0.15",
+        "podIP": "10.244.0.75",
+        "qosClass": "Burstable",
+        "startTime": "2026-09-29T08:33:18Z",
+        "containerStatuses": [
+            {
+                "name": "payments",
+                "ready": true,
+                "restartCount": 0,
+                "image": "registry.acme.io/payments:1.5.4",
+                "imageID": "registry.acme.io/payments@sha256:596ab2f1fdce7fb782d090a5afccb91dc1a8b305d23904c9809247296f578e0b",
+                "started": true,
+                "state": {
+                    "running": {
+                        "startedAt": "2026-09-29T22:05:25Z"
+                    }
+                }
+            },
+            {
+                "name": "istio-proxy",
+                "ready": true,
+                "restartCount": 2,
+                "image": "docker.io/istio/proxyv2:1.27.1",
+                "imageID": "docker.io/istio/proxyv2@sha256:1d7a785b509d8e45a2afe9dd816696919b6681892c46ed5c961bf58ce3696be5",
+                "started": true,
+                "state": {
+                    "running": {
+                        "startedAt": "2026-09-28T08:08:27Z"
+                    }
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,4 @@
+- prod/legacy-cart/legacy-cart=registry.acme.io/cart:0.9.9
+- prod/payments/payments=registry.acme.io/payments:5.0.1
++ prod/payments/payments=registry.acme.io/payments:5.0.2
++ prod/recommendations/recommendations=ghcr.io/acme/recs:0.1.0

@@ -1,0 +1,28 @@
+<!doctype html>
+<!--
+  indicator1 - request indicators (hx-indicator)
+
+  While a request is in flight htmx adds the class htmx-request to the
+  requesting element - or to the element(s) named by hx-indicator.
+  Elements with class htmx-indicator are hidden by default and shown
+  when they, or an ancestor, carry htmx-request (see /style.css).
+
+  TASK: the report takes a while, but the spinner never shows, because
+  it sits outside the button. Point the button's indicator at #spinner.
+
+  Try it in a browser: npm run serve indicator1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>indicator1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Reports</h1>
+  <button hx-get="/report" hx-target="#out" hx-indicator="#spinner">Build report</button>
+  <span id="spinner" class="htmx-indicator">Building...</span>
+  <div id="out"></div>
+</body>
+</html>

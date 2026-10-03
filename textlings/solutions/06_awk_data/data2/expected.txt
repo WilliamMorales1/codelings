@@ -1,0 +1,5 @@
+RDS 197.80
+S3 430.12
+CloudFront 153.16
+EC2 118.47
+Lambda 448.50

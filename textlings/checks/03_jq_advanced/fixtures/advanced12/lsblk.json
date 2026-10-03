@@ -1,0 +1,38 @@
+{
+   "blockdevices": [
+      {
+         "name": "vda",
+         "size": 42949672960,
+         "type": "disk",
+         "mountpoints": [
+            null
+         ],
+         "children": [
+            {
+               "name": "vda1",
+               "size": 536870912,
+               "type": "part",
+               "mountpoints": [
+                  "/boot/efi"
+               ]
+            },
+            {
+               "name": "vda2",
+               "size": 42411753472,
+               "type": "part",
+               "mountpoints": [
+                  "/"
+               ]
+            }
+         ]
+      },
+      {
+         "name": "sr0",
+         "size": 1024,
+         "type": "rom",
+         "mountpoints": [
+            null
+         ]
+      }
+   ]
+}

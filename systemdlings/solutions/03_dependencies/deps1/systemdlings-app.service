@@ -1,0 +1,11 @@
+# deps1: Wants= (requirement) versus After= (ordering)
+
+[Unit]
+Description=systemdlings: app that needs the database
+Wants=systemdlings-db.service
+After=systemdlings-db.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/test -e %t/systemdlings/deps1/db.ready
+ExecStart=/usr/bin/echo "app: database is ready, serving"

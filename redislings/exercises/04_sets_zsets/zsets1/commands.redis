@@ -1,0 +1,17 @@
+# zsets1 — a leaderboard with ZADD and ZINCRBY
+#
+# Learn: a sorted set keeps each member with a numeric score, ordered by
+# score. ZADD sets a score (overwriting), ZINCRBY adds to it, and
+# ZADD ... GT only updates when the new score is greater (a "best score").
+#
+# Task: on the leaderboard lb:weekly
+#   - ada just earned 50 points (add them to whatever she has),
+#   - bob finished a game with 85 points; keep it only if it beats his
+#     best so far,
+#   - newcomer cy starts with 30.
+# The check runs this against different leaderboards.
+#
+
+ZADD lb:weekly 170 ada
+ZADD lb:weekly 85 bob
+ZADD lb:weekly 30 cy

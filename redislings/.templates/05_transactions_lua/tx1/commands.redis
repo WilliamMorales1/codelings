@@ -1,0 +1,14 @@
+# tx1 — MULTI / EXEC
+#
+# Learn: MULTI starts a transaction; the following commands are only
+# QUEUED. EXEC runs them all, back to back, with no other client's
+# command in between. DISCARD (or closing the connection) throws the
+# queue away, and nothing runs at all.
+#
+# Task: move 30 from account:a to account:b as one transaction. The
+# commands look right, yet the balances never change. Why?
+#
+
+MULTI
+DECRBY account:a 30
+INCRBY account:b 30

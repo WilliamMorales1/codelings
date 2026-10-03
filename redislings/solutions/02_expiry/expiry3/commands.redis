@@ -1,0 +1,4 @@
+# expiry3 — KEEPTTL and PERSIST
+
+SET user:1:token tok-new KEEPTTL
+PERSIST user:1:profile

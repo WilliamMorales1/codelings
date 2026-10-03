@@ -1,0 +1,18 @@
+# sandbox6: PrivateNetwork=
+#
+# PrivateNetwork=yes puts the service in a fresh network namespace with
+# nothing but a loopback interface (and that loopback is its own, not the
+# host's 127.0.0.1). No DNS, no internet, no talking to local daemons over
+# TCP. Perfect for converters, parsers, build steps - anything that should
+# not phone home. RestrictAddressFamilies= and IPAddressDeny= are finer
+# grained tools for the same job.
+#
+# Task: this job has no reason to use the network. Cut it off. The job
+# lists the network interfaces it can see; afterwards only "lo" may remain.
+
+[Unit]
+Description=systemdlings: job that should stay offline
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sh -c 'echo "interfaces: $$(tail -n +3 /proc/net/dev | cut -d: -f1 | tr -d " " | sort | tr "\\n" " ")"'

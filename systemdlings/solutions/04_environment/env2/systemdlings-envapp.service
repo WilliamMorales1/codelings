@@ -1,0 +1,9 @@
+# env2: EnvironmentFile=
+
+[Unit]
+Description=systemdlings: app configured through a file
+
+[Service]
+Type=oneshot
+EnvironmentFile=%t/systemdlings/env2/app.env
+ExecStart=/usr/bin/echo "listening on ${PORT} in ${APP_MODE} mode"

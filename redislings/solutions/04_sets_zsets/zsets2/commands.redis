@@ -1,0 +1,3 @@
+# zsets2 — top N with ZRANGE ... REV WITHSCORES
+
+ZRANGE lb:weekly 0 2 REV WITHSCORES

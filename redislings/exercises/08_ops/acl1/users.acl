@@ -1,0 +1,20 @@
+# acl1 — ACL users
+#
+# Learn: an ACL rule line is: user <name> on|off >password ~keypattern
+# &channelpattern +@category -@category +command -command. Start from
+# nothing (-@all, no ~ pattern) and add only what's needed; +@read,
+# +@write, +@list, +@hash... are command categories (ACL CAT lists them).
+#
+# Task: give each app only what it needs:
+#   reporter (password report-pass): read-only commands, and only on
+#            keys matching report:*
+#   worker   (password worker-pass): list commands only, on queue:*
+# Leave the default user as it is: the check needs it.
+#
+# ACL files have no comment syntax, so the check drops the lines
+# starting with # before loading this file.
+#
+
+user default on nopass ~* &* +@all
+user reporter on >report-pass ~* +@all
+user worker on >worker-pass ~* +@all

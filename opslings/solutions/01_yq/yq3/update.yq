@@ -1,0 +1,23 @@
+# yq3 -- editing YAML without breaking it
+#
+# sed on YAML ends in tears. yq can rewrite a file in place and keep
+# comments, key order and formatting:
+#
+#   yq -i --from-file update.yq values.yaml
+#
+# (The check runs that on a scratch copy, so your values.yaml stays as is.)
+#
+# Task, for the production release:
+#   - set image.tag to "1.5.0"         (a string: the chart quotes it)
+#   - set replicaCount to 3            (a number, not a string!)
+#   - add the pod label  team: platform
+#   - delete the whole `debug` block   (look up `del(...)`)
+#
+# Chain updates with `|`. The draft below gets the types wrong and forgets
+# half the job. Try it: yq --from-file update.yq values.yaml
+#
+
+.image.tag = "1.5.0" |
+.replicaCount = 3 |
+.podLabels.team = "platform" |
+del(.debug)

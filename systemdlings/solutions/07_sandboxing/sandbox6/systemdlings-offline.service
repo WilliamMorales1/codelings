@@ -1,0 +1,9 @@
+# sandbox6: PrivateNetwork=
+
+[Unit]
+Description=systemdlings: job that should stay offline
+
+[Service]
+Type=oneshot
+PrivateNetwork=yes
+ExecStart=/usr/bin/sh -c 'echo "interfaces: $$(tail -n +3 /proc/net/dev | cut -d: -f1 | tr -d " " | sort | tr "\\n" " ")"'

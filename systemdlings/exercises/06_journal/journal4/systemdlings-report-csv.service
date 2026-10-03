@@ -1,0 +1,21 @@
+# journal4: StandardOutput= and StandardError=
+#
+# stdout and stderr of a service do not have to go to the journal:
+#   StandardOutput=journal            the default
+#   StandardOutput=append:/path       append to a file (created if needed)
+#   StandardOutput=truncate:/path     overwrite the file on every start
+#   StandardOutput=file:/path         write from the start without truncating
+#   StandardOutput=null               drop it
+# StandardError= takes the same values and defaults to wherever stdout goes
+# ("inherit").
+#
+# Task: report.sh prints a CSV on stdout and diagnostics on stderr. Send the
+# CSV to %t/systemdlings/journal4/report.csv, fresh on every run, while the
+# diagnostics keep going to the journal.
+
+[Unit]
+Description=systemdlings: CSV report
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sh %t/systemdlings/journal4/report.sh

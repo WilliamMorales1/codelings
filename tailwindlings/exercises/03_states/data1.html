@@ -1,0 +1,33 @@
+<!doctype html>
+<!--
+  data1: data-* attribute variants
+
+  Component libraries (and your own JS) often expose state through data
+  attributes. data-[state=active]: matches [data-state="active"], and a bare
+  data-open: matches the presence of a data-open attribute.
+
+  Task:
+    - the tab whose data-state is "active" gets a white background and
+      sky-700 text; the others keep the defaults
+    - the menu has a data-open attribute when open; then (and only then)
+      it is displayed as a block
+
+  Preview: npm run preview data1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>data1</title>
+  </head>
+  <body class="p-8">
+    <div class="inline-flex rounded-lg bg-gray-100 p-1">
+      <button id="tab-a" data-state="active" class="rounded-md px-3 py-1 text-gray-600 data-state-active:bg-white data-state-active:text-sky-700">Account</button>
+      <button id="tab-b" data-state="inactive" class="rounded-md px-3 py-1 text-gray-600 data-state-active:bg-white data-state-active:text-sky-700">Billing</button>
+    </div>
+    <ul id="menu" data-open class="mt-2 hidden w-40 rounded border bg-white p-2 open:block">
+      <li>Profile</li>
+      <li>Sign out</li>
+    </ul>
+  </body>
+</html>

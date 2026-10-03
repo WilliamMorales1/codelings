@@ -1,0 +1,5 @@
+# strings1 — SET, GET and quoting
+
+SET user:1:name "Ada Lovelace"
+SET user:1:lang en
+GET user:1:name

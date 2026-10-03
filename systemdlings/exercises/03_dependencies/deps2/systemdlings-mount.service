@@ -1,0 +1,9 @@
+# deps2: pretend storage mount that fails today (nothing to change here)
+
+[Unit]
+Description=systemdlings: mount the data volume (broken today)
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/sh -c 'echo "mount: /data: wrong fs type" >&2; exit 32'

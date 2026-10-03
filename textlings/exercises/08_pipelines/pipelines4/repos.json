@@ -1,0 +1,361 @@
+[
+  {
+    "id": 314500357,
+    "name": "api",
+    "full_name": "acme/api",
+    "private": false,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/api",
+    "description": null,
+    "fork": false,
+    "created_at": "2026-09-29T21:59:21Z",
+    "pushed_at": "2026-09-30T08:09:40Z",
+    "homepage": null,
+    "size": 41758,
+    "stargazers_count": 805,
+    "watchers_count": 0,
+    "language": null,
+    "forks_count": 117,
+    "archived": false,
+    "open_issues_count": 35,
+    "license": {
+      "key": "mit",
+      "spdx_id": "MIT"
+    },
+    "topics": [
+      "api"
+    ],
+    "default_branch": "main"
+  },
+  {
+    "id": 595084337,
+    "name": "web",
+    "full_name": "acme/web",
+    "private": false,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/web",
+    "description": "A tiny web service",
+    "fork": false,
+    "created_at": "2026-09-29T18:02:00Z",
+    "pushed_at": "2026-09-29T13:01:31Z",
+    "homepage": null,
+    "size": 43289,
+    "stargazers_count": 2470,
+    "watchers_count": 0,
+    "language": "Rust",
+    "forks_count": 56,
+    "archived": true,
+    "open_issues_count": 60,
+    "license": {
+      "key": "mit",
+      "spdx_id": "MIT"
+    },
+    "topics": [
+      "cli",
+      "kubernetes"
+    ],
+    "default_branch": "main"
+  },
+  {
+    "id": 546539926,
+    "name": "cli",
+    "full_name": "acme/cli",
+    "private": false,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/cli",
+    "description": "Internal tooling",
+    "fork": false,
+    "created_at": "2026-09-28T08:51:28Z",
+    "pushed_at": "2026-09-29T01:35:04Z",
+    "homepage": null,
+    "size": 26541,
+    "stargazers_count": 1730,
+    "watchers_count": 0,
+    "language": "Go",
+    "forks_count": 34,
+    "archived": false,
+    "open_issues_count": 7,
+    "license": null,
+    "topics": [
+      "cli",
+      "api"
+    ],
+    "default_branch": "main"
+  },
+  {
+    "id": 602477743,
+    "name": "infra",
+    "full_name": "acme/infra",
+    "private": true,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/infra",
+    "description": "A tiny infra service",
+    "fork": false,
+    "created_at": "2026-09-28T09:49:08Z",
+    "pushed_at": "2026-09-30T11:48:36Z",
+    "homepage": null,
+    "size": 79064,
+    "stargazers_count": 2576,
+    "watchers_count": 0,
+    "language": "TypeScript",
+    "forks_count": 166,
+    "archived": true,
+    "open_issues_count": 35,
+    "license": {
+      "key": "mit",
+      "spdx_id": "MIT"
+    },
+    "topics": [],
+    "default_branch": "main"
+  },
+  {
+    "id": 293690768,
+    "name": "docs",
+    "full_name": "acme/docs",
+    "private": true,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/docs",
+    "description": "Internal tooling",
+    "fork": false,
+    "created_at": "2026-09-28T18:59:13Z",
+    "pushed_at": "2026-10-01T05:43:55Z",
+    "homepage": null,
+    "size": 64062,
+    "stargazers_count": 1731,
+    "watchers_count": 0,
+    "language": "Rust",
+    "forks_count": 44,
+    "archived": false,
+    "open_issues_count": 41,
+    "license": {
+      "key": "mit",
+      "spdx_id": "MIT"
+    },
+    "topics": [],
+    "default_branch": "main"
+  },
+  {
+    "id": 23900047,
+    "name": "sdk-go",
+    "full_name": "acme/sdk-go",
+    "private": false,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/sdk-go",
+    "description": null,
+    "fork": false,
+    "created_at": "2026-10-01T03:29:45Z",
+    "pushed_at": "2026-09-28T14:19:19Z",
+    "homepage": null,
+    "size": 83360,
+    "stargazers_count": 592,
+    "watchers_count": 0,
+    "language": "Go",
+    "forks_count": 111,
+    "archived": false,
+    "open_issues_count": 56,
+    "license": {
+      "key": "mit",
+      "spdx_id": "MIT"
+    },
+    "topics": [
+      "api",
+      "observability"
+    ],
+    "default_branch": "main"
+  },
+  {
+    "id": 724253444,
+    "name": "sdk-py",
+    "full_name": "acme/sdk-py",
+    "private": false,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/sdk-py",
+    "description": "Internal tooling",
+    "fork": true,
+    "created_at": "2026-09-30T17:45:26Z",
+    "pushed_at": "2026-10-01T03:02:55Z",
+    "homepage": null,
+    "size": 37420,
+    "stargazers_count": 2489,
+    "watchers_count": 0,
+    "language": "Python",
+    "forks_count": 90,
+    "archived": false,
+    "open_issues_count": 44,
+    "license": {
+      "key": "mit",
+      "spdx_id": "MIT"
+    },
+    "topics": [
+      "cli",
+      "kubernetes"
+    ],
+    "default_branch": "main"
+  },
+  {
+    "id": 980213447,
+    "name": "terraform-modules",
+    "full_name": "acme/terraform-modules",
+    "private": false,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/terraform-modules",
+    "description": "A tiny terraform-modules service",
+    "fork": false,
+    "created_at": "2026-09-30T14:40:33Z",
+    "pushed_at": "2026-09-30T15:37:39Z",
+    "homepage": null,
+    "size": 43004,
+    "stargazers_count": 2797,
+    "watchers_count": 0,
+    "language": null,
+    "forks_count": 67,
+    "archived": false,
+    "open_issues_count": 55,
+    "license": {
+      "key": "mit",
+      "spdx_id": "MIT"
+    },
+    "topics": [
+      "cli"
+    ],
+    "default_branch": "main"
+  },
+  {
+    "id": 890276814,
+    "name": "dotfiles",
+    "full_name": "acme/dotfiles",
+    "private": true,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/dotfiles",
+    "description": null,
+    "fork": false,
+    "created_at": "2026-09-29T17:04:38Z",
+    "pushed_at": "2026-09-28T20:52:21Z",
+    "homepage": null,
+    "size": 62883,
+    "stargazers_count": 982,
+    "watchers_count": 0,
+    "language": "Python",
+    "forks_count": 112,
+    "archived": false,
+    "open_issues_count": 16,
+    "license": null,
+    "topics": [],
+    "default_branch": "main"
+  },
+  {
+    "id": 200763587,
+    "name": "status-page",
+    "full_name": "acme/status-page",
+    "private": true,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/status-page",
+    "description": null,
+    "fork": false,
+    "created_at": "2026-09-29T15:12:41Z",
+    "pushed_at": "2026-09-28T20:33:03Z",
+    "homepage": null,
+    "size": 44959,
+    "stargazers_count": 2510,
+    "watchers_count": 0,
+    "language": "Shell",
+    "forks_count": 10,
+    "archived": false,
+    "open_issues_count": 55,
+    "license": {
+      "key": "mit",
+      "spdx_id": "MIT"
+    },
+    "topics": [
+      "cli"
+    ],
+    "default_branch": "main"
+  },
+  {
+    "id": 400842462,
+    "name": "load-tests",
+    "full_name": "acme/load-tests",
+    "private": true,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/load-tests",
+    "description": null,
+    "fork": false,
+    "created_at": "2026-09-28T09:24:26Z",
+    "pushed_at": "2026-10-01T03:32:50Z",
+    "homepage": null,
+    "size": 60838,
+    "stargazers_count": 2252,
+    "watchers_count": 0,
+    "language": "TypeScript",
+    "forks_count": 0,
+    "archived": false,
+    "open_issues_count": 57,
+    "license": null,
+    "topics": [],
+    "default_branch": "main"
+  },
+  {
+    "id": 736037082,
+    "name": "chatops",
+    "full_name": "acme/chatops",
+    "private": false,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/chatops",
+    "description": "A tiny chatops service",
+    "fork": false,
+    "created_at": "2026-09-30T04:16:12Z",
+    "pushed_at": "2026-09-29T09:38:33Z",
+    "homepage": null,
+    "size": 72790,
+    "stargazers_count": 495,
+    "watchers_count": 0,
+    "language": "Go",
+    "forks_count": 152,
+    "archived": false,
+    "open_issues_count": 54,
+    "license": {
+      "key": "mit",
+      "spdx_id": "MIT"
+    },
+    "topics": [
+      "observability"
+    ],
+    "default_branch": "main"
+  }
+]

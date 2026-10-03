@@ -1,0 +1,8 @@
+# env5: escaped instance names, %I and %f
+
+[Unit]
+Description=systemdlings: disk usage of %f
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/du -s %f

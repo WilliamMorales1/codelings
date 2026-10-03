@@ -1,0 +1,19 @@
+# geo1 — GEOADD, GEODIST and GEOSEARCH
+#
+# Learn: geo commands store places in a sorted set (the score encodes the
+# position). GEOADD key longitude latitude member: longitude FIRST, the
+# opposite of how most maps write it. GEODIST gives the distance between
+# two members, GEOSEARCH finds members within a radius or box.
+#
+# Task: add the four cities below, print the distance from paris to
+# london in km, then list the cities within 400 km of paris, nearest
+# first. The coordinates are right, but the order of the arguments isn't.
+#   paris    lat 48.8566  lon  2.3522
+#   london   lat 51.5074  lon -0.1278
+#   brussels lat 50.8503  lon  4.3517
+#   berlin   lat 52.5200  lon 13.4050
+#
+
+GEOADD cities 48.8566 2.3522 paris 51.5074 -0.1278 london 50.8503 4.3517 brussels 52.5200 13.4050 berlin
+GEODIST cities paris london km
+GEOSEARCH cities FROMMEMBER paris BYRADIUS 400 km ASC

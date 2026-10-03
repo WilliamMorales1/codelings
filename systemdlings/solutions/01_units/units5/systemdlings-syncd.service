@@ -1,0 +1,11 @@
+# units5: [Install] and the user manager's targets
+
+[Unit]
+Description=systemdlings: pretend file sync daemon
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/sleep infinity
+
+[Install]
+WantedBy=default.target

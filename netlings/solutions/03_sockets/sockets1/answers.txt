@@ -1,0 +1,34 @@
+# sockets1: reading `ss`
+#
+# ss.txt is `ss -tanp` on a busy laptop: -t TCP, -a all states (not just
+# established), -n numeric (no name lookups), -p show the owning process.
+#
+# How to read a line: Local Address:Port is this machine's end, Peer is the
+# other end. A LISTEN socket on 0.0.0.0 (or * / [::]) accepts connections on
+# every address; on 127.0.0.1 only from this machine itself. Each TCP
+# connection shows up once per end, so a connection from this machine to
+# itself appears twice.
+
+# 1. Name of the process listening on port 5432
+listener_5432: postgres
+
+# 2. Which listening port can ONLY be reached from this machine? (two of them
+#    are loopback-only; give the one that is NOT cupsd's)
+loopback_only_port: 6379
+
+# 3. How many established connections go to remote port 443?
+estab_443: 3
+
+# 4. Which remote IP is the ssh session coming from?
+ssh_client: 192.168.1.50
+
+# 5. The psql connection to 10.20.30.40 is stuck in which state? (the
+#    SYN went out, no answer yet: a firewall dropping packets looks exactly like this)
+psql_state: SYN-SENT
+
+# 6. The java process (pid 2210) is talking to which local port as a client?
+java_client_to: 5432
+
+# 7. One connection is in CLOSE-WAIT: the peer has closed, but this program
+#    has not called close() yet (often a bug). Which program?
+close_wait_process: updater

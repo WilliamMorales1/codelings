@@ -1,0 +1,30 @@
+/*
+  utility2: functional utilities with --value()
+
+  A utility name ending in -* takes a value. Inside, --value() says what
+  it accepts:
+    --value(integer)          hang-4     -> 4
+    --value(--hang-*)         hang-list  -> var(--hang-list)
+    --value([length])         hang-[3ch] -> 3ch (arbitrary)
+  List several; the first that fits wins: --value(--hang-*, integer).
+  It can sit inside calc(), so it composes with the spacing scale.
+
+  Task: a hanging indent pads the block on the left and pulls the first
+  line back by the same amount. index.html uses hang-4, hang-8 and
+  hang-list. Replace the hard-coded utilities with ONE functional `hang-*`
+  utility that sets
+      padding-left:  calc(var(--spacing) * N)
+      text-indent:   calc(var(--spacing) * -N)
+  where N is an integer or a --hang-* theme variable (hang-list is 6,
+  defined in @theme below).
+*/
+@import "tailwindcss";
+
+@theme {
+  --hang-list: 6;
+}
+
+@utility hang-* {
+  padding-left: calc(var(--spacing) * --value(--hang-*, integer));
+  text-indent: calc(var(--spacing) * --value(--hang-*, integer) * -1);
+}

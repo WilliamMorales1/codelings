@@ -1,0 +1,8 @@
+# timers2: the maintenance job (nothing to change here)
+
+[Unit]
+Description=systemdlings: monthly maintenance
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/echo "running maintenance"

@@ -1,0 +1,7 @@
+pipeline,job,status,seconds
+77,test,success,22
+77,package,success,12
+78,test,success,37
+78,package,success,35
+79,test,success,41
+79,package,success,16

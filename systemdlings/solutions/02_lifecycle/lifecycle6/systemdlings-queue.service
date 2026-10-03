@@ -1,0 +1,10 @@
+# lifecycle6: KillSignal= and TimeoutStopSec=
+
+[Unit]
+Description=systemdlings: queue consumer that wants SIGINT
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/bash %t/systemdlings/lifecycle6/queue.sh
+TimeoutStopSec=2
+KillSignal=SIGINT

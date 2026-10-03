@@ -1,0 +1,34 @@
+<!doctype html>
+<!--
+  jsonenc1 - extensions: json-enc
+
+  Extensions hook into htmx: load the extension's script after htmx,
+  then switch it on with hx-ext="<name>" on an element (inherited by
+  its children). json-enc sends parameters as a JSON body with
+  Content-Type: application/json, for servers that only speak JSON.
+  Installing: npm i htmx-ext-json-enc (served here as /ext/json-enc.js).
+
+  TASK: the script is loaded, but the API rejects the form with 415
+  Unsupported Media Type. Enable json-enc for the form.
+
+  Try it in a browser: npm run serve jsonenc1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jsonenc1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <script src="/ext/json-enc.js"></script>
+  <h1>New pet</h1>
+  <form hx-post="/api/pets" hx-target="#out" hx-ext="json-enc">
+    <input name="name" value="Rex">
+    <label><input type="checkbox" name="tags" value="good" checked> good</label>
+    <label><input type="checkbox" name="tags" value="fluffy" checked> fluffy</label>
+    <button>Save</button>
+  </form>
+  <div id="out"></div>
+</body>
+</html>

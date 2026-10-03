@@ -1,0 +1,7 @@
+INFO listening on :8080
+unparsed: panic: runtime error: invalid memory address or nil pointer dereference
+WARN slow query
+no level: {"ts":"2026-09-28T14:02:13Z","msg":"cache warmed"}
+unparsed: [GIN] 2026/09/28 - 14:02:14 | 200 |     1.2ms | 10.0.4.12 | GET "/healthz"
+ERROR upstream timeout
+unparsed: {"ts":"2026-09-28T14:02:16Z","level":"info","msg":"shutting down"

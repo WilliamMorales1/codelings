@@ -1,0 +1,22 @@
+# This file is correct; the exercise is service.yaml.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+        version: "1.4"
+    spec:
+      containers:
+        - name: api
+          image: ghcr.io/acme/api:1.4.2
+          ports:
+            - name: http
+              containerPort: 8080

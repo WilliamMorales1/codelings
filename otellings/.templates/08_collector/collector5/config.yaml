@@ -1,0 +1,40 @@
+# collector5 -- fan-out and environment variables
+#
+# A pipeline can list several exporters; each gets its own copy of the data.
+# Common setups: a debug exporter next to the real backend while you
+# debug, or two backends during a migration.
+#
+# The real backend here speaks OTLP over HTTP: the `otlp_http` exporter.
+# (Collector 0.162 renamed the OTLP exporters to otlp_grpc and otlp_http;
+# the old names `otlp` and `otlphttp` still work but log a deprecation
+# warning, and the check treats that warning as a failure.)
+#
+# Its address differs per environment, so it must not be hard-coded: the
+# collector substitutes ${env:NAME} anywhere in the config.
+#
+# Task: set the otlp_http exporter's endpoint from the UPSTREAM_ENDPOINT
+# environment variable, and send traces to both debug and otlp_http.
+#
+
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 127.0.0.1:4318
+
+processors:
+  batch:
+    timeout: 200ms
+
+exporters:
+  debug:
+    verbosity: basic
+  otlphttp:
+    endpoint: http://backend.internal:4318
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]

@@ -1,0 +1,10 @@
+# firewall3: counters
+
+flush ruleset
+
+table inet filter {
+  chain input {
+    type filter hook input priority filter; policy accept;
+    tcp dport 23 counter drop comment "telnet attempts"
+  }
+}

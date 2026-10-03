@@ -1,0 +1,8 @@
+# path1: the job the path unit starts (nothing to change here)
+
+[Unit]
+Description=systemdlings: process the inbox
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sh %t/systemdlings/path1/process.sh

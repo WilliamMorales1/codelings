@@ -1,0 +1,18 @@
+# strings5 — MSET / MGET and key naming
+#
+# Learn: keys are one flat namespace, so the convention is
+# object-type:id:field, separated by colons (product:42:price). Tools and
+# SCAN patterns (product:*:price) rely on that shape. MSET and MGET set or
+# fetch many keys in one round trip instead of one command per key.
+#
+# Task: store the prices of products 1, 2 and 3 (9.99, 24.50, 3.75) under
+# product:<id>:price with ONE MSET, then print all three with ONE MGET in
+# the order 1, 2, 3. The current file uses ad-hoc key names and five
+# separate commands.
+#
+
+SET price_product1 9.99
+SET product2Price 24.50
+SET product:3 3.75
+GET price_product1
+GET product2Price

@@ -1,0 +1,10 @@
+# deps5: BindsTo= - live and die together
+
+[Unit]
+Description=systemdlings: sync over the VPN
+BindsTo=systemdlings-vpn.service
+After=systemdlings-vpn.service
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/sleep infinity

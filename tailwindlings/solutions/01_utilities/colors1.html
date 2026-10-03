@@ -1,0 +1,32 @@
+<!doctype html>
+<!--
+  colors1: colour utilities and the opacity modifier
+
+  Colours come from the theme: bg-amber-50, text-amber-900, border-amber-300.
+  Every palette has shades 50 and 100..950; there is no bare "bg-amber".
+
+  A slash sets alpha on just that colour: bg-black/50 is black at 50%.
+  The `opacity-*` utilities fade the whole element, children and text included.
+
+  Task:
+    - the warning box: amber-50 background, amber-900 text
+    - the modal backdrop: a 50% black background, but the dialog text on it
+      must stay fully opaque
+
+  Preview: npm run preview colors1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>colors1</title>
+  </head>
+  <body class="p-8">
+    <p id="warning" class="border border-amber-300 bg-amber-50 p-4 text-amber-900">
+      Your trial ends in 3 days.
+    </p>
+    <div id="backdrop" class="fixed inset-0 bg-black/50 p-16">
+      <div id="dialog" class="bg-white p-6 text-gray-900">Are you sure?</div>
+    </div>
+  </body>
+</html>

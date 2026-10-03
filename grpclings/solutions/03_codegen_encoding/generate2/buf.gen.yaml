@@ -1,0 +1,21 @@
+# generate2: buf generate
+#
+# Long protoc command lines are hard to share, so most projects describe code
+# generation in buf.gen.yaml and run `buf generate` (install buf with
+# your package manager or brew, or use the copy pinned in go.mod: `go tool buf generate`).
+# Without a buf.yaml, buf treats the current directory as the input module.
+#
+# `local:` runs a plugin binary on your machine. It can be a command with
+# arguments, so the go.mod-pinned plugins work without installing anything.
+# (`remote:` would run a plugin hosted on the Buf Schema Registry instead.)
+#
+# Task: make `buf generate` in this directory write notes.pb.go and
+# notes_grpc.pb.go next to notes.proto, like generate1 did with protoc.
+version: v2
+plugins:
+  - local: ["go", "tool", "protoc-gen-go"]
+    out: .
+    opt: paths=source_relative
+  - local: ["go", "tool", "protoc-gen-go-grpc"]
+    out: .
+    opt: paths=source_relative

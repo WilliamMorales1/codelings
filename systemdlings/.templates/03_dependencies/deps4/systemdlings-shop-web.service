@@ -1,0 +1,9 @@
+# deps4: part of the shop, already done right
+
+[Unit]
+Description=systemdlings: shop web frontend
+PartOf=systemdlings-shop.target
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/sleep infinity

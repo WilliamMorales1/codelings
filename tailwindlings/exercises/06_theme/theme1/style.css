@@ -1,0 +1,22 @@
+/*
+  theme1: adding colours with @theme
+
+  Tailwind v4 is configured in CSS. Variables declared inside @theme are
+  design tokens: each one becomes a CSS variable on :root AND generates
+  utilities. The namespace decides which: --color-brand-500 creates
+  bg-brand-500, text-brand-500, border-brand-500, ring-brand-500 ...
+
+  A plain :root { --brand-500: ... } is just a CSS variable; Tailwind does
+  not turn it into utilities.
+
+  Task: index.html already uses bg-brand-600, hover:bg-brand-700 and
+  text-brand-600. Define the brand colours so those classes work:
+    brand-600: #7c3aed    brand-700: #6d28d9
+*/
+@import "tailwindcss";
+
+/* design tokens */
+:root {
+  --brand-600: #7c3aed;
+  --brand-700: #6d28d9;
+}

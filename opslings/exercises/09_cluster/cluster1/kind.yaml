@@ -1,0 +1,30 @@
+# cluster1 -- a real cluster on your laptop, with kind
+#
+# kind ("Kubernetes IN Docker", written in Go) runs each Kubernetes node as
+# a Docker container. It is the cheapest real cluster there is: a two-node
+# cluster needs about 1.5 GB of RAM and starts in a minute or so.
+#
+# This chapter works on a live cluster, so you run the commands; the check
+# only looks at what you built.
+#
+# Task: a cluster named `opslings` with one control-plane node and one
+# worker. Fix this config, then create it:
+#
+#   kind create cluster --config kind.yaml
+#   kubectl cluster-info --context kind-opslings
+#   kubectl get nodes -o wide
+#
+# kind switches your current kubectl context to kind-opslings. The checks
+# always pass --context kind-opslings explicitly.
+#
+# When you are done with the whole chapter, free the memory again:
+#
+#   kind delete cluster --name opslings
+#
+
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: ops-lings
+nodes:
+  - role: control-plane
+  - role: node

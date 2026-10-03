@@ -1,0 +1,28 @@
+<!doctype html>
+<!--
+  responsive2: a responsive grid
+
+  Stack breakpoint prefixes on one property to change it step by step:
+  grid-cols-1 sm:grid-cols-2 lg:grid-cols-4. Each one wins from its
+  breakpoint up, until a larger one takes over.
+
+  Task: the product grid has one column on phones, two from sm (640px),
+  and four from lg (1024px). The gap is 1rem on phones and 2rem from lg.
+
+  Preview: npm run preview responsive2
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>responsive2</title>
+  </head>
+  <body class="p-4">
+    <ul id="products" class="grid grid-cols-4 gap-8">
+      <li class="h-40 rounded bg-gray-100">Lamp</li>
+      <li class="h-40 rounded bg-gray-100">Chair</li>
+      <li class="h-40 rounded bg-gray-100">Desk</li>
+      <li class="h-40 rounded bg-gray-100">Rug</li>
+    </ul>
+  </body>
+</html>

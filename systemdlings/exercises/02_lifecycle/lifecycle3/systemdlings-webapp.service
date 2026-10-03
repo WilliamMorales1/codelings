@@ -1,0 +1,22 @@
+# lifecycle3: ExecStartPre= and the "-" prefix
+#
+# ExecStartPre= commands run, in order, before ExecStart=. If one fails, the
+# start fails and ExecStart= never runs - handy for sanity checks such as
+# "is the config there?" or `nginx -t`.
+#
+# A command line can carry prefixes. The most common one is "-": the exit
+# status is ignored and the start goes on as if it had succeeded. Others: "@"
+# (set argv[0]), ":" (no variable expansion), "+" (run without sandboxing).
+#
+# Task: the pre-check below is meant to refuse to start the app when
+# app.conf is missing, but someone "fixed" a failing deploy by silencing it.
+# Make a missing config fail the start again. (The check starts it once
+# without app.conf, then creates one from app.conf.example and starts again.)
+
+[Unit]
+Description=systemdlings: web app with a config check
+
+[Service]
+Type=oneshot
+ExecStartPre=-/usr/bin/test -f %t/systemdlings/lifecycle3/app.conf
+ExecStart=/usr/bin/cat %t/systemdlings/lifecycle3/app.conf

@@ -1,0 +1,6 @@
+{
+  "LOG_LEVEL": "info",
+  "PORT": "8080",
+  "OTEL_EXPORTER_OTLP_ENDPOINT": "http://otel-collector:4317",
+  "FEATURE_NEW_CART": "true"
+}

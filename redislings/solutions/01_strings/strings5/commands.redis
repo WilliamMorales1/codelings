@@ -1,0 +1,4 @@
+# strings5 — MSET / MGET and key naming
+
+MSET product:1:price 9.99 product:2:price 24.50 product:3:price 3.75
+MGET product:1:price product:2:price product:3:price

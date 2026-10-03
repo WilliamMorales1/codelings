@@ -1,0 +1,18 @@
+# socket2: which service a socket starts
+#
+# foo.socket activates foo.service - or, with Accept=yes, one instance of
+# the template foo@.service per connection. The names have to line up, or
+# the socket refuses to start ("Service ... not loaded"). A different
+# service can be named with Service=, but not for Accept=yes sockets.
+#
+# Task: this clock answers every connection on 127.0.0.1:47812 with the
+# current year, one connection at a time. Someone wrote the service as a
+# plain unit. Make the pair work; you may rename files. (If you rename the
+# service file, `systemdlings reset socket2` is there if you get lost.)
+
+[Unit]
+Description=systemdlings: what year is it
+
+[Socket]
+ListenStream=127.0.0.1:47812
+Accept=yes

@@ -1,0 +1,5 @@
+# zsets1 — a leaderboard with ZADD and ZINCRBY
+
+ZINCRBY lb:weekly 50 ada
+ZADD lb:weekly GT 85 bob
+ZADD lb:weekly 30 cy

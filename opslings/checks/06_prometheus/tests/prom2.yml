@@ -1,0 +1,20 @@
+rule_files: [rules.yml]
+evaluation_interval: 1m
+tests:
+  - interval: 1m
+    input_series:
+      # 60 req/min = 1 req/s and 120 req/min = 2 req/s for job api.
+      - series: 'http_requests_total{job="api",instance="a",code="200"}'
+        values: '0+60x15'
+      - series: 'http_requests_total{job="api",instance="b",code="200"}'
+        values: '0+120x15'
+      - series: 'http_requests_total{job="web",instance="c",code="200"}'
+        values: '0+30x15'
+    promql_expr_test:
+      - expr: job:http_requests:rate5m
+        eval_time: 10m
+        exp_samples:
+          - labels: 'job:http_requests:rate5m{job="api"}'
+            value: 3
+          - labels: 'job:http_requests:rate5m{job="web"}'
+            value: 0.5

@@ -1,0 +1,39 @@
+<!doctype html>
+<!--
+  typography1: font size, weight, line height, tracking, alignment
+
+  text-4xl sets font-size (and a matching default line-height).
+  text-base/7 is size + line-height in one: font-size base, line-height 7
+  steps of the spacing scale (1.75rem). leading-7 does only the line-height.
+  font-bold / font-extrabold set weight, tracking-tight sets letter-spacing,
+  uppercase sets text-transform, and text-center aligns inline content.
+
+  Text properties inherit, so a class on a parent reaches all its children.
+
+  Task:
+    - the <header>: everything in it centred (one class, on the header)
+    - the kicker: uppercase
+    - the headline: text-4xl, extra bold (800), tight tracking
+    - the body paragraph: base size with a 1.75rem line-height
+
+  Preview: npm run preview typography1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>typography1</title>
+  </head>
+  <body class="p-8">
+    <article class="mx-auto max-w-2xl">
+      <header id="header">
+        <p id="kicker" class="text-sm font-semibold text-sky-600">Release notes</p>
+        <h1 id="headline" class="text-4xl font-extra-bold">Version 4 is here</h1>
+      </header>
+      <p id="body" class="mt-6 text-gray-700">
+        A faster engine, CSS-first configuration and a modern colour palette.
+        Upgrading takes an afternoon for most projects.
+      </p>
+    </article>
+  </body>
+</html>

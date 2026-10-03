@@ -1,0 +1,20 @@
+# deps2: Wants= versus Requires=
+#
+# Wants= is a soft requirement: the other unit is started too, but if it
+# fails, this unit starts anyway. That is right for "nice to have".
+# Requires= is a hard one: if the required unit fails to start (and this
+# unit is ordered After= it), this unit's start job fails with "dependency"
+# and it never runs. Requires= also propagates explicit stops and restarts.
+#
+# Task: the indexer writes into the data volume. When the mount fails, it
+# must not run at all (it would fill the root filesystem instead). Make the
+# dependency hard. Leave systemdlings-mount.service alone.
+
+[Unit]
+Description=systemdlings: indexer that writes to the data volume
+Wants=systemdlings-mount.service
+After=systemdlings-mount.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/echo "indexer: writing index to /data"

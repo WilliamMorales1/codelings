@@ -1,0 +1,4 @@
+# zsets3 — score ranges: BYSCORE, ZCOUNT and exclusive bounds
+
+ZRANGE lb:weekly (100 200 BYSCORE
+ZCOUNT lb:weekly (100 200

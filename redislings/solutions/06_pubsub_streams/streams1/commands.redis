@@ -1,0 +1,3 @@
+# streams1 — XADD
+
+XADD events * type signup user 42

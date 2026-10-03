@@ -1,0 +1,15 @@
+# firewall2: first match wins
+
+flush ruleset
+
+table inet filter {
+  chain input {
+    type filter hook input priority filter; policy drop;
+    iif lo accept
+    ip saddr 10.0.0.3 drop
+    ct state established,related accept
+    tcp dport 22 accept
+    tcp dport 80 accept
+    icmp type echo-request accept
+  }
+}

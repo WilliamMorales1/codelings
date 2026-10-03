@@ -1,0 +1,4 @@
+# sets1 — SADD: unique members
+
+SADD article:1:tags redis cache redis nosql cache
+SISMEMBER article:1:tags redis

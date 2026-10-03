@@ -1,0 +1,10 @@
+PID COMMAND
+1 /usr/lib/systemd/systemd-journald
+655 /usr/lib/systemd/systemd-udevd
+692 /usr/bin/sshd
+874 /usr/bin/gnome-shell
+1243 nginx:
+2025 nvim
+2758 postgres:
+3286 /usr/lib/firefox/firefox
+3857 /usr/bin/NetworkManager

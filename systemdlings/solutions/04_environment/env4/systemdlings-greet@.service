@@ -1,0 +1,8 @@
+# env4: template units and %i
+
+[Unit]
+Description=systemdlings: greet %i
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/echo "hello %i"

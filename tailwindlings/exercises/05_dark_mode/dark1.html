@@ -1,0 +1,28 @@
+<!doctype html>
+<!--
+  dark1: the dark: variant
+
+  By default dark: follows the operating system:
+  @media (prefers-color-scheme: dark). Write the light design unprefixed
+  and add dark: overrides next to each colour.
+
+  Task: in dark mode the page is gray-950 with gray-100 text, the card is
+  gray-900 with a gray-700 border, and the muted text is gray-400.
+  Light mode must stay as it is.
+
+  Preview: npm run preview dark1 (devtools > Rendering > "Emulate CSS
+  media feature prefers-color-scheme", or switch your desktop theme)
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>dark1</title>
+  </head>
+  <body id="body" class="bg-white p-8 text-gray-900 dark:bg-gray-950">
+    <div id="card" class="rounded-lg border border-gray-200 bg-gray-50 p-6 dark:bg-gray-900">
+      <h2 class="font-semibold">Storage</h2>
+      <p id="muted" class="text-gray-500">4.2 GB of 10 GB used</p>
+    </div>
+  </body>
+</html>

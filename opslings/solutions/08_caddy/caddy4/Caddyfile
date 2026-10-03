@@ -1,0 +1,37 @@
+# caddy4 -- handle_path and redirects
+#
+# `handle` groups directives for a matcher; only the first matching handle
+# block runs. `handle_path` does the same *and strips the matched prefix*,
+# which is what you want when an app is mounted under a sub-path but
+# expects to live at /:
+#
+#   handle_path /app/*  { ... }     /app/api/items  ->  /api/items
+#
+# `redir FROM TO [code]` redirects; the default code is 302 (temporary).
+# Permanent moves should be 301 (or 308 to keep the method).
+#
+# Task, on $PORT:
+#   /app/...     proxied to $UPSTREAM with the /app prefix removed
+#   /legacy      permanent (301) redirect to /app/
+#   anything     else 404 "not found"
+#
+#   opslings target --port 8080
+#   env PORT=8084 UPSTREAM=http://127.0.0.1:8080 caddy run --config Caddyfile --adapter caddyfile
+#   curl -i localhost:8084/app/api/items
+#
+
+{
+	admin off
+}
+
+:{$PORT} {
+	handle_path /app/* {
+		reverse_proxy {$UPSTREAM}
+	}
+
+	redir /legacy /app/ 301
+
+	handle {
+		respond "not found" 404
+	}
+}

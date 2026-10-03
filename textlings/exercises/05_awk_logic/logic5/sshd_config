@@ -1,0 +1,32 @@
+#	$OpenBSD: sshd_config,v 1.105 2024/12/03 14:12:47 dtucker Exp $
+
+# This is the sshd server system-wide configuration file.  See
+# sshd_config(5) for more information.
+
+Include /etc/ssh/sshd_config.d/*.conf
+
+#Port 22
+#AddressFamily any
+#ListenAddress 0.0.0.0
+
+# Authentication:
+
+#LoginGraceTime 2m
+PermitRootLogin no
+#StrictModes yes
+MaxAuthTries 3
+
+PubkeyAuthentication yes
+
+# To disable tunneled clear text passwords, change to "no" here!
+PasswordAuthentication no
+
+KbdInteractiveAuthentication no
+UsePAM yes
+
+  # indented comments are still comments
+X11Forwarding no
+PrintMotd no
+
+# override default of no subsystems
+Subsystem	sftp	/usr/lib/ssh/sftp-server

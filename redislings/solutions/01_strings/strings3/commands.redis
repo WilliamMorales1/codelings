@@ -1,0 +1,4 @@
+# strings3 — SET ... NX: only if it does not exist yet
+
+SET lock:report worker-b NX
+SET lock:invoice worker-b NX

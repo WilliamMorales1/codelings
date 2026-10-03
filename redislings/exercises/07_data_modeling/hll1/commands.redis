@@ -1,0 +1,16 @@
+# hll1 — counting unique visitors with HyperLogLog
+#
+# Learn: a set gives an exact unique count but grows with every member.
+# A HyperLogLog (PFADD, PFCOUNT, PFMERGE) estimates the count with about
+# 0.81% error in at most 12 KB, whether it has seen a thousand or a
+# billion distinct items. It can't list its members.
+#
+# Task: visitors:2026-09-28 is already a HyperLogLog with about a
+# thousand visitors. Record today's visitors (u1, u2, new1, new2) in
+# visitors:2026-09-29, merge both days into visitors:week and print the
+# estimated number of unique visitors for the week.
+#
+
+SADD visitors:2026-09-29 u1 u2 new1 new2
+SUNIONSTORE visitors:week visitors:2026-09-28 visitors:2026-09-29
+SCARD visitors:week

@@ -1,0 +1,22 @@
+# lifecycle1: Restart=on-failure
+#
+# When the main process of a service exits, Restart= decides whether systemd
+# starts it again:
+#   no           never (default)
+#   on-failure   after a non-zero exit, a signal, a timeout or a watchdog
+#   always       whatever the reason
+# RestartSec= is the pause before the next attempt (default 100ms).
+#
+# Task: flaky.sh fails twice before it can connect. Make systemd keep
+# restarting it after failures, waiting half a second between attempts, so
+# that it ends up running. Do not restart it when it exits cleanly.
+#
+# `systemctl --user show -p NRestarts systemdlings-flaky.service` counts the
+# automatic restarts.
+
+[Unit]
+Description=systemdlings: client that needs a few tries
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/sh %t/systemdlings/lifecycle1/flaky.sh

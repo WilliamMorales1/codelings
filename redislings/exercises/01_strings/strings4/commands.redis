@@ -1,0 +1,13 @@
+# strings4 — SET ... GET: swap and see what was there
+#
+# Learn: SET key value GET writes the new value and replies with the old
+# one, in a single atomic command (it replaces the deprecated GETSET).
+# A separate GET and SET leaves a gap where another client can write.
+#
+# Task: deploy a new config version by setting config:active to "v2",
+# and print the version that was active before, using ONE command. The
+# check compares your output with the previous value.
+#
+
+GET config:active
+SET config:active v2

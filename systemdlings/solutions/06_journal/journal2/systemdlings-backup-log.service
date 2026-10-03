@@ -1,0 +1,9 @@
+# journal2: runs backup.sh (nothing to change here)
+
+[Unit]
+Description=systemdlings: backup with log levels
+
+[Service]
+Type=oneshot
+SyslogIdentifier=backup
+ExecStart=/usr/bin/sh %t/systemdlings/journal2/backup.sh

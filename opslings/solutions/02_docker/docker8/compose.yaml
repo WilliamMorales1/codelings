@@ -1,0 +1,46 @@
+# docker8 -- Compose
+#
+# compose.yaml describes several containers that belong together. Before
+# running anything, `docker compose config` validates the file, resolves
+# variables and prints the normalized result -- a cheap first check in CI.
+#
+# Task: make `docker compose config` succeed, and wire things up properly:
+#   - api must wait until db is *healthy*, not merely started
+#     (depends_on with `condition: service_healthy`)
+#   - so db needs a healthcheck: `pg_isready -U app` is the usual one
+#   - api publishes container port 8080 on host port 8080
+#   - the database keeps its data in the named volume `pgdata`
+#
+#   docker compose config            # errors first, then the normalized file
+#   docker compose config --format json | jq .services.api
+#
+# (Nothing has to actually start; the check only reads the configuration.)
+#
+
+services:
+  api:
+    image: ghcr.io/acme/api:1.4.2
+    environment:
+      DATABASE_URL: postgres://app:app@db:5432/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: app
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  pgdata: {}

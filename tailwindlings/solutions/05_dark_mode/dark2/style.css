@@ -1,0 +1,17 @@
+/*
+  dark2: a dark-mode toggle (class strategy)
+
+  To let users pick a theme instead of following the OS, redefine the dark
+  variant in CSS with @custom-variant. This makes dark: match when an
+  ancestor (usually <html>) has the class "dark":
+
+    @custom-variant dark (&:where(.dark, .dark *));
+
+  Your JS then toggles document.documentElement.classList.
+
+  Task: make dark: in index.html follow the "dark" class instead of the OS
+  setting. Don't touch index.html.
+*/
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));

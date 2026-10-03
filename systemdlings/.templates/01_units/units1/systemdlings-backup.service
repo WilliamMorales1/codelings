@@ -1,0 +1,17 @@
+# units1: the three sections of a unit
+#
+# A .service file is an INI file with (usually) three sections:
+#   [Unit]     what it is and how it relates to other units (Description=, After=, ...)
+#   [Service]  how to run it (Type=, ExecStart=, Restart=, ...)
+#   [Install]  what `systemctl enable` hooks it into (optional)
+# Every key belongs to exactly one section. systemd ignores keys in the wrong
+# section with a warning, so a unit can "load" and still do nothing.
+#
+# Task: this backup job never runs. Find out why with
+#   systemd-analyze verify --user systemdlings-backup.service
+# and fix the file so that starting it logs "backup finished".
+
+[Unit]
+Description=systemdlings: nightly backup (pretend)
+Type=oneshot
+ExecStart=/usr/bin/echo "backup finished"

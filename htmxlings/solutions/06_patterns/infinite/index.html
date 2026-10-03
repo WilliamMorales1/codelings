@@ -1,0 +1,30 @@
+<!doctype html>
+<!--
+  infinite - the Infinite Scroll pattern
+
+  The last row of each page carries a request for the next page, fired
+  by hx-trigger="revealed" (when it scrolls into view). The response
+  goes *after* that row with hx-swap="afterend", so the table just grows.
+  (https://htmx.org/examples/infinite-scroll/)
+
+  TASK: in handlers.js the "load more" row fetches the next page, but the
+  new rows are swapped *inside* the last row instead of after it. Fix
+  the attributes on that row. The last page must not ask for more.
+
+  Try it in a browser: npm run serve infinite
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>infinite</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Agents</h1>
+  <table>
+    <thead><tr><th>#</th><th>Name</th></tr></thead>
+    <tbody hx-get="/agents?page=1" hx-trigger="load"></tbody>
+  </table>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# sets2 — SINTER, SUNION and the *STORE variants
+
+SINTER following:alice following:bob
+SUNIONSTORE reach:alice:bob following:alice following:bob

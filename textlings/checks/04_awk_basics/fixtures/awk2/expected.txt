@@ -1,0 +1,3 @@
+root /bin/ash
+nobody /sbin/nologin
+bob /bin/bash

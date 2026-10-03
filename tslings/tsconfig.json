@@ -1,0 +1,25 @@
+{
+  // Shared by your editor and by tslings. The runner checks each exercise with
+  // exactly these options, so what your editor underlines is what fails.
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+
+    "target": "es2024",
+    "lib": ["es2024"],
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "types": ["node"],
+    "skipLibCheck": true,
+
+    "paths": { "@ex/*": ["./exercises/*"] }
+  },
+  "include": ["exercises", "tests"]
+}

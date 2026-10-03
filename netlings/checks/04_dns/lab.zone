@@ -1,0 +1,13 @@
+; The zone served by `netlings serve dns` in the DNS exercises.
+; Format: name [ttl] TYPE value
+lab.test                  NS     ns1.lab.test
+ns1.lab.test              A      10.53.0.53
+web.lab.test              A      10.53.0.80
+www.lab.test              CNAME  web.lab.test
+api.lab.test          60  A      10.53.0.81
+lab.test                  MX     10 mail.lab.test
+mail.lab.test             A      10.53.0.25
+_verify.lab.test          TXT    "netlings-verification=7f3a9c"
+80.0.53.10.in-addr.arpa   PTR    web.lab.test
+intranet.corp.test        A      10.54.0.10
+mail.corp.test            A      10.54.0.25

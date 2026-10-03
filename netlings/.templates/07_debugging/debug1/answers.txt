@@ -1,0 +1,35 @@
+# debug1: reading a packet capture
+#
+# capture.txt is real tcpdump output, taken on 10.0.0.1 while it made a DNS
+# lookup and a few TCP connections to 10.0.0.2. How to read a TCP line:
+#
+#   TIME IP SRC.PORT > DST.PORT: Flags [..], seq .., ack .., length N
+#
+#   Flags: S = SYN (open), . = ACK, P = PUSH (data), F = FIN (close),
+#          R = RST (reset: "go away"). [S.] is SYN+ACK.
+#   A connection starts with the three-way handshake: [S], [S.], [.]
+#   A port with nothing listening answers a SYN with [R.] right away.
+#   A firewall that DROPS gives no answer: the client retries the SYN,
+#   waiting longer each time (1s, 2s, 4s, ...).
+# DNS lines: "12345+ A? name." is a query; "12345* 1/0/0 A 1.2.3.4" is the answer.
+
+# 1. What address did the DNS server return for shop.example.test?
+dns_answer:
+
+# 2. Which source port did the client use for its HTTP connection to port 80?
+http_client_port:
+
+# 3. What HTTP status code came back?
+http_status:
+
+# 4. Which port on 10.0.0.2 refused the connection (closed, nothing listening)?
+refused_port:
+
+# 5. Which port on 10.0.0.2 is silently dropped by a firewall?
+filtered_port:
+
+# 6. How many SYN packets were sent to that filtered port in total?
+filtered_syns:
+
+# 7. In the HTTP connection, which IP sent the first FIN (closed first)?
+first_fin:

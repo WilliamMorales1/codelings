@@ -1,0 +1,4 @@
+alice: wheel,audio
+deploy: docker,http
+learner1: wheel,docker,video,audio
+root: root

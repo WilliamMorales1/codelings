@@ -1,0 +1,30 @@
+// basics5: packages, imports and go_package
+//
+// Three different names are in play:
+//   - `package shop.v1;`   the PROTO package: namespaces message names on the
+//                          wire and in other .proto files (shop.v1.Product).
+//   - `import "money.proto";`  a path relative to protoc's -I include dir, not
+//                          a package name. Without it, other files' types are
+//                          invisible.
+//   - `option go_package = "import/path;name";`  where the generated Go code
+//                          lives. protoc-gen-go refuses to run without it.
+//
+// money.proto (already done) declares common.v1.Money.
+//
+// Task: put Product in proto package shop.v1, import money.proto, give price
+// the type common.v1.Money, and set go_package the same way money.proto does
+// (both files generate into this directory's Go package, basics5).
+
+syntax = "proto3";
+
+package shop.v1;
+
+import "money.proto";
+
+option go_package = "grpclings/exercises/01_proto_basics/basics5;basics5";
+
+message Product {
+  string sku = 1;
+  string name = 2;
+  common.v1.Money price = 3;
+}

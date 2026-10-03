@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package todo.v1;
+
+option go_package = "grpclings/exercises/03_codegen_encoding/marshal1;marshal1";
+
+message Task {
+  string title = 1;
+  bool done = 2;
+}
+
+message TodoList {
+  string owner = 1;
+  repeated Task tasks = 2;
+}

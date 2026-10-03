@@ -1,0 +1,31 @@
+<!doctype html>
+<!--
+  shadows1: box shadows and rings
+
+  shadow-xs, shadow-sm, shadow-md, shadow-lg ... read --shadow-* from the
+  theme. Tailwind v4 renamed the small end: v3's `shadow-sm` is v4's
+  `shadow-xs`, and v3's bare `shadow` is v4's `shadow-sm`.
+
+  ring-1 draws a solid 1px outline-like shadow; ring colours take an
+  opacity modifier (ring-black/5). Shadows and rings stack: Tailwind keeps
+  each in its own --tw-* variable and combines them in one box-shadow.
+
+  Task:
+    - the popover: shadow-lg AND a 1px black/5 ring
+    - the input: the smallest shadow in v4 (shadow-xs)
+
+  Preview: npm run preview shadows1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>shadows1</title>
+  </head>
+  <body class="bg-gray-50 p-8">
+    <input id="search" class="rounded-md bg-white px-3 py-2 shadow" placeholder="Search" />
+    <div id="popover" class="mt-2 w-72 rounded-lg bg-white p-4 shadow-lg">
+      No results yet.
+    </div>
+  </body>
+</html>

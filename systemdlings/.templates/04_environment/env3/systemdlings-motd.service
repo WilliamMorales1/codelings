@@ -1,0 +1,18 @@
+# env3: WorkingDirectory=
+#
+# A service does not start in the directory you ran systemctl from. System
+# services start in /, user services in / as well unless told otherwise.
+# Programs that open relative paths need WorkingDirectory=. The special value
+# "~" means the user's home directory; a leading "-" ignores a missing
+# directory.
+#
+# Task: this unit prints motd.txt using a relative path, and fails with
+# "No such file or directory". Point the working directory at the copy of
+# this exercise (%t/systemdlings/env3) instead of changing the command.
+
+[Unit]
+Description=systemdlings: print the message of the day
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/cat motd.txt

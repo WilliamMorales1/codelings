@@ -1,0 +1,28 @@
+/*
+  utility1: custom utilities with @utility
+
+  A plain CSS class works, but Tailwind knows nothing about it: you cannot
+  write hover:my-class or md:my-class, and it isn't ordered with the other
+  utilities. Declaring it with @utility makes it a real utility:
+
+    @utility content-auto {
+      content-visibility: auto;
+    }
+
+  Nesting works inside, e.g. &::-webkit-scrollbar { ... }.
+
+  Task: index.html uses md:scrollbar-hidden, which should hide the
+  scrollbar from md up (scrollbar-width: none, plus display: none on
+  ::-webkit-scrollbar). Turn the class below into a utility so the
+  variant works.
+*/
+@import "tailwindcss";
+
+/* TODO: make this a utility */
+.scrollbar-hidden {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

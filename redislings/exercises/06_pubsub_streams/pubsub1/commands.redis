@@ -1,0 +1,13 @@
+# pubsub1 — PUBLISH
+#
+# Learn: PUBLISH channel message sends a message to every client that is
+# subscribed right now, and replies with how many received it. Nothing is
+# stored: with no subscriber, the message is simply gone (streams, later
+# in this chapter, are the durable alternative).
+#
+# Task: announce that order 42 shipped by publishing the message
+# "shipped 42" on the channel orders:eu. The check has a subscriber
+# listening. The line below doesn't do what it looks like.
+#
+
+PUBLISH orders:eu shipped 42

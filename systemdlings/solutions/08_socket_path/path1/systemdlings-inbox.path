@@ -1,0 +1,8 @@
+# path1: .path units
+
+[Unit]
+Description=systemdlings: watch the inbox
+
+[Path]
+DirectoryNotEmpty=%t/systemdlings/path1/inbox
+MakeDirectory=yes

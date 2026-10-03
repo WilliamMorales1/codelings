@@ -1,0 +1,9 @@
+# sandbox2: ProtectHome=
+
+[Unit]
+Description=systemdlings: pretend thumbnailer
+
+[Service]
+Type=oneshot
+ProtectHome=yes
+ExecStart=/usr/bin/sh -c 'if ls -A "$$HOME" >/dev/null 2>&1; then echo "home is visible: $$(ls -A "$$HOME" | wc -l) entries"; else echo "home is hidden"; fi'

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package bank.v1;
+
+option go_package = "grpclings/exercises/05_unary_grpc/unary4;unary4";
+
+message GetBalanceRequest {
+  string account_id = 1;
+}
+
+message GetBalanceResponse {
+  int64 balance_cents = 1;
+}
+
+service BankService {
+  rpc GetBalance(GetBalanceRequest) returns (GetBalanceResponse);
+}

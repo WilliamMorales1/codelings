@@ -1,0 +1,2 @@
+prod-eu/shop/api-93d8f3341-33418: 14 restarts
+prod-eu/shop/worker-204c71709-17095: 3 restarts

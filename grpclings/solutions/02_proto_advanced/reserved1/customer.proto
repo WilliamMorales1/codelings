@@ -1,0 +1,29 @@
+// reserved1: reserved numbers and names
+//
+// Version 1 of Customer, already in production, was:
+//   string id = 1; string name = 2; string email = 3; string phone = 4;
+// email moved to a separate Contact service and was deleted from Customer.
+// Then someone added `nickname` and reused the free-looking number 3.
+//
+// Old clients still send field 3 containing an email address. New servers
+// would now read it as the nickname. Deleting a field must retire its number
+// (and ideally its name, which protects JSON and text formats) forever.
+//
+// Task: give nickname the next unused number, 5, and reserve the number 3 and
+// the name "email" so nobody can reuse them again.
+
+syntax = "proto3";
+
+package crm.v1;
+
+option go_package = "grpclings/exercises/02_proto_advanced/reserved1;reserved1";
+
+message Customer {
+  reserved 3;
+  reserved "email";
+
+  string id = 1;
+  string name = 2;
+  string phone = 4;
+  string nickname = 5;
+}

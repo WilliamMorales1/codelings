@@ -1,0 +1,20 @@
+# index1 — a secondary index with sets
+#
+# Learn: Redis looks things up by key only. To find "users in Paris" you
+# keep your own index: a set per value (idx:user:city:paris holds the ids
+# of Parisians) that you update together with the record, inside
+# MULTI/EXEC so nobody sees one without the other. SMOVE moves a member
+# between two sets atomically.
+#
+# Task: the check seeds users 1-3 and their city index. Inside ONE
+# transaction:
+#   - add user 4 (name Lin, city paris) and index them,
+#   - user 2 moved from paris to lyon: update the hash AND the index.
+# Then print the members of the paris index.
+#
+
+MULTI
+HSET user:4 name Lin city paris
+HSET user:2 city lyon
+EXEC
+SMEMBERS idx:user:city:paris

@@ -1,0 +1,23 @@
+/*
+  components1: cascade layers decide who wins
+
+  Tailwind's CSS lives in cascade layers, in this order:
+    theme, base, components, utilities
+  A later layer beats an earlier one regardless of selector specificity,
+  and CSS outside any layer beats ALL layers. So a hand-written .card that
+  is not in a layer overrides p-2, text-sm, and every other utility.
+
+  Task: the compact card in index.html says class="card p-2" but still
+  gets the card's 1.5rem padding. Put .card where utilities can override
+  it, without touching index.html and without !important.
+*/
+@import "tailwindcss";
+
+@layer components {
+  .card {
+    padding: 1.5rem;
+    border-radius: var(--radius-xl);
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-md);
+  }
+}

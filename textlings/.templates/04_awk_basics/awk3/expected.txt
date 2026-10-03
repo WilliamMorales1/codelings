@@ -1,0 +1,6 @@
+81% /
+30% /boot
+2% /tmp
+98% /run/media/learner1/USB
+81% /home
+1% /run/user/1000

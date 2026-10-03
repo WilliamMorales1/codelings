@@ -1,0 +1,38 @@
+# routing5: longest prefix match
+#
+# routes.txt is a laptop's routing table. For every destination the kernel
+# picks the route with the LONGEST matching prefix (/24 beats /22 beats /16
+# beats /0 = default), no matter in which order the lines appear. Metrics only
+# break ties between routes with the same prefix.
+#
+# For each destination write the next hop: the gateway address after "via",
+# or the word `direct` for a "dev ... scope link" route (no gateway; the host
+# itself is on that wire), or `blackhole` if the packet is silently dropped.
+#
+# Want to check yourself? In `netlings sandbox routing5` you can rebuild the
+# table with dummy interfaces and ask `ip route get ADDRESS`. That is how the
+# pros do it too.
+
+# 1. 1.1.1.1
+dest_1_1_1_1:
+
+# 2. 10.8.0.77
+dest_10_8_0_77:
+
+# 3. 10.8.5.7
+dest_10_8_5_7:
+
+# 4. 10.8.6.1
+dest_10_8_6_1:
+
+# 5. 10.8.200.1
+dest_10_8_200_1:
+
+# 6. 10.99.3.4
+dest_10_99_3_4:
+
+# 7. 192.168.1.50
+dest_192_168_1_50:
+
+# 8. And through which interface (dev) does 10.8.5.7 leave the laptop?
+dev_10_8_5_7:

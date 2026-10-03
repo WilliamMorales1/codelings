@@ -1,0 +1,29 @@
+// oneof1: oneof
+//
+// A payment is made by card OR by bank transfer OR in cash, never two at once.
+// Separate fields cannot say that; `oneof` can: setting one member clears the
+// others, and Go gets a single interface field you switch on.
+//
+// Task:
+//   1. In this file, put card, iban and cash into `oneof method { ... }`
+//      (keep their names and numbers).
+//   2. In describe.go, finish Describe.
+
+syntax = "proto3";
+
+package billing.v1;
+
+option go_package = "grpclings/exercises/02_proto_advanced/oneof1;oneof1";
+
+message Card {
+  string last4 = 1;
+}
+
+message Payment {
+  string id = 1;
+  int64 amount_cents = 2;
+
+  Card card = 3;
+  string iban = 4;
+  bool cash = 5;
+}

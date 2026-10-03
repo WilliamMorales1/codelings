@@ -1,0 +1,10 @@
+{
+  // The runner itself runs through Node's built-in type stripping, so it may only
+  // use syntax that can be erased: no enums, namespaces or parameter properties.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "erasableSyntaxOnly": true,
+    "paths": {}
+  },
+  "include": ["tslings.ts", "runner", "vitest.config.ts"]
+}

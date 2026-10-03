@@ -1,0 +1,8 @@
+# socket2: the per-connection service
+
+[Unit]
+Description=systemdlings: tell one client the year
+
+[Service]
+ExecStart=/usr/bin/date -u +%%Y
+StandardInput=socket

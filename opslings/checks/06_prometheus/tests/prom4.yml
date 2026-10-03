@@ -1,0 +1,30 @@
+rule_files: [rules.yml]
+evaluation_interval: 1m
+tests:
+  - interval: 1m
+    # Per minute, per instance: 50 requests <= 0.1s, 40 more <= 0.5s,
+    # 10 more <= 1s. p95 falls halfway into the (0.5, 1] bucket: 0.75s.
+    input_series:
+      - series: 'http_request_duration_seconds_bucket{job="api",instance="a",le="0.1"}'
+        values: '0+50x15'
+      - series: 'http_request_duration_seconds_bucket{job="api",instance="a",le="0.5"}'
+        values: '0+90x15'
+      - series: 'http_request_duration_seconds_bucket{job="api",instance="a",le="1"}'
+        values: '0+100x15'
+      - series: 'http_request_duration_seconds_bucket{job="api",instance="a",le="+Inf"}'
+        values: '0+100x15'
+      - series: 'http_request_duration_seconds_bucket{job="api",instance="b",le="0.1"}'
+        values: '0+50x15'
+      - series: 'http_request_duration_seconds_bucket{job="api",instance="b",le="0.5"}'
+        values: '0+90x15'
+      - series: 'http_request_duration_seconds_bucket{job="api",instance="b",le="1"}'
+        values: '0+100x15'
+      - series: 'http_request_duration_seconds_bucket{job="api",instance="b",le="+Inf"}'
+        values: '0+100x15'
+    promql_expr_test:
+      # round(): histogram_quantile interpolates in floating point.
+      - expr: round(job:http_request_duration_seconds:p95, 0.001)
+        eval_time: 10m
+        exp_samples:
+          - labels: '{job="api"}'
+            value: 0.75

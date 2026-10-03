@@ -1,0 +1,23 @@
+# socket1: socket activation with Accept=yes (inetd style)
+#
+# A .socket unit makes systemd itself listen. Nothing runs until a client
+# connects. With Accept=yes, systemd accepts every connection and starts a
+# fresh instance of a *template* service for it: systemdlings-hello@.service,
+# instance name derived from the connection. The connection is handed to
+# the service as a file descriptor; with
+#   StandardInput=socket
+# it becomes the program's stdin, and (because StandardOutput= defaults to
+# inheriting stdin when that is a socket) its stdout too. So any program
+# that reads stdin and writes stdout becomes a network service.
+#
+# Task: the check connects to 127.0.0.1:47811 and sends a name. It should get
+# "hello NAME" back. Right now the connection closes without a word and the
+# greeting ends up in the journal instead. Fix the service template
+# (systemdlings-hello@.service); this socket file is fine.
+
+[Unit]
+Description=systemdlings: hello over TCP
+
+[Socket]
+ListenStream=127.0.0.1:47811
+Accept=yes

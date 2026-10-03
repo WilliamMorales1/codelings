@@ -1,0 +1,29 @@
+<!doctype html>
+<!--
+  form6 - hx-delete and hx-confirm
+
+  htmx speaks every HTTP verb: hx-get, hx-post, hx-put, hx-patch and
+  hx-delete. And hx-confirm="Are you sure?" pops up a browser confirm()
+  first; if the user cancels, no request is sent.
+
+  TASK: this button should DELETE /account (the server has no POST
+  route for it), and only after the user confirms with the message
+  "Really delete your account?".
+
+  Try it in a browser: npm run serve form6
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>form6</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Settings</h1>
+  <div id="account">
+    <button class="danger" hx-delete="/account" hx-target="#account"
+            hx-confirm="Really delete your account?">Delete my account</button>
+  </div>
+</body>
+</html>

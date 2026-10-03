@@ -1,0 +1,12 @@
+# index2 — a range index with a sorted set
+#
+# Learn: for numeric queries ("age between 18 and 30") index with a
+# sorted set: member = id, score = the value. ZRANGE ... BYSCORE queries
+# by value; LIMIT offset count pages through the result (it only works
+# together with BYSCORE or BYLEX).
+#
+# Task: idx:user:age maps user ids to ages. Print the ids of the 2
+# youngest users aged 18 to 30 (inclusive), youngest first.
+#
+
+ZRANGE idx:user:age 18 30

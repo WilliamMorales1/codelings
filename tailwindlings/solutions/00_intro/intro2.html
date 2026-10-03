@@ -1,0 +1,25 @@
+<!doctype html>
+<!--
+  intro2: reading a failure
+
+  Tailwind only generates CSS for class names it finds, spelled exactly the
+  way a utility is named. A typo is not an error: the class is just ignored,
+  and the element silently keeps its default style.
+
+  Task: the paragraph should be gray-600 and slightly larger than body text
+  (text-lg). Someone typed the classes from memory. Fix them.
+
+  Preview: npm run preview intro2
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>intro2</title>
+  </head>
+  <body class="p-8">
+    <p id="lede" class="text-lg text-gray-600">
+      Utility classes are small, single-purpose, and composable.
+    </p>
+  </body>
+</html>

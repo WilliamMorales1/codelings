@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package deploy.v1;
+
+option go_package = "grpclings/exercises/03_codegen_encoding/protoapi1;protoapi1";
+
+message Limits {
+  int32 cpu_millis = 1;
+  int32 memory_mib = 2;
+}
+
+message Config {
+  string service = 1;
+  int32 replicas = 2;
+  Limits limits = 3;
+  repeated string tags = 4;
+}

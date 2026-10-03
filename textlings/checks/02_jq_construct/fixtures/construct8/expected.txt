@@ -1,0 +1,2 @@
+export SMTP_PASSWORD='it'\''s-a-secret'
+export SMTP_USER='mailer@acme.io'

@@ -1,0 +1,4 @@
+DEBUG config loaded
+no level: {"msg":"no level here"}
+unparsed: Killed
+INFO bye

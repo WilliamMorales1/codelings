@@ -1,0 +1,21 @@
+# env1: Environment= and quoting
+#
+# Environment= sets variables for the service's processes. One line can set
+# several, separated by spaces, which is exactly why a value containing a
+# space must be quoted - around the whole assignment:
+#   Environment="GREETING=hello world" TARGET=systemd
+# Without quotes, `Environment=A=hello world` sets A=hello and then chokes
+# on "world".
+#
+# Unit files have no shell. ExecStart= is split into words by systemd, and
+# systemd itself expands $VAR / ${VAR} from the unit's environment.
+#
+# Task: the greeter should log "hello world, systemd". Fix the environment.
+
+[Unit]
+Description=systemdlings: greeter
+
+[Service]
+Type=oneshot
+Environment=GREETING=hello world
+ExecStart=/usr/bin/echo "${GREETING}, ${TARGET}"

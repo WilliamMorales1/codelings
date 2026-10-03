@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package audit.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "grpclings/exercises/03_codegen_encoding/protojson1;protojson1";
+
+enum Severity {
+  SEVERITY_UNSPECIFIED = 0;
+  SEVERITY_INFO = 1;
+  SEVERITY_ALERT = 2;
+}
+
+message Event {
+  string event_id = 1;
+  string actor_email = 2;
+  Severity severity = 3;
+  int32 retry_count = 4;
+  google.protobuf.Timestamp occurred_at = 5;
+}

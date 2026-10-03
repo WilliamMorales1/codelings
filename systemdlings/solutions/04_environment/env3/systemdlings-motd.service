@@ -1,0 +1,9 @@
+# env3: WorkingDirectory=
+
+[Unit]
+Description=systemdlings: print the message of the day
+
+[Service]
+Type=oneshot
+WorkingDirectory=%t/systemdlings/env3
+ExecStart=/usr/bin/cat motd.txt

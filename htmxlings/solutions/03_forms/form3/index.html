@@ -1,0 +1,30 @@
+<!doctype html>
+<!--
+  form3 - hx-vals
+
+  hx-vals adds extra parameters to a request, written as JSON:
+    hx-vals='{"id": 7, "dir": "up"}'
+  Note the single quotes around the attribute: JSON needs double quotes
+  inside. (A "js:" prefix evaluates it as JavaScript instead; avoid that
+  with untrusted data.)
+
+  TASK: the vote buttons send nothing useful, because their hx-vals are
+  not valid JSON (htmx logs an error and drops them). Fix both so the
+  server gets id=7 and dir=up / dir=down.
+
+  Try it in a browser: npm run serve form3
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>form3</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Is htmx fun?</h1>
+  <button id="up" hx-post="/vote" hx-target="#score" hx-vals='{"id": 7, "dir": "up"}'>+1</button>
+  <button id="down" hx-post="/vote" hx-target="#score" hx-vals='{"id": 7, "dir": "down"}'>-1</button>
+  Score: <span id="score">0</span>
+</body>
+</html>

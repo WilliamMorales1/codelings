@@ -1,0 +1,13 @@
+USER          PID %CPU %MEM     VSZ    RSS TTY   STAT START   TIME COMMAND
+root            1 26.8  0.2  142965  30624 pts/1 Ssl  08:12  11:28 /usr/bin/NetworkManager --no-daemon
+root          274 24.1  4.7 2349950 757489 ?     Sl   08:12   0:01 /usr/lib/systemd/systemd-udevd
+learner1      940  0.3  3.6 1755801 568612 ?     R+   Sep27   0:33 -bash
+root         1168 13.1  5.0 2470081 801698 ?     Sl   08:12  10:14 /usr/lib/systemd/systemd-journald
+learner1     1948 28.6  3.0 1451303 482829 pts/1 Ssl  Sep27   1:11 /usr/libexec/gnome-terminal-server
+postgres     2593 25.8  4.7 2294915 759690 pts/0 Ssl  09:40   8:53 /usr/bin/postgres -D /var/lib/postgres/data
+http         3280  9.1  1.2  676928 199971 pts/1 Ssl  09:40   9:54 nginx: worker process
+postgres     3316  7.3  3.2 1566352 504454 pts/1 S    09:40   8:56 postgres: checkpointer
+learner1     4036 20.2  5.1 2492385 814424 ?     R+   Sep27   8:06 /usr/bin/nautilus --gapplication-service
+dbus         4834 15.6  1.1  569194 172550 pts/0 R+   Sep27   0:30 /usr/bin/dbus-broker-launch --scope system --audit
+root         4879 21.1  2.0 1053832 324416 pts/1 S    08:12   8:14 nginx: master process /usr/bin/nginx
+learner1     4892  6.0  5.1 2498427 808852 ?     R+   Sep27   5:54 nvim prog.awk

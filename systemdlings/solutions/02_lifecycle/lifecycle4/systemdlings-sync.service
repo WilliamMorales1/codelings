@@ -1,0 +1,9 @@
+# lifecycle4: SuccessExitStatus=
+
+[Unit]
+Description=systemdlings: sync job with a creative exit code
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sh %t/systemdlings/lifecycle4/sync.sh
+SuccessExitStatus=3

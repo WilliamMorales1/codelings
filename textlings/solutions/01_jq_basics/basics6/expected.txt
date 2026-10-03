@@ -1,0 +1,12 @@
+coredns
+metrics-server
+metrics-server
+grafana
+(none)
+prometheus
+checkout
+payments
+search
+api
+(none)
+worker

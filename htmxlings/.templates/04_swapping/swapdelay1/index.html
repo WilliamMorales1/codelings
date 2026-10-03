@@ -1,0 +1,33 @@
+<!doctype html>
+<!--
+  swapdelay1 - swap timing and the htmx-swapping class
+
+  Before swapping, htmx adds the class htmx-swapping to the target;
+  after, it adds htmx-settling (and htmx-added to new content). Pair
+  those classes with CSS transitions to animate. hx-swap modifiers
+  control the timing:
+    hx-swap="outerHTML swap:300ms"   wait 300ms before swapping
+    hx-swap="innerHTML settle:1s"    wait 1s before settling
+
+  TASK: the stylesheet fades .htmx-swapping elements out over 300ms,
+  but "Dismiss" removes the notice instantly, so the fade never shows.
+  Keep the notice (with htmx-swapping on it) for 300ms before the swap.
+
+  Try it in a browser: npm run serve swapdelay1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>swapdelay1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Inbox</h1>
+  <div id="notice" class="notice">
+    New messages arrived!
+    <button hx-delete="/notice" hx-target="#notice" hx-swap="outerHTML">Dismiss</button>
+  </div>
+  <p>Nothing else to see.</p>
+</body>
+</html>

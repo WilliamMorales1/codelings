@@ -1,0 +1,18 @@
+/*
+  dark3: data-attribute themes and stacked variants
+
+  @custom-variant can match anything, for example a data-theme attribute:
+
+    @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+  Variants stack left to right: dark:hover:bg-gray-700 applies when both
+  are true. dark:md:... works the same way.
+
+  Task:
+    1. here: make dark: follow data-theme="dark" on any ancestor
+    2. in index.html: in dark mode the link is sky-400, and sky-300 when
+       hovered (light mode: sky-700, sky-900 on hover, already done)
+*/
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));

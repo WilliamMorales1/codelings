@@ -1,0 +1,8 @@
+# timers2: harder calendar expressions, several OnCalendar= lines
+
+[Unit]
+Description=systemdlings: monthly maintenance windows
+
+[Timer]
+OnCalendar=Mon *-*-01..07 03:00
+OnCalendar=*-*~01 23:00

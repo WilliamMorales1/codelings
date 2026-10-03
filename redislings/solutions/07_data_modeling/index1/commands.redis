@@ -1,0 +1,9 @@
+# index1 — a secondary index with sets
+
+MULTI
+HSET user:4 name Lin city paris
+SADD idx:user:city:paris 4
+HSET user:2 city lyon
+SMOVE idx:user:city:paris idx:user:city:lyon 2
+EXEC
+SMEMBERS idx:user:city:paris

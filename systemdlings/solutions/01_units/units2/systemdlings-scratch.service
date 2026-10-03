@@ -1,0 +1,10 @@
+# units2: oneshot services and RemainAfterExit=
+
+[Unit]
+Description=systemdlings: set up a scratch directory
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/mkdir -p %t/systemdlings/units2/scratch
+ExecStop=/usr/bin/rm -rf %t/systemdlings/units2/scratch

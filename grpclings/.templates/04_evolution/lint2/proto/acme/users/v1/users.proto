@@ -1,0 +1,36 @@
+// lint2: services that can evolve
+//
+// buf lint's STANDARD rules for services:
+//   - service names end in Service (SERVICE_SUFFIX);
+//   - every RPC Foo takes its own FooRequest and returns its own FooResponse
+//     (RPC_REQUEST_STANDARD_NAME, RPC_RESPONSE_STANDARD_NAME,
+//     RPC_REQUEST_RESPONSE_UNIQUE).
+// Why so strict? Sharing `User` as a response, or google.protobuf.Empty,
+// looks tidy until one RPC needs one more field: then every RPC using that
+// type changes with it, or you break the API. A dedicated wrapper message
+// costs nothing on the wire.
+//
+// Task: make `buf lint` pass. The check expects service UserService with
+//   GetUser(GetUserRequest) returns (GetUserResponse)      request has user_id = 1, response has User user = 1
+//   DeleteUser(DeleteUserRequest) returns (DeleteUserResponse)   request has user_id = 1, response is empty
+// and message User unchanged.
+
+syntax = "proto3";
+
+package acme.users.v1;
+
+import "google/protobuf/empty.proto";
+
+message User {
+  string user_id = 1;
+  string email = 2;
+}
+
+message UserId {
+  string user_id = 1;
+}
+
+service Users {
+  rpc GetUser(UserId) returns (User);
+  rpc DeleteUser(UserId) returns (google.protobuf.Empty);
+}

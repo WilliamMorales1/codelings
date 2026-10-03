@@ -1,0 +1,7 @@
+# hardened
+Port 2222
+
+
+AllowUsers deploy learner1
+# ClientAliveInterval 300
+ClientAliveInterval 120

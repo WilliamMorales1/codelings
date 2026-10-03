@@ -1,0 +1,4 @@
+502 /login
+500 /api/v1/search?q=lamp
+502 /api/v1/checkout
+500 /healthz

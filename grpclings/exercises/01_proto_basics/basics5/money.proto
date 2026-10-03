@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package common.v1;
+
+option go_package = "grpclings/exercises/01_proto_basics/basics5;basics5";
+
+// Money is an amount in the smallest unit of a currency (cents for EUR).
+message Money {
+  string currency = 1;
+  int64 units = 2;
+}

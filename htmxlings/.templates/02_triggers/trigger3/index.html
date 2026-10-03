@@ -1,0 +1,24 @@
+<!doctype html>
+<!--
+  trigger3 - polling with "every"
+
+  hx-trigger="every 2s" re-issues the request on a timer, for as long as
+  the element is in the page. It is the simplest way to show live-ish data.
+
+  TASK: the server status is fetched once and then goes stale. Poll
+  GET /status every 300ms instead (the element replaces its own contents).
+
+  Try it in a browser: npm run serve trigger3
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>trigger3</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Server status</h1>
+  <div id="status" hx-get="/status" hx-trigger="load">checking...</div>
+</body>
+</html>

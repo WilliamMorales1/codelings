@@ -1,0 +1,9 @@
+{"name":"metrics-server-e8e06f291-f291b","namespace":"kube-system","node":"ip-10-1-9-9","phase":"Running"}
+{"name":"metrics-server-eaba9e7b8-9e7b8","namespace":"kube-system","node":"ip-10-1-2-3","phase":"Running"}
+{"name":"grafana-29721dea3-dea3b","namespace":"monitoring","node":"ip-10-1-9-9","phase":"Pending"}
+{"name":"grafana-9fdcc93f0-93f0e","namespace":"monitoring","node":"ip-10-1-2-3","phase":"Running"}
+{"name":"checkout-8f2a1be9c-be9cd","namespace":"prod","node":"ip-10-1-9-9","phase":"Running"}
+{"name":"payments-ba0a76c19-6c196","namespace":"prod","node":"ip-10-1-2-3","phase":"Running"}
+{"name":"api-404ee207f-207f8","namespace":"shop","node":"ip-10-1-2-3","phase":"Running"}
+{"name":"worker-1bbeaa14a-a14a7","namespace":"shop","node":"ip-10-1-2-3","phase":"Failed"}
+{"name":"worker-1c02c6b95-c6b95","namespace":"shop","node":"ip-10-1-9-9","phase":"Running"}

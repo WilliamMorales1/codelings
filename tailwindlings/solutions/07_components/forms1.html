@@ -1,0 +1,39 @@
+<!doctype html>
+<!--
+  forms1: styling form controls
+
+  Preflight (Tailwind's reset) strips most form styling, so inputs start
+  plain. Useful pieces:
+    placeholder:text-gray-400      styles the ::placeholder pseudo-element
+    focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30
+                                   a visible, on-brand focus state
+    accent-sky-600                 colours native checkboxes/radios/ranges
+    disabled:bg-gray-100           for disabled fields
+  Removing the outline (focus:outline-none) without adding another focus
+  style leaves keyboard users lost.
+
+  Task:
+    - #email: placeholder text gray-400; on focus a sky-500 border and a
+      2px sky-500/30 ring (the outline-none can stay once there is a ring)
+    - #terms: the checkbox uses accent colour sky-600
+    - #company (disabled): gray-100 background
+
+  Preview: npm run preview forms1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>forms1</title>
+  </head>
+  <body class="p-8">
+    <form class="max-w-sm space-y-4">
+      <input id="email" type="email" placeholder="you@example.com" class="block w-full rounded-md border border-gray-300 px-3 py-2 placeholder:text-gray-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30 focus:outline-none" />
+      <input id="company" disabled value="acme" class="block w-full rounded-md border border-gray-300 px-3 py-2 disabled:bg-gray-100" />
+      <label class="flex items-center gap-2">
+        <input id="terms" type="checkbox" class="size-4 accent-sky-600" />
+        I accept the terms
+      </label>
+    </form>
+  </body>
+</html>

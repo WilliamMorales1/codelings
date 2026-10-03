@@ -1,0 +1,36 @@
+// basics2: choosing scalar types
+//
+// Protobuf has more integer types than Go, because they differ in how they are
+// ENCODED, not just in range:
+//   int32/int64     varint; negative numbers always take 10 bytes
+//   uint32/uint64   varint; cannot be negative
+//   sint32/sint64   zigzag varint; small negative numbers stay small
+//   fixed32/64      always 4/8 bytes; cheaper than varint for big random values
+//   double/float    IEEE 754, 8/4 bytes
+//   bool, string (UTF-8 text only), bytes (anything)
+//
+// Task: every field below was lazily declared as `string`. Give each the type
+// its comment asks for. Keep the names and numbers.
+
+syntax = "proto3";
+
+package telemetry.v1;
+
+option go_package = "grpclings/exercises/01_proto_basics/basics2;basics2";
+
+message Reading {
+  // Free-form identifier like "boiler-3".
+  string device_id = 1;
+  // Counter that starts at 0 and only goes up, forever. Needs 64 bits.
+  string sequence = 2;
+  // Temperature in Celsius, Go code wants a float64.
+  string temperature_c = 3;
+  // Clock skew in milliseconds; usually small and just as often negative. 64 bits.
+  string offset_ms = 4;
+  // CRC32 of the payload: a uniformly random 32-bit unsigned value.
+  string checksum = 5;
+  // Raw sensor frame, not text.
+  string frame = 6;
+  // Whether the sensor self-test passed.
+  string healthy = 7;
+}

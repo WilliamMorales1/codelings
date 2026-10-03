@@ -1,0 +1,10 @@
+Include=/etc/ssh/sshd_config.d/*.conf
+PermitRootLogin=no
+MaxAuthTries=3
+PubkeyAuthentication=yes
+PasswordAuthentication=no
+KbdInteractiveAuthentication=no
+UsePAM=yes
+X11Forwarding=no
+PrintMotd=no
+Subsystem=sftp	/usr/lib/ssh/sftp-server

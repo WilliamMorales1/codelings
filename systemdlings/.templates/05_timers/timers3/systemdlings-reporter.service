@@ -1,0 +1,8 @@
+# timers3: the report job (nothing to change here, including its name)
+
+[Unit]
+Description=systemdlings: generate the report
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/echo "report generated"

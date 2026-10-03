@@ -1,0 +1,125 @@
+{
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+        "annotations": {
+            "deployment.kubernetes.io/revision": "22",
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"name\":\"shop-api\",\"namespace\":\"shop\"},\"spec\":{\"replicas\":3}}\n"
+        },
+        "creationTimestamp": "2026-09-29T14:39:55Z",
+        "generation": 15,
+        "labels": {
+            "app": "shop-api",
+            "team": "platform"
+        },
+        "managedFields": [
+            {
+                "apiVersion": "apps/v1",
+                "fieldsType": "FieldsV1",
+                "fieldsV1": {
+                    "f:spec": {
+                        "f:replicas": {}
+                    }
+                },
+                "manager": "kubectl-client-side-apply",
+                "operation": "Update",
+                "time": "2026-09-28T15:23:45Z"
+            }
+        ],
+        "name": "shop-api",
+        "namespace": "shop",
+        "resourceVersion": "169448",
+        "uid": "5ffb86c8-769d-d09f-b2a7-24d85dcc39d7"
+    },
+    "spec": {
+        "progressDeadlineSeconds": 600,
+        "replicas": 3,
+        "revisionHistoryLimit": 10,
+        "selector": {
+            "matchLabels": {
+                "app": "shop-api"
+            }
+        },
+        "strategy": {
+            "rollingUpdate": {
+                "maxSurge": "25%",
+                "maxUnavailable": "25%"
+            },
+            "type": "RollingUpdate"
+        },
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "shop-api"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "shop-api",
+                        "image": "ghcr.io/acme/shop-api:1.8.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "ports": [
+                            {
+                                "containerPort": 8080,
+                                "name": "http",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "env": [
+                            {
+                                "name": "LOG_LEVEL",
+                                "value": "info"
+                            },
+                            {
+                                "name": "DATABASE_URL",
+                                "valueFrom": {
+                                    "secretKeyRef": {
+                                        "key": "url",
+                                        "name": "shop-api-db"
+                                    }
+                                }
+                            }
+                        ],
+                        "readinessProbe": {
+                            "httpGet": {
+                                "path": "/healthz",
+                                "port": "http"
+                            },
+                            "periodSeconds": 10
+                        },
+                        "resources": {
+                            "limits": {
+                                "memory": "256Mi"
+                            },
+                            "requests": {
+                                "cpu": "100m",
+                                "memory": "128Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File"
+                    }
+                ],
+                "restartPolicy": "Always",
+                "terminationGracePeriodSeconds": 30
+            }
+        }
+    },
+    "status": {
+        "availableReplicas": 3,
+        "observedGeneration": 7,
+        "readyReplicas": 3,
+        "replicas": 3,
+        "updatedReplicas": 3,
+        "conditions": [
+            {
+                "type": "Available",
+                "status": "True",
+                "reason": "MinimumReplicasAvailable",
+                "lastTransitionTime": "2026-09-28T11:10:50Z",
+                "lastUpdateTime": "2026-09-30T04:16:33Z"
+            }
+        ]
+    }
+}

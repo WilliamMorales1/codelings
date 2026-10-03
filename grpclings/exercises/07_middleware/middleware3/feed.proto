@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package feed.v1;
+
+option go_package = "grpclings/exercises/07_middleware/middleware3;middleware3";
+
+message SubscribeRequest {
+  int32 count = 1;
+}
+
+message Event {
+  string text = 1;
+}
+
+service FeedService {
+  rpc Subscribe(SubscribeRequest) returns (stream Event);
+}

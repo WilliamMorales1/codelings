@@ -1,0 +1,29 @@
+<!doctype html>
+<!--
+  trigger1 - hx-trigger modifiers: changed and delay
+
+  hx-trigger picks the event that fires the request, plus modifiers:
+    changed      only if the element's value actually changed
+    delay:300ms  wait until the event has stopped firing for 300ms
+                 (every new event restarts the timer - a debounce)
+
+  TASK: this search box sends one request per keystroke, and even for
+  keys that do not change the text (arrows, shift). Make it wait for a
+  300ms pause in typing, and skip keyups that leave the value unchanged.
+
+  Try it in a browser: npm run serve trigger1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>trigger1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Search</h1>
+  <input id="q" name="q" type="search" autocomplete="off"
+         hx-get="/search" hx-trigger="keyup" hx-target="#results">
+  <ul id="results"></ul>
+</body>
+</html>

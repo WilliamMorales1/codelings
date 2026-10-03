@@ -1,0 +1,88 @@
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "creationTimestamp": "2026-09-29T00:52:06Z",
+        "generateName": "metrics-server-eaba9e7b8-",
+        "labels": {
+            "app": "metrics-server",
+            "pod-template-hash": "eaba9e7b8"
+        },
+        "name": "metrics-server-eaba9e7b8-9e7b8",
+        "namespace": "kube-system",
+        "ownerReferences": [
+            {
+                "apiVersion": "apps/v1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "ReplicaSet",
+                "name": "metrics-server-eaba9e7b8",
+                "uid": "b5459d83-fbc4-6f1a-ea99-0e94821d4606"
+            }
+        ],
+        "resourceVersion": "132926",
+        "uid": "b6c004cc-3b83-67dc-3f2b-b31efe9934ad"
+    },
+    "spec": {
+        "containers": [
+            {
+                "name": "metrics-server",
+                "image": "registry.k8s.io/metrics-server/metrics-server:2.0.2",
+                "imagePullPolicy": "IfNotPresent",
+                "ports": [
+                    {
+                        "containerPort": 8080,
+                        "protocol": "TCP"
+                    }
+                ],
+                "resources": {
+                    "limits": {
+                        "memory": "128Mi"
+                    },
+                    "requests": {
+                        "cpu": "50m",
+                        "memory": "64Mi"
+                    }
+                },
+                "env": [
+                    {
+                        "name": "LOG_LEVEL",
+                        "value": "debug"
+                    },
+                    {
+                        "name": "PORT",
+                        "value": "8080"
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "nodeName": "ip-10-1-2-3",
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30
+    },
+    "status": {
+        "phase": "Running",
+        "hostIP": "10.0.0.17",
+        "podIP": "10.244.0.66",
+        "qosClass": "Burstable",
+        "startTime": "2026-09-28T13:51:24Z",
+        "containerStatuses": [
+            {
+                "name": "metrics-server",
+                "ready": true,
+                "restartCount": 5,
+                "image": "registry.k8s.io/metrics-server/metrics-server:2.0.2",
+                "imageID": "registry.k8s.io/metrics-server/metrics-server@sha256:69d4a217f6dfcc37e3395ca0d747098227c768e5a2059b89b7ea4c3b55c18f26",
+                "started": true,
+                "state": {
+                    "running": {
+                        "startedAt": "2026-09-30T06:14:41Z"
+                    }
+                }
+            }
+        ]
+    }
+}

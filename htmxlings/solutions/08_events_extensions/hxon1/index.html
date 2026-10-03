@@ -1,0 +1,33 @@
+<!doctype html>
+<!--
+  hxon1 - hx-on
+
+  hx-on:<event>="js" runs inline JavaScript when an event fires on the
+  element; `this` is the element and `event` the event. For htmx
+  events there is a shorthand: hx-on::after-request means
+  hx-on:htmx:after-request (htmx event names in kebab-case).
+  The htmx 1 form hx-on="htmx:afterRequest: ..." no longer exists in 2.
+
+  TASK: clear the form after a *successful* post (event.detail.successful)
+  and keep the text when the server rejects it, so it can be fixed.
+  The attribute below uses the old htmx 1 syntax and does nothing.
+
+  Try it in a browser: npm run serve hxon1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>hxon1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Notes</h1>
+  <form hx-post="/notes" hx-target="#notes" hx-swap="beforeend"
+        hx-on::after-request="if (event.detail.successful) this.reset()">
+    <input name="text" placeholder="Short note (max 20 chars)">
+    <button>Add</button>
+  </form>
+  <ul id="notes"></ul>
+</body>
+</html>

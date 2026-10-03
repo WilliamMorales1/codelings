@@ -1,0 +1,22 @@
+# env5: escaped instance names, %I and %f
+#
+# Instance names cannot contain "/" as-is. `systemd-escape --path` turns a
+# path into a legal instance name:
+#   systemd-escape --path /run/user/1000/photos   ->  run-user-1000-photos
+# and then:
+#   %i  the instance as written              run-user-1000-photos
+#   %I  unescaped                            run/user/1000/photos
+#   %f  unescaped, with a leading /          /run/user/1000/photos
+# (Real "-" in a path become \x2d, which is why unescaping is safe.)
+#
+# Task: systemdlings-du@<escaped path>.service should report the disk usage
+# of that path. The check starts it as
+#   systemdlings-du@$(systemd-escape --path %t/systemdlings/env5/photos).service
+# Pick the specifier that turns the instance back into the real path.
+
+[Unit]
+Description=systemdlings: disk usage of %I
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/du -s %i

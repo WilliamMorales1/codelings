@@ -1,0 +1,30 @@
+/*
+  apply1: component classes with @apply
+
+  When the same pile of utilities repeats on every button, and you have
+  no template partials to reuse, you can name it. @apply copies a
+  utility's declarations (variants included) into your own rule; put the
+  rule in the components layer so plain utilities can still override it:
+
+    @layer components {
+      .badge { @apply rounded-full px-2 text-xs; }
+    }
+
+  Use it sparingly: a template component is usually the better tool.
+
+  Task: define
+    .btn          rounded-md, px-4 py-2, font-semibold
+    .btn-primary  bg-sky-600, text-white, hover:bg-sky-700
+  so the buttons in index.html look right.
+*/
+@import "tailwindcss";
+
+@layer components {
+  .btn {
+    @apply rounded-md px-4 py-2 font-semibold;
+  }
+
+  .btn-primary {
+    @apply bg-sky-600 text-white hover:bg-sky-700;
+  }
+}

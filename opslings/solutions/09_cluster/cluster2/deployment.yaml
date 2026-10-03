@@ -1,0 +1,45 @@
+# cluster2 -- debugging a Deployment that never becomes ready
+#
+# Apply this as it is first, and watch it fail:
+#
+#   kubectl --context kind-opslings apply -f deployment.yaml
+#   kubectl --context kind-opslings -n opslings get pods
+#   kubectl --context kind-opslings -n opslings describe pod -l app=web
+#
+# The Events at the bottom of `describe` say what is wrong (look for
+# ErrImagePull / ImagePullBackOff). Fix the manifest, apply it again, and
+# wait for the rollout:
+#
+#   kubectl --context kind-opslings apply -f deployment.yaml
+#   kubectl --context kind-opslings -n opslings rollout status deploy/web
+#
+# Task: Deployment `web` in namespace `opslings`, 2 replicas of
+# nginx:1.27-alpine, all available.
+#
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: opslings
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: opslings
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.27-alpine
+          ports:
+            - name: http
+              containerPort: 80

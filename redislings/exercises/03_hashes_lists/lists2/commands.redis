@@ -1,0 +1,12 @@
+# lists2 — capped lists with LTRIM
+#
+# Learn: "keep the N most recent items" is LPUSH followed by LTRIM key 0
+# N-1. LTRIM's range is inclusive at both ends, like LRANGE.
+#
+# Task: recent:user:7 holds the user's latest activity, newest first, and
+# must never hold more than 5 entries. Record a new "login" event and keep
+# the list capped. The check seeds lists of different lengths.
+#
+
+LPUSH recent:user:7 login
+LTRIM recent:user:7 0 5

@@ -1,0 +1,20 @@
+# env2: EnvironmentFile=
+#
+# EnvironmentFile= reads KEY=VALUE lines from a file (comments with # and
+# blank lines allowed). Two things trip people up:
+#   - the path must be absolute (specifiers such as %h and %t are fine);
+#     a "-" in front makes a missing file non-fatal;
+#   - it is not a shell script. No `export`, no $(command), no ${OTHER}
+#     expansion. A line systemd cannot parse is skipped.
+#
+# Task: the app must see PORT=8080 and APP_MODE=production from app.env.
+# The check copies this exercise to %t/systemdlings/env2/. Fix both this
+# unit and app.env.
+
+[Unit]
+Description=systemdlings: app configured through a file
+
+[Service]
+Type=oneshot
+EnvironmentFile=app.env
+ExecStart=/usr/bin/echo "listening on ${PORT} in ${APP_MODE} mode"

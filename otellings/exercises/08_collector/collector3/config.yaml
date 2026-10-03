@@ -1,0 +1,41 @@
+# collector3 -- the attributes processor
+#
+# The collector is the place to enforce data hygiene for every service at
+# once. The attributes processor edits span (and log, and metric data
+# point) attributes with a list of actions, applied in order:
+#
+#   - key: foo
+#     action: insert | update | upsert | delete | hash | extract | convert
+#     value: ...          (for insert/update/upsert)
+#
+# insert only adds a missing key, update only changes an existing one,
+# upsert does either. hash replaces the value with a SHA-256 hex digest,
+# so you can still group by it without storing the raw value.
+#
+# Task: someone's service leaks secrets and personal data. Add an
+# `attributes/scrub` processor to the traces pipeline that
+#   1. deletes http.request.header.authorization
+#   2. hashes user.email
+#   3. inserts pipeline.tier = "edge"
+#
+
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 127.0.0.1:4318
+
+processors:
+  batch:
+    timeout: 200ms
+
+exporters:
+  debug:
+    verbosity: detailed
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]

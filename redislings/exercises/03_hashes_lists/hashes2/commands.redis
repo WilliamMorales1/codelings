@@ -1,0 +1,14 @@
+# hashes2 — HINCRBY and HDEL
+#
+# Learn: HINCRBY key field n adds to one numeric field atomically, the
+# same way INCRBY does for a whole string key. HDEL removes fields.
+#
+# Task: the check seeds user:7 (with a visits field) and the shopping
+# cart cart:7 (field = product, value = quantity). Record one more visit,
+# add 2 more of sku:42 to the cart, and remove sku:13 from the cart
+# entirely. The values differ between runs, so no hard-coded numbers.
+#
+
+HSET user:7 visits 4
+HSET cart:7 sku:42 3
+HSET cart:7 sku:13 0

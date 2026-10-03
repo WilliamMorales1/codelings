@@ -1,0 +1,8 @@
+{
+  "backup.service": 7,
+  "NetworkManager.service": 1,
+  "kubelet.service": 6,
+  "postgresql.service": 4,
+  "sshd.service": 3,
+  "nginx.service": 2
+}

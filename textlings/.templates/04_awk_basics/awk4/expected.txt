@@ -1,0 +1,7 @@
+MOUNT                         USE    FREE
+/                             81%    92.2 GiB
+/boot                         30%     0.7 GiB
+/tmp                           2%     7.6 GiB
+/run/media/learner1/USB       98%     1.4 GiB
+/home                         81%    92.2 GiB
+/run/user/1000                 1%     1.5 GiB

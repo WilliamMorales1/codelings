@@ -1,0 +1,3 @@
+# index2 — a range index with a sorted set
+
+ZRANGE idx:user:age 18 30 BYSCORE LIMIT 0 2

@@ -1,0 +1,42 @@
+<!doctype html>
+<!--
+  cqueries1: container queries
+
+  Viewport breakpoints know nothing about where a component is placed: a
+  card in a 300px sidebar gets md: styles on a wide screen too. Container
+  queries size things against a parent instead:
+    - mark the parent with @container (container-type: inline-size)
+    - use @sm:, @md:, @lg: ... on the children: they apply when the
+      nearest container is at least 24rem, 28rem, 32rem ... wide
+  Name containers to target a specific one: @container/card with @md/card:.
+
+  Task: the same profile card is used in the narrow sidebar and in the wide
+  main area. Each <div class="... card-slot"> is a container; the card lays
+  out as a row (flex-row) once its container is at least 28rem (@md), and as
+  a column otherwise, no matter how wide the viewport is.
+
+  Preview: npm run preview cqueries1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>cqueries1</title>
+  </head>
+  <body>
+    <div class="flex gap-4 p-4">
+      <aside class="card-slot @container w-72" data-width="288">
+        <div id="small" class="flex flex-col gap-4 rounded border p-4 @md:flex-row">
+          <img class="size-16 rounded-full bg-gray-200" src="data:," alt="" />
+          <p>Ada Lovelace &middot; Analyst</p>
+        </div>
+      </aside>
+      <main class="card-slot @container flex-1" data-width="900">
+        <div id="large" class="flex flex-col gap-4 rounded border p-4 @md:flex-row">
+          <img class="size-16 rounded-full bg-gray-200" src="data:," alt="" />
+          <p>Ada Lovelace &middot; Analyst</p>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

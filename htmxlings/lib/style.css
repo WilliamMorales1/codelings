@@ -1,0 +1,10 @@
+/* Just enough styling that the exercises are pleasant to poke at in a browser. */
+body { font: 16px/1.5 system-ui, sans-serif; max-width: 42rem; margin: 2rem auto; padding: 0 1rem; }
+button, input, select { font: inherit; padding: 0.2rem 0.5rem; }
+table { border-collapse: collapse; } td, th { border: 1px solid #ccc; padding: 0.2rem 0.6rem; }
+.error { color: #b00020; }
+.htmx-indicator { opacity: 0; transition: opacity 200ms; }
+.htmx-request .htmx-indicator, .htmx-request.htmx-indicator { opacity: 1; }
+.htmx-swapping { opacity: 0; transition: opacity 300ms; }
+.htmx-added { opacity: 0; } .fade-in { opacity: 1; transition: opacity 300ms; }
+.progress { height: 1rem; background: #eee; } .progress > div { height: 100%; background: #4a7; transition: width 200ms; }

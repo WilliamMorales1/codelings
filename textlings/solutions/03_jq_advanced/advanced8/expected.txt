@@ -1,0 +1,2 @@
+spec.template.spec.containers.0.image: docker.io/library/nginx:1.29.1
+spec.template.spec.containers.1.image: docker.io/fluent/fluent-bit:4.1.0

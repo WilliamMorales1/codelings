@@ -1,0 +1,26 @@
+# journal1: where service output goes, and SyslogIdentifier=
+#
+# Everything a service writes to stdout and stderr ends up in the journal
+# (StandardOutput=journal is the default). Each line is tagged with fields:
+# _SYSTEMD_USER_UNIT, _PID, PRIORITY, and SYSLOG_IDENTIFIER - the name in
+# front of "[pid]:" in `journalctl` output. By default the identifier is the
+# name of the executable, so every shell-script service shows up as "sh"
+# or "bash".
+#
+# SyslogIdentifier= sets that name. It makes logs readable and lets you
+# filter with `journalctl --user -t NAME`, across units.
+#
+# A gotcha worth knowing: journald looks up the unit of a line from the
+# writing process. Lines printed by a short-lived child (the `date` in
+# `sh -c 'date; ...'`) sometimes arrive after the child is gone and lose
+# _SYSTEMD_USER_UNIT, so `journalctl -u` misses them. The identifier
+# belongs to the stream, so `-t` still finds them.
+#
+# Task: make the ledger's lines show up as "ledger" instead of "sh".
+
+[Unit]
+Description=systemdlings: pretend accounting job
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sh -c 'date -u +"ledger run at %%FT%%TZ"; echo "balance ok"'

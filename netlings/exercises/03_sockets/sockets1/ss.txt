@@ -1,0 +1,16 @@
+$ sudo ss -tanp
+State      Recv-Q Send-Q      Local Address:Port        Peer Address:Port  Process
+LISTEN     0      4096            127.0.0.1:631              0.0.0.0:*      users:(("cupsd",pid=812,fd=7))
+LISTEN     0      244               0.0.0.0:5432             0.0.0.0:*      users:(("postgres",pid=1044,fd=6))
+LISTEN     0      128               0.0.0.0:22               0.0.0.0:*      users:(("sshd",pid=701,fd=3))
+LISTEN     0      511             127.0.0.1:6379             0.0.0.0:*      users:(("redis-server",pid=990,fd=6))
+LISTEN     0      4096                    *:8080                   *:*      users:(("java",pid=2210,fd=41))
+ESTAB      0      0            192.168.1.23:22          192.168.1.50:51544  users:(("sshd",pid=3120,fd=4),("sshd",pid=3102,fd=4))
+ESTAB      0      0               127.0.0.1:5432           127.0.0.1:40112  users:(("postgres",pid=3301,fd=9))
+ESTAB      0      0               127.0.0.1:40112          127.0.0.1:5432   users:(("java",pid=2210,fd=58))
+ESTAB      0      0            192.168.1.23:43918      140.82.121.4:443    users:(("firefox",pid=2500,fd=112))
+ESTAB      0      36           192.168.1.23:43930      140.82.121.4:443    users:(("firefox",pid=2500,fd=118))
+ESTAB      0      0            192.168.1.23:52210      151.101.1.69:443    users:(("firefox",pid=2500,fd=121))
+TIME-WAIT  0      0            192.168.1.23:52200      151.101.1.69:443
+SYN-SENT   0      1            192.168.1.23:39002        10.20.30.40:5432   users:(("psql",pid=4410,fd=3))
+CLOSE-WAIT 1      0            192.168.1.23:38010      93.184.215.14:80    users:(("updater",pid=1500,fd=11))

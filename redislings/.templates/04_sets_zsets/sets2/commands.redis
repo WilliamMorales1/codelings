@@ -1,0 +1,15 @@
+# sets2 — SINTER, SUNION and the *STORE variants
+#
+# Learn: SINTER returns members present in ALL given sets, SUNION members
+# in ANY of them, SDIFF those in the first but none of the others. Each
+# has a *STORE form (SINTERSTORE dest k1 k2) that saves the result as a
+# new set instead of returning it.
+#
+# Task: following:alice and following:bob hold who each of them follows.
+#  1. Print the accounts BOTH alice and bob follow.
+#  2. Save everyone that alice OR bob follows into reach:alice:bob.
+# The two lines below have it the wrong way round.
+#
+
+SUNION following:alice following:bob
+SINTERSTORE reach:alice:bob following:alice following:bob

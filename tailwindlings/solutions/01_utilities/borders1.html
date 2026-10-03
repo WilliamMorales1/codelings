@@ -1,0 +1,32 @@
+<!doctype html>
+<!--
+  borders1: border width, colour, radius
+
+  `border` is a 1px solid border. In Tailwind v4 its default colour is
+  currentColor (v3 used gray-200), so you usually add a colour: border-gray-200.
+  Sides: border-t, border-b-2, border-x ... Radius: rounded-md, rounded-xl,
+  rounded-full, and per corner/side: rounded-t-lg.
+
+  Task:
+    - the card: 1px gray-200 border, rounded-xl corners
+    - the active tab: only a 2px sky-500 line along the bottom
+    - the badge: a pill (rounded-full)
+
+  Preview: npm run preview borders1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>borders1</title>
+  </head>
+  <body class="p-8">
+    <nav class="flex gap-6">
+      <a id="tab" href="#" class="border-b-2 border-sky-500 pb-2">Overview</a>
+      <a href="#" class="pb-2 text-gray-500">Settings</a>
+    </nav>
+    <div id="card" class="mt-4 rounded-xl border border-gray-200 p-6">
+      Plan: Pro <span id="badge" class="rounded-full bg-green-100 px-2 text-green-800">active</span>
+    </div>
+  </body>
+</html>

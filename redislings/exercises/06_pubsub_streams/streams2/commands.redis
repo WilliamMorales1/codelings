@@ -1,0 +1,10 @@
+# streams2 — reading back: XRANGE and XREVRANGE
+#
+# Learn: XRANGE key start end [COUNT n] reads entries oldest first; - and
+# + mean the smallest and largest possible IDs. XREVRANGE key end start
+# walks backwards (note the argument order: end comes first).
+#
+# Task: print the 2 NEWEST entries of events, newest first.
+#
+
+XRANGE events - + COUNT 2

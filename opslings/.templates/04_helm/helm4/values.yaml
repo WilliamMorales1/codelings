@@ -1,0 +1,13 @@
+image: ghcr.io/acme/shop:3.0.1
+
+# Extra environment variables for the container, as a map NAME: value.
+env:
+  LOG_LEVEL: info
+  REGION: eu-west-1
+  WORKERS: 4
+  CHECKOUT_V2: true
+
+ingress:
+  enabled: false
+  className: nginx
+  host: shop.example.com

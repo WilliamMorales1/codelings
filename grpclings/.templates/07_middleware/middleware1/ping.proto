@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package ping.v1;
+
+option go_package = "grpclings/exercises/07_middleware/middleware1;middleware1";
+
+message PingRequest {
+  // When set, the server answers with this gRPC status code (for testing).
+  int32 fail_with_code = 1;
+}
+
+message PingResponse {}
+
+service PingService {
+  rpc Ping(PingRequest) returns (PingResponse);
+}

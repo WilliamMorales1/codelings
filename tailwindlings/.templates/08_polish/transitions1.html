@@ -1,0 +1,30 @@
+<!doctype html>
+<!--
+  transitions1: transitions
+
+  A transition needs to know WHAT to animate (transition-property) and HOW
+  LONG. Tailwind's classes:
+    transition-colors   only colour properties
+    transition-transform   only transforms
+    transition          colours, opacity, shadow, transforms (translate, scale,
+                        rotate), filters: the usual set
+    duration-200, ease-out, delay-100 ...
+  Then change something in a state variant: hover:scale-105.
+
+  Task: on hover the card grows to 105% and its border turns sky-500. Both
+  changes must animate, over 200ms, with the ease-out curve.
+
+  Preview: npm run preview transitions1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>transitions1</title>
+  </head>
+  <body class="p-12">
+    <a id="card" href="#" class="block w-64 rounded-xl border-2 border-gray-200 p-6 transition-colors hover:scale-105 hover:border-sky-500">
+      Pro plan &rarr;
+    </a>
+  </body>
+</html>

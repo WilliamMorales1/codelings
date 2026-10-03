@@ -1,0 +1,44 @@
+# collector4 -- dropping noise with the filter processor
+#
+# Load balancers and Kubernetes probe /healthz every few seconds. Those
+# spans cost money and say nothing. The filter processor drops telemetry
+# that matches any of its OTTL (OpenTelemetry Transformation Language)
+# conditions:
+#
+#   filter/name:
+#     trace_conditions:
+#       - span.name == "something"
+#       - span.attributes["some.key"] == "value"
+#       - resource.attributes["service.name"] == "noisy"
+#
+# (Older configs use `traces: span: [...]` without the `span.` prefix;
+# collector 0.146 introduced the `trace_conditions` form used here.)
+#
+# Task: drop every span whose url.path attribute is "/healthz". The
+# filter/health processor below exists but has no condition and is not in
+# the pipeline.
+#
+
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 127.0.0.1:4318
+
+processors:
+  filter/health:
+    error_mode: ignore
+    trace_conditions: []
+  batch:
+    timeout: 200ms
+
+exporters:
+  debug:
+    verbosity: detailed
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]

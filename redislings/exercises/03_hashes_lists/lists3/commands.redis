@@ -1,0 +1,15 @@
+# lists3 — a reliable queue with LMOVE
+#
+# Learn: with a plain RPOP, a job disappears from Redis the moment a
+# worker takes it; if the worker crashes, the job is lost. LMOVE src dst
+# RIGHT LEFT pops from src and pushes onto dst in one atomic step, so the
+# job sits in a "processing" list until the worker removes it (LREM).
+#
+# Task: producers LPUSH onto queue:pending, so the oldest job is at the
+# right end. Take the oldest job and move it to the head of
+# queue:processing, atomically. Don't hard-code job names: the check runs
+# this against different queues.
+#
+
+RPOP queue:pending
+LPUSH queue:processing job:1

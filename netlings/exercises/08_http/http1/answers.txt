@@ -1,0 +1,36 @@
+# http1: the anatomy of curl -v
+#
+# curl-v.txt is the complete output of one `curl -v` run. The prefixes:
+#     *   curl telling you what it is doing (DNS, connect, TLS, decisions)
+#     >   request lines and headers it SENT
+#     <   response status line and headers it RECEIVED
+#     { } data received / sent (sizes only, because of -s)
+# Without -v you would only have seen the last line. When an HTTP request
+# misbehaves, -v is usually the first thing to reach for.
+#
+# (--resolve NAME:PORT:ADDR skips DNS for that name, see http3; --cacert
+# says which CA to trust, see http6; -L follows redirects, see http4.)
+
+# 1. Which IP address did curl connect to?
+server_ip:
+
+# 2. Which TLS version was negotiated? (as curl writes it)
+tls_version:
+
+# 3. Which HTTP version was used? (as in the status lines, e.g. HTTP/1.1)
+http_version:
+
+# 4. The status code of the very first response
+first_status:
+
+# 5. How many requests did curl send in total?
+requests:
+
+# 6. How many TCP connections did it open for them?
+connections:
+
+# 7. The CN of the certificate's issuer (who signed the server cert)
+issuer_cn:
+
+# 8. The response body curl finally printed
+body:

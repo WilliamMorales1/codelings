@@ -1,0 +1,23 @@
+# timers1: OnCalendar= is not cron
+#
+# A .timer starts a unit (by default the .service with the same name) at
+# given times. OnCalendar= takes systemd's calendar syntax:
+#   DayOfWeek Year-Month-Day Hour:Minute:Second
+# Every part is optional, "*" is any value, "a..b" is a range, "a,b" a list,
+# "/n" a repetition:
+#   Mon..Fri *-*-* 08:00        weekdays at 8
+#   *-*-01 00:00:00             the 1st of every month
+#   *:0/10                      every 10 minutes
+#   hourly, daily, weekly       shorthands
+# Try any expression with `systemd-analyze calendar 'EXPR'` - it prints the
+# normalized form and the next time it would fire. Timers run in local time
+# unless the expression ends in a timezone such as UTC.
+#
+# Task: this timer was translated from a crontab line. Make it fire at 09:30
+# on every weekday (Monday to Friday) and at no other time.
+
+[Unit]
+Description=systemdlings: stand-up reminder, weekdays 09:30
+
+[Timer]
+OnCalendar=30 9 * * 1-5

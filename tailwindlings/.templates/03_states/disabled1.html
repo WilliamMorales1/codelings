@@ -1,0 +1,40 @@
+<!doctype html>
+<!--
+  disabled1: disabled: and aria-* variants
+
+  disabled: matches the :disabled pseudo-class. Tailwind also has variants
+  for boolean ARIA attributes: aria-checked:, aria-disabled:, aria-expanded:,
+  aria-invalid:, aria-pressed:, aria-selected: ... (they match aria-X="true").
+  For any other value use brackets: aria-[sort=ascending]:.
+  Note invalid: (no aria-) is a different thing: the :invalid pseudo-class
+  from HTML constraint validation, which knows nothing about aria-invalid.
+
+  Styling off the attribute keeps visuals and accessibility in sync: the
+  screen reader and the red border come from the same source of truth.
+
+  Task:
+    - disabled buttons are half transparent (opacity-50) with a
+      not-allowed cursor; enabled ones are unchanged
+    - an input with aria-invalid="true" gets a red-500 border
+    - the column header sorted ascending (aria-sort="ascending") is sky-700
+    - a toggle button with aria-pressed="true" is sky-600 with white text
+
+  Preview: npm run preview disabled1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>disabled1</title>
+  </head>
+  <body class="space-y-4 p-8">
+    <input id="email" aria-invalid="true" class="block rounded border border-gray-300 px-3 py-2 invalid:border-red-500" value="ada@" />
+    <button id="save" disabled class="rounded bg-sky-600 px-4 py-2 text-white opacity-50">Save</button>
+    <button id="cancel" class="rounded bg-gray-200 px-4 py-2 opacity-50">Cancel</button>
+    <table><thead><tr>
+      <th id="name-col" aria-sort="ascending" class="px-2 aria-sort:text-sky-700">Name</th>
+      <th id="role-col" aria-sort="none" class="px-2 aria-sort:text-sky-700">Role</th>
+    </tr></thead></table>
+    <button id="bold" aria-pressed="true" class="rounded border px-3 py-1 pressed:bg-sky-600 pressed:text-white">B</button>
+  </body>
+</html>

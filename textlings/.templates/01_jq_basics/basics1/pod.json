@@ -1,0 +1,88 @@
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "creationTimestamp": "2026-10-01T04:30:54Z",
+        "generateName": "grafana-6cf79b17a-",
+        "labels": {
+            "app": "grafana",
+            "pod-template-hash": "6cf79b17a"
+        },
+        "name": "grafana-6cf79b17a-b17ae",
+        "namespace": "monitoring",
+        "ownerReferences": [
+            {
+                "apiVersion": "apps/v1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "ReplicaSet",
+                "name": "grafana-6cf79b17a",
+                "uid": "da711448-96c8-da19-64b2-d2bc815a47c5"
+            }
+        ],
+        "resourceVersion": "136202",
+        "uid": "cc22af58-be65-21cc-3e24-34e37af027bc"
+    },
+    "spec": {
+        "containers": [
+            {
+                "name": "grafana",
+                "image": "docker.io/grafana/grafana:3.10.3",
+                "imagePullPolicy": "IfNotPresent",
+                "ports": [
+                    {
+                        "containerPort": 9090,
+                        "protocol": "TCP"
+                    }
+                ],
+                "resources": {
+                    "limits": {
+                        "memory": "256Mi"
+                    },
+                    "requests": {
+                        "cpu": "250m",
+                        "memory": "64Mi"
+                    }
+                },
+                "env": [
+                    {
+                        "name": "LOG_LEVEL",
+                        "value": "debug"
+                    },
+                    {
+                        "name": "PORT",
+                        "value": "8080"
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "nodeName": "node-c",
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30
+    },
+    "status": {
+        "phase": "Running",
+        "hostIP": "10.0.0.16",
+        "podIP": "10.244.3.172",
+        "qosClass": "Burstable",
+        "startTime": "2026-09-28T20:35:52Z",
+        "containerStatuses": [
+            {
+                "name": "grafana",
+                "ready": true,
+                "restartCount": 3,
+                "image": "docker.io/grafana/grafana:3.10.3",
+                "imageID": "docker.io/grafana/grafana@sha256:e4caa337381b307a53572f61f390269395a936b6acf273e99c7c38b98368f2da",
+                "started": true,
+                "state": {
+                    "running": {
+                        "startedAt": "2026-09-30T21:37:05Z"
+                    }
+                }
+            }
+        ]
+    }
+}

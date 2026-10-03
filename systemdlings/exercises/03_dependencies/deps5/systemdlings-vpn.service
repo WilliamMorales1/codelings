@@ -1,0 +1,8 @@
+# deps5: pretend VPN that drops after two seconds (nothing to change here)
+
+[Unit]
+Description=systemdlings: flaky VPN tunnel
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/sh -c 'echo "tunnel up"; sleep 2; echo "tunnel lost" >&2; exit 1'

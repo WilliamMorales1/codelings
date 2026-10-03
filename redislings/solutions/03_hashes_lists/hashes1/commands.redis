@@ -1,0 +1,4 @@
+# hashes1 — HSET: an object as a hash
+
+HSET user:7 name "Grace Hopper" email grace@navy.mil visits 0
+HGETALL user:7

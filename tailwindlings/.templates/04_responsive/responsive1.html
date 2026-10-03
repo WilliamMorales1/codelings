@@ -1,0 +1,39 @@
+<!doctype html>
+<!--
+  responsive1: mobile first
+
+  Breakpoint variants mean "from this width UP": md:flex is
+  @media (width >= 48rem) { display: flex }. Unprefixed classes apply at
+  every width, so they are the phone styles; prefixes layer the bigger
+  screens on top. `sm:` does NOT mean "on small screens".
+
+  Default breakpoints: sm 40rem (640px), md 48rem (768px),
+  lg 64rem (1024px), xl 80rem (1280px), 2xl 96rem (1536px).
+
+  Task:
+    - phones (< 768px): the hamburger button shows, the nav links are
+      hidden, the headline is centred
+    - from md up: the hamburger is hidden, the links are a flex row, and the
+      headline is left-aligned
+
+  Preview: npm run preview responsive1 (then narrow the window, or use the
+  device toolbar in your browser's devtools)
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>responsive1</title>
+  </head>
+  <body>
+    <header class="flex items-center justify-between p-4">
+      <strong>acme</strong>
+      <button id="burger" class="hidden md:block" aria-label="Menu">&#9776;</button>
+      <ul id="links" class="flex gap-4 md:hidden">
+        <li>Pricing</li>
+        <li>Docs</li>
+      </ul>
+    </header>
+    <h1 id="headline" class="p-4 text-3xl font-bold sm:text-center">Ship faster</h1>
+  </body>
+</html>

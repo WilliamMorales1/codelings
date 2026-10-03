@@ -1,0 +1,5 @@
+id,first_name,email,phone
+17,Ada,ada.lovelace@example.com,442079460958
+18,Grace,grace@navy.example.mil,5550109999
+19,Linus,linus@kernel.example.org,15035550147
+20,Ken,ken@bell-labs.example.com,5550101969

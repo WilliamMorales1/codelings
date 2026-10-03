@@ -1,0 +1,35 @@
+{
+  "id": 129540831,
+  "name": "widget",
+  "full_name": "acme/widget",
+  "private": true,
+  "owner": {
+    "login": "acme",
+    "type": "Organization"
+  },
+  "html_url": "https://github.com/acme/widget",
+  "description": "Internal tooling",
+  "fork": false,
+  "created_at": "2026-09-28T18:09:39Z",
+  "pushed_at": "2026-09-30T13:37:41Z",
+  "size": 13444,
+  "stargazers_count": 2771,
+  "watchers_count": 0,
+  "forks_count": 189,
+  "archived": false,
+  "open_issues_count": 5,
+  "license": {
+    "key": "mit",
+    "spdx_id": "MIT"
+  },
+  "topics": [],
+  "default_branch": "main",
+  "security_and_analysis": {
+    "secret_scanning": {
+      "status": "enabled"
+    }
+  },
+  "custom_properties": {
+    "team": "platform"
+  }
+}

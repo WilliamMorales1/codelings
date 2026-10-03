@@ -1,0 +1,24 @@
+# dns1: /etc/hosts
+#
+# Before any DNS server is asked, most programs look in /etc/hosts (the
+# order is set in /etc/nsswitch.conf, more on that in dns5). Format, one
+# address per line:
+#     ADDRESS   CANONICAL_NAME   [ALIASES...]
+#
+# The check copies this file to /etc/hosts inside the sandbox (the sandbox
+# has its own private /etc, your real one is not touched), starts a web
+# server on b (10.0.0.2), and then:
+#     getent hosts api.internal   -> 10.0.0.2
+#     getent hosts api            -> 10.0.0.2   (short alias)
+#     getent hosts db.internal    -> 10.0.0.3
+#     curl http://api.internal/   -> "hello from api"
+# `getent hosts NAME` resolves a name exactly the way programs do (unlike
+# dig, which only talks DNS).
+#
+# Your task: fix this file. Someone wrote one line the wrong way round and
+# forgot the alias.
+
+127.0.0.1     localhost
+::1           localhost
+api.internal  10.0.0.2
+10.0.0.3      db.internal

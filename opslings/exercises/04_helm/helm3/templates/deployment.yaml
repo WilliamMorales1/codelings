@@ -1,0 +1,44 @@
+{{- /*
+# helm3 -- named templates, include and nindent
+#
+# templates/_helpers.tpl holds reusable snippets made with `define`. There are
+# two ways to call one:
+#   {{ template "name" . }}   inserts it, but its output cannot be piped
+#   {{ include "name" . }}    returns a string you can pipe, e.g. into
+#                             nindent N: newline + indent every line by N
+# so the idiom for a block of labels is
+#   labels:
+#     {{- include "web.labels" . | nindent 4 }}
+#
+# Task:
+#   - in _helpers.tpl, define "web.selectorLabels" with just
+#     app.kubernetes.io/name and app.kubernetes.io/instance
+#   - Deployment and Service metadata.labels use "web.labels"
+#   - the Deployment selector, the Pod template labels and the Service
+#     selector use "web.selectorLabels" (the Pod template may use both)
+#
+#   helm template demo .
+#
+*/ -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-web
+  labels:
+{{ template "web.labels" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "web.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: web
+          image: {{ .Values.image }}
+          ports:
+            - name: http
+              containerPort: 80

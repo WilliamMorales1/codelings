@@ -1,0 +1,32 @@
+# interfaces4: reading `ip addr`
+#
+# ip-addr.json is the output of `ip -j addr` on a laptop (the same data as
+# plain `ip addr`, as JSON). Answer the questions below by filling in each
+# `key:` line. Reading the file by eye works; jq is faster, for example:
+#     jq -r '.[] | "\(.ifname) \(.flags)"' ip-addr.json
+#     jq -r '.[] | .ifname as $i | .addr_info[] | "\($i) \(.local)/\(.prefixlen)"' ip-addr.json
+#
+# Flags to know: UP = administratively enabled (`ip link set X up`);
+# LOWER_UP = the physical/virtual link has carrier; NO-CARRIER = cable unplugged
+# or nothing attached. operstate combines both.
+
+# 1. Which interface is administratively down (no UP flag at all)?
+admin_down:
+
+# 2. Which interface is UP but has no carrier?
+no_carrier:
+
+# 3. wlan0's IPv4 address, with prefix length (like 10.1.2.3/16)
+wlan0_ipv4:
+
+# 4. Which interface has the smallest MTU? (a VPN, adding its own headers)
+smallest_mtu:
+
+# 5. docker0 has a /16. How many addresses is that in total? (2^(32-16))
+docker0_size:
+
+# 6. How many IPv6 link-local (fe80::/10) addresses are there in total?
+link_local_count:
+
+# 7. The veth interface is plugged into a bridge. Which one? (look for "master")
+veth_master:

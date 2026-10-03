@@ -1,0 +1,8 @@
+203.0.113.99 - - [28/Sep/2026:13:55:30 +0000] "POST /api/v1/checkout HTTP/1.1" 304 0 "-" "python-requests/2.32.5"
+198.51.100.77 - - [28/Sep/2026:13:56:00 +0000] "GET /api/v1/search?q=lamp HTTP/1.1" 404 45472 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:143.0) Gecko/20100101 Firefox/143.0"
+10.0.4.12 - - [28/Sep/2026:13:56:20 +0000] "POST /login HTTP/1.1" 200 43666 "-" "python-requests/2.32.5"
+203.0.113.18 - - [28/Sep/2026:13:56:51 +0000] "GET / HTTP/1.1" 200 35604 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0 Safari/605.1.15"
+203.0.113.7 - - [28/Sep/2026:13:57:03 +0000] "GET /api/v1/products/42 HTTP/1.1" 200 39248 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0 Safari/605.1.15"
+203.0.113.18 - - [28/Sep/2026:13:57:04 +0000] "GET /favicon.ico HTTP/1.1" 200 4720 "-" "kube-probe/1.35"
+203.0.113.7 - - [28/Sep/2026:13:57:16 +0000] "GET /static/app.css HTTP/1.1" 200 20266 "-" "python-requests/2.32.5"
+203.0.113.99 - - [28/Sep/2026:13:57:23 +0000] "POST /api/v1/checkout HTTP/1.1" 200 13965 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0 Safari/605.1.15"

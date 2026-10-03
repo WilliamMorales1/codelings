@@ -1,0 +1,15 @@
+# firewall6: port forwarding (DNAT)
+
+flush ruleset
+
+table ip nat {
+  chain prerouting {
+    type nat hook prerouting priority dstnat; policy accept;
+    iifname "r1" tcp dport 80 dnat to 10.1.0.2:8080
+  }
+
+  chain postrouting {
+    type nat hook postrouting priority srcnat; policy accept;
+    oifname "r1" masquerade
+  }
+}

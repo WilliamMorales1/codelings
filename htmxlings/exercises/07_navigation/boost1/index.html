@@ -1,0 +1,28 @@
+<!doctype html>
+<!--
+  boost1 - hx-boost
+
+  hx-boost="true" upgrades ordinary links and forms inside an element:
+  clicking a link fetches the page with AJAX, swaps its <body> in,
+  updates the <title> and pushes the URL onto history. No full reload,
+  no re-parsing of scripts and styles - and without JavaScript the links
+  still work as plain links (progressive enhancement).
+
+  TASK: boost the navigation links on all three pages (index.html,
+  about.html, contact.html) with one attribute per page.
+
+  Try it in a browser: npm run serve boost1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Home</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <nav><a href="/">Home</a> | <a href="/about">About</a> | <a href="/contact">Contact</a></nav>
+  <h1>Home</h1>
+  <p>Welcome home.</p>
+</body>
+</html>

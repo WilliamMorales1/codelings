@@ -1,0 +1,29 @@
+<!doctype html>
+<!--
+  trigger5 - event filters and from:
+
+  An event filter in square brackets only lets matching events through:
+    hx-trigger="keyup[key=='Enter']"
+  and from:<selector> listens for the event on a *different* element:
+    hx-trigger="keyup from:body"
+
+  TASK: pressing "?" anywhere on the page should load the keyboard help
+  into the #help panel. The panel is a div, so it never receives keyup
+  itself - listen on the body instead. Other keys must not load it.
+
+  Try it in a browser: npm run serve trigger5
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>trigger5</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Mail</h1>
+  <p>Press <kbd>?</kbd> for keyboard shortcuts.</p>
+  <input id="compose" placeholder="Write something...">
+  <aside id="help" hx-get="/help" hx-trigger="keyup[key=='?'] from:body"></aside>
+</body>
+</html>

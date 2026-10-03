@@ -1,0 +1,27 @@
+rule_files: [rules.yml]
+evaluation_interval: 1m
+tests:
+  - interval: 1m
+    input_series:
+      # api: 10% errors. web: 1% errors.
+      - series: 'http_requests_total{job="api",instance="a",code="200"}'
+        values: '0+90x40'
+      - series: 'http_requests_total{job="api",instance="a",code="503"}'
+        values: '0+10x40'
+      - series: 'http_requests_total{job="web",instance="b",code="200"}'
+        values: '0+99x40'
+      - series: 'http_requests_total{job="web",instance="b",code="500"}'
+        values: '0+1x40'
+    alert_rule_test:
+      # Condition true, but not for 10 minutes yet: pending, not firing.
+      - eval_time: 8m
+        alertname: HighErrorRate
+        exp_alerts: []
+      - eval_time: 20m
+        alertname: HighErrorRate
+        exp_alerts:
+          - exp_labels:
+              job: api
+              severity: page
+            exp_annotations:
+              summary: "High error rate on api"

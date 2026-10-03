@@ -1,0 +1,4 @@
+export DB_HOST='pg-primary.prod.svc'
+export DB_USER='checkout'
+export DB_PASSWORD='s3cr3t with spaces & $dollars'
+export DB_NAME='checkout'

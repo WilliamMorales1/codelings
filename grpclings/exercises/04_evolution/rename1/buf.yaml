@@ -1,0 +1,11 @@
+# Leave this file alone. WIRE_JSON: changes must keep both the binary wire
+# format and the JSON mapping compatible (our web clients speak JSON).
+version: v2
+modules:
+  - path: proto
+lint:
+  use:
+    - STANDARD
+breaking:
+  use:
+    - WIRE_JSON

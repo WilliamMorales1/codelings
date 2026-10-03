@@ -1,0 +1,23 @@
+# units4: Type=notify and NotifyAccess=
+#
+# Some daemons need a while before they can serve (load a cache, open a
+# database). With Type=notify, systemd waits until the program sends READY=1
+# over the notification socket ($NOTIFY_SOCKET) - usually via sd_notify(3)
+# or the `systemd-notify` tool - and only then treats the unit as started, so
+# anything ordered After= it really gets a ready service.
+#
+# By default only the main process may send notifications
+# (NotifyAccess=main). A shell script that runs `systemd-notify` is sending
+# from a child process, and that message is dropped.
+#
+# Task: the service below warms up for a second, then announces it is ready
+# (with a status line "serving"). As written, systemd never hears the READY=1
+# and start times out. Make systemd accept the notification.
+
+[Unit]
+Description=systemdlings: slow to warm up
+
+[Service]
+Type=notify
+TimeoutStartSec=4
+ExecStart=/usr/bin/sh -c 'echo "warming up"; sleep 1; systemd-notify --ready --status=serving; exec sleep infinity'

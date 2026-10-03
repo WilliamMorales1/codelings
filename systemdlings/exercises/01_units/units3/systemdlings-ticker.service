@@ -1,0 +1,23 @@
+# units3: Type=exec for long-running programs
+#
+# Type= tells systemd when a service counts as "started":
+#   oneshot  when ExecStart= has exited      (jobs, scripts that finish)
+#   simple   as soon as systemd has forked   (the default)
+#   exec     once the binary was actually executed
+#   notify   when the program says READY=1   (next exercise)
+# With oneshot, a program that never exits keeps `systemctl start` waiting
+# until TimeoutStartSec= kills it. With simple, a typo in ExecStart= still
+# "starts successfully" and only fails a moment later. exec is the one that
+# both returns right away and reports a missing binary as a failed start.
+#
+# Task: the ticker below runs forever. Pick the Type= that lets
+# `systemctl --user start` return immediately with the ticker running, and
+# that makes start fail if the binary is missing (the check tries that too).
+
+[Unit]
+Description=systemdlings: tick every second
+
+[Service]
+Type=oneshot
+TimeoutStartSec=3
+ExecStart=/usr/bin/sh -c 'while :; do echo tick; sleep 1; done'

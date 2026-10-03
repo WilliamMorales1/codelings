@@ -1,0 +1,21 @@
+/*
+  theme2: fonts and breakpoints are theme variables too
+
+  Namespaces you will use most:
+    --color-*        bg-*, text-*, border-* ...
+    --font-*         font-* (font-family)
+    --text-*         text-* (font-size)
+    --breakpoint-*   responsive variants (sm:, md:, and any you add)
+    --radius-*, --shadow-*, --spacing (the base step for p-*, m-*, w-* ...)
+
+  Task: index.html uses two things that don't exist yet:
+    - font-display: a font family "Lexend", with sans-serif as fallback
+    - 3xl: a breakpoint at 120rem (1920px)
+  Add them to the theme.
+*/
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Lexend", sans-serif;
+  --breakpoint-3xl: 120rem;
+}

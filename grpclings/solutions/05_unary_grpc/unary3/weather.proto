@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package weather.v1;
+
+option go_package = "grpclings/exercises/05_unary_grpc/unary3;unary3";
+
+message GetForecastRequest {
+  string city = 1;
+}
+
+message GetForecastResponse {
+  string city = 1;
+  double high_c = 2;
+}
+
+service WeatherService {
+  rpc GetForecast(GetForecastRequest) returns (GetForecastResponse);
+}

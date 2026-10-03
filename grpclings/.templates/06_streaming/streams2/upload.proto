@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package files.v1;
+
+option go_package = "grpclings/exercises/06_streaming/streams2;streams2";
+
+message Chunk {
+  bytes data = 1;
+}
+
+message UploadSummary {
+  int64 size = 1;
+  // Lowercase hex SHA-256 of all bytes received.
+  string sha256 = 2;
+}
+
+service FileService {
+  // The client sends any number of Chunks, then the server answers once.
+  rpc Upload(stream Chunk) returns (UploadSummary);
+}

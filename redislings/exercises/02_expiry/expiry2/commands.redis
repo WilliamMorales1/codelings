@@ -1,0 +1,13 @@
+# expiry2 — SET ... EX, and why SET wipes a TTL
+#
+# Learn: a plain SET replaces the value AND removes any TTL the key had.
+# So "EXPIRE, then SET" silently produces a key that never expires. The
+# fix is to set value and TTL together: SET key value EX seconds (or PX
+# for milliseconds). One command, atomic, no window without a TTL.
+#
+# Task: cache the forecast "sunny, 21C" under cache:weather:paris for
+# 60 seconds.
+#
+
+EXPIRE cache:weather:paris 60
+SET cache:weather:paris "sunny, 21C"

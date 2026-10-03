@@ -1,0 +1,23 @@
+# prom2 -- recording rules
+#
+# A recording rule evaluates a PromQL expression on a schedule and stores the
+# result as a new series. Dashboards then query the cheap precomputed series
+# instead of crunching raw data on every refresh. Naming convention:
+#   level:metric:operations     e.g.  job:http_requests:rate5m
+#
+# Order matters in PromQL: rate() works on a *counter* (a range vector of
+# one series), and only then do you aggregate with sum:
+#   sum by (label) (rate(counter[5m]))
+#
+# Task: record the per-job request rate (requests per second, averaged over
+# 5 minutes, summed over all instances of a job) of http_requests_total as
+#   job:http_requests:rate5m
+#
+#   promtool check rules rules.yml
+#
+
+groups:
+  - name: http
+    rules:
+      - record: job_http_requests_rate
+        expr: rate(sum by (job) (http_requests_total)[5m])

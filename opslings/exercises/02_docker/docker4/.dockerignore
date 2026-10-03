@@ -1,0 +1,3 @@
+# Files the Docker build context should never contain.
+.env.local
+secret/

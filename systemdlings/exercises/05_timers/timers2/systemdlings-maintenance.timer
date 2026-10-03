@@ -1,0 +1,20 @@
+# timers2: harder calendar expressions, several OnCalendar= lines
+#
+# A timer may have several OnCalendar= lines; it fires whenever any of them
+# matches. Some things that are awkward in cron are easy here:
+#   Mon *-*-01..07 03:00    a Monday that falls on day 1-7: the first Monday
+#   *-*~01 23:00            "~" counts from the end of the month: last day
+#   *-*~07/1 ...            the last 7 days of the month
+# Watch out: the weekday and the date must BOTH match. "Mon *-*-01" means
+# "the 1st, when it is a Monday", which happens only a few times a year.
+#
+# Task: maintenance should run at 03:00 on the first Monday of every month,
+# and at 23:00 on the last day of every month (whatever its length). Fix the
+# two lines below. Test them with `systemd-analyze calendar --iterations=6`.
+
+[Unit]
+Description=systemdlings: monthly maintenance windows
+
+[Timer]
+OnCalendar=Mon *-*-01 03:00
+OnCalendar=*-*-31 23:00

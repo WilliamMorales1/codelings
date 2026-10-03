@@ -1,0 +1,26 @@
+# k8s3 -- Services
+#
+# A Service gives a stable name and virtual IP to whatever Pods match its
+# selector. Get the selector wrong and the Service happily exists with zero
+# endpoints: no error anywhere, just connection refused.
+#
+# `port` is what clients connect to; `targetPort` is where traffic lands on
+# the Pod. targetPort can be a *name* from the container's ports list, so the
+# container can change its port number without touching the Service.
+#
+# Task: Service `api` on port 80 that sends traffic to the Pods of the `api`
+# Deployment (deployment.yaml), using the named port `http` as targetPort.
+#
+#   kubeconform -strict -summary service.yaml deployment.yaml
+#
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: api
+spec:
+  selector:
+    app: api
+  ports:
+    - port: 80
+      targetPort: http

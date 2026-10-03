@@ -1,0 +1,42 @@
+# k8s7 -- Ingress
+#
+# An Ingress routes HTTP by host and path to Services. This one was written
+# for Kubernetes 1.18 and stopped applying when networking.k8s.io/v1beta1
+# was removed (in 1.22). The v1 API changed a few things:
+#   - the backend is `service: {name: ..., port: {number: ...}}`
+#   - every path needs a `pathType` (Prefix, Exact or ImplementationSpecific)
+#   - the controller is picked with spec.ingressClassName, which replaces the
+#     deprecated `kubernetes.io/ingress.class` annotation
+#
+# Task: port it to networking.k8s.io/v1 for the `nginx` ingress class:
+#   shop.example.com/      (Prefix)  ->  Service web, port 80
+#   shop.example.com/api   (Prefix)  ->  Service api, port 8080
+#
+#   kubeconform -strict -summary ingress.yaml
+#   kubectl explain ingress.spec.rules.http.paths --api-version=networking.k8s.io/v1
+#
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shop
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: shop.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web
+                port:
+                  number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: api
+                port:
+                  number: 8080

@@ -1,0 +1,4 @@
+adm:x:4:syslog,ubuntu
+sudo:x:27:ubuntu
+lxd:x:110:ubuntu,ci
+ci:x:1001:

@@ -1,0 +1,17 @@
+# groups1 — consumer groups: XGROUP, XREADGROUP, XACK
+#
+# Learn: a consumer group lets several workers share one stream: each
+# entry goes to one consumer, and stays "pending" for it until it's
+# acknowledged with XACK. XGROUP CREATE key group <id> sets where the
+# group starts: $ means "only entries added from now on", 0 means "from
+# the very beginning". MKSTREAM creates the stream if it's missing.
+#
+# Task: the stream events already holds 3 signups that still need a
+# welcome mail. Create the group mailer so it will see them, let consumer
+# w1 read 2 entries, and acknowledge the first one
+# (1700000000000-0), which was mailed successfully.
+#
+
+XGROUP CREATE events mailer $
+XREADGROUP GROUP mailer w1 COUNT 2 STREAMS events >
+XACK events mailer 1700000000000-0

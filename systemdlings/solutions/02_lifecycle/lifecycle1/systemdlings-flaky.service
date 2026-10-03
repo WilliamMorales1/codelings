@@ -1,0 +1,10 @@
+# lifecycle1: Restart=on-failure
+
+[Unit]
+Description=systemdlings: client that needs a few tries
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/sh %t/systemdlings/lifecycle1/flaky.sh
+Restart=on-failure
+RestartSec=500ms

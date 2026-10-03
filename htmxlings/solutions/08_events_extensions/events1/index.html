@@ -1,0 +1,35 @@
+<!doctype html>
+<!--
+  events1 - htmx:configRequest
+
+  htmx fires events all through a request's life: htmx:configRequest
+  (build it), htmx:beforeRequest, htmx:beforeSwap, htmx:afterSwap,
+  htmx:afterRequest, htmx:afterSettle, ... They bubble, so one listener
+  on document.body sees them all. htmx:configRequest is the place to
+  change a request: event.detail.parameters and event.detail.headers
+  are still editable there.
+
+  TASK: every request must carry the parameter token=<value saved in
+  localStorage under "token">. The script tries to add it, but in
+  htmx:beforeRequest - too late, the request is already built. Fix it.
+
+  Try it in a browser: npm run serve events1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>events1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Account</h1>
+  <button hx-get="/secret" hx-target="#out">Show my balance</button>
+  <p id="out"></p>
+  <script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+      event.detail.parameters.token = localStorage.getItem('token');
+    });
+  </script>
+</body>
+</html>

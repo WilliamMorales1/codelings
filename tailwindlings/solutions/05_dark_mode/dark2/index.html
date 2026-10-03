@@ -1,0 +1,19 @@
+<!doctype html>
+<!--
+  dark2: see style.css for the task.
+
+  Preview: npm run preview dark2 (the button flips the class)
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>dark2</title>
+  </head>
+  <body id="body" class="bg-white p-8 text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+    <button id="toggle" class="rounded border px-3 py-1" onclick="document.documentElement.classList.toggle('dark')">
+      Toggle theme
+    </button>
+    <p class="mt-4">The toggle adds or removes class="dark" on &lt;html&gt;.</p>
+  </body>
+</html>

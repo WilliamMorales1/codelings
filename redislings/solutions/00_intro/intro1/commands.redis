@@ -1,0 +1,21 @@
+# intro1 — the redislings ritual
+#
+# Most exercises are a file of commands, one per line, that redislings pipes
+# into redis-cli (or valkey-cli) against a brand-new, empty server:
+#
+#     grep -v '^#' commands.redis | redis-cli -p 6390
+#
+# Lines starting with # are comments; redislings strips them first because
+# redis-cli itself has no comment syntax. The check then looks at the data
+# your commands left behind, or at what they printed. Once it passes, the
+# exercise is done and redislings moves you on.
+#
+# To try things by hand, run `redislings server` in another terminal and
+# connect with `redis-cli -p 6390` (or `valkey-cli -p 6390`). That server
+# forgets everything when you stop it.
+#
+# Task: the check wants the key `greeting` to hold "hello, redis". Fix the
+# SET below and save.
+
+SET greeting "hello, redis"
+GET greeting

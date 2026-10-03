@@ -1,0 +1,42 @@
+// basics3: enums, the zero value, and value names
+//
+// Two rules bite everyone once:
+//  1. In proto3 the first enum value must be 0, and 0 is also what an unset
+//     field reads as. So make 0 mean "nobody said": FOO_UNSPECIFIED = 0.
+//     Otherwise an old client that never sets the field looks like it chose
+//     your first real value.
+//  2. Enum values are scoped like C++: they live next to the enum, in the
+//     package, not inside it. Two enums in one package cannot both have
+//     PENDING. The convention (and `buf lint`) is to prefix every value with
+//     the enum name in UPPER_SNAKE_CASE.
+//
+// Task: make this compile, following both rules. Expected values:
+//   OrderStatus:   ORDER_STATUS_UNSPECIFIED 0, ORDER_STATUS_PENDING 1,
+//                  ORDER_STATUS_SHIPPED 2, ORDER_STATUS_DELIVERED 3
+//   PaymentStatus: PAYMENT_STATUS_UNSPECIFIED 0, PAYMENT_STATUS_PENDING 1,
+//                  PAYMENT_STATUS_PAID 2
+
+syntax = "proto3";
+
+package shop.v1;
+
+option go_package = "grpclings/exercises/01_proto_basics/basics3;basics3";
+
+enum OrderStatus {
+  ORDER_STATUS_UNSPECIFIED = 0;
+  ORDER_STATUS_PENDING = 1;
+  ORDER_STATUS_SHIPPED = 2;
+  ORDER_STATUS_DELIVERED = 3;
+}
+
+enum PaymentStatus {
+  PAYMENT_STATUS_UNSPECIFIED = 0;
+  PAYMENT_STATUS_PENDING = 1;
+  PAYMENT_STATUS_PAID = 2;
+}
+
+message Order {
+  string id = 1;
+  OrderStatus status = 2;
+  PaymentStatus payment = 3;
+}

@@ -1,0 +1,4 @@
+# lists2 — capped lists with LTRIM
+
+LPUSH recent:user:7 login
+LTRIM recent:user:7 0 4

@@ -1,0 +1,5 @@
+date,account,service,region,usd
+2026-08-01,dev-210987654321,EC2,eu-central-1,2.2257
+2026-08-01,dev-210987654321,EKS,eu-central-1,1.4704
+2026-08-02,dev-210987654321,EC2,eu-central-1,4.5471
+2026-08-02,dev-210987654321,EKS,eu-central-1,2.4215

@@ -1,0 +1,15 @@
+# strings2 — counters with INCR / INCRBY
+#
+# Learn: INCR, INCRBY and DECRBY treat a string as a 64-bit integer and
+# change it atomically on the server. Reading the value, adding in your
+# app and writing it back loses updates as soon as two clients race.
+#
+# Task: page:home:views already holds some number (the check seeds it).
+# Record one more visit, then a batch of 5 more visits imported from a
+# log. Don't assume what the current value is: the check runs your file
+# against more than one starting value.
+#
+
+GET page:home:views
+SET page:home:views 11
+SET page:home:views 16

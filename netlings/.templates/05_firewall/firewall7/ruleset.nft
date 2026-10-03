@@ -1,0 +1,25 @@
+# firewall7: stateful filtering
+#
+# A reply is a packet too. When b opens a connection to a, a's answer comes
+# back IN, from port 80, to some random high port on b, and an input chain
+# with policy drop throws it away unless it knows the packet belongs to a
+# connection b started. Connection tracking (conntrack) knows:
+#     ct state established,related accept
+# accepts anything belonging to a known connection (related covers e.g. the
+# ICMP errors about it). Nearly every real ruleset starts with that line.
+#
+# This ruleset goes on b (10.0.0.2). The check expects:
+#   a -> b port 22: works;  a -> b port 80: blocked   (b is a locked-down box)
+#   b -> http://10.0.0.1/ and b -> ping 10.0.0.1: work  (b fetching updates)
+#
+# Your task: b cannot fetch or ping anything. Fix it without opening port 80.
+
+flush ruleset
+
+table inet filter {
+  chain input {
+    type filter hook input priority filter; policy drop;
+    iif lo accept
+    tcp dport 22 accept
+  }
+}

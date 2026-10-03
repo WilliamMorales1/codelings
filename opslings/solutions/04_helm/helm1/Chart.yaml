@@ -1,0 +1,26 @@
+# helm1 -- Chart.yaml
+#
+# A Helm chart is a directory: Chart.yaml (metadata), values.yaml (defaults)
+# and templates/. `helm lint` is the first thing to run on any chart, and
+# Chart.yaml is the first thing it reads.
+#
+#   apiVersion   v2 for Helm 3 and 4 charts
+#   name         the chart name: lowercase, digits and dashes
+#   version      the chart's own version, strict SemVer (1.2.3), as a string
+#   appVersion   the version of the app inside; a string, and quote it,
+#                because YAML reads 1.10 as the number 1.1
+#   type         application (installable) or library (helpers only)
+#
+# Task: make `helm lint .` pass for chart `hello`, version 0.1.0, packaging
+# app version 1.10.
+#
+#   helm lint .
+#   helm template demo .
+#
+
+apiVersion: v2
+name: hello
+description: A tiny chart that renders one ConfigMap
+version: 0.1.0
+appVersion: "1.10"
+type: application

@@ -1,0 +1,7 @@
+WARN /
+ok /boot
+ok /tmp
+CRIT /run/media/learner1/USB
+WARN /home
+ok /run/user/1000
+ok /run

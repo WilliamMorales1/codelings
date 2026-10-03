@@ -1,0 +1,33 @@
+// migrate1: buf breaking
+//
+// A teammate's pull request changes Customer in four ways:
+//   1. adds `website`
+//   2. deletes `fax` (nobody has sent a fax since 2009)
+//   3. widens loyalty_points from int32 to int64
+//   4. renames the enum value TIER_GOLD to TIER_PREMIUM (marketing asked)
+// Some of these are fine. Others would break clients built against
+// released/ (the last release), either on the binary wire or in JSON.
+//
+// Task: run `buf breaking --against released` in the exercise directory (the
+// one with buf.yaml) and make it pass, keeping as much of the pull request as
+// is safe: website stays, fax stays deleted, and the rest must not break.
+
+syntax = "proto3";
+
+package acme.crm.v1;
+
+enum Tier {
+  TIER_UNSPECIFIED = 0;
+  TIER_SILVER = 1;
+  TIER_PREMIUM = 2;
+}
+
+message Customer {
+
+  string id = 1;
+  string name = 2;
+  string phone = 3;
+  int64 loyalty_points = 5;
+  Tier tier = 6;
+  string website = 7;
+}

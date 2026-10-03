@@ -1,0 +1,26 @@
+<!doctype html>
+<!--
+  select1 - hx-select
+
+  Sometimes you cannot change the server: it only returns full pages.
+  hx-select="<css selector>" picks the part of the response you want
+  and throws the rest away before swapping.
+
+  TASK: the legacy /weather endpoint returns a whole HTML page with its
+  own header and nav. Only swap in its #forecast element.
+
+  Try it in a browser: npm run serve select1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>select1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>My dashboard</h1>
+  <button hx-get="/weather" hx-target="#weather" hx-select="#forecast">Show weather</button>
+  <section id="weather"></section>
+</body>
+</html>

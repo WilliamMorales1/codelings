@@ -1,0 +1,28 @@
+<!doctype html>
+<!--
+  hxrequest1 - detecting htmx on the server (HX-Request)
+
+  Every request htmx makes carries the header HX-Request: true. The
+  server can use it to answer the same URL two ways: a fragment for
+  htmx, a full page for a browser that visits (or reloads) the URL.
+
+  TASK: in handlers.js, GET /inbox always returns the bare fragment, so
+  opening http://.../inbox directly shows an unstyled list with no page
+  around it. Return the full page (layout(...)) unless the request came
+  from htmx. Headers arrive lower-cased: headers['hx-request'].
+
+  Try it in a browser: npm run serve hxrequest1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>hxrequest1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Mail</h1>
+  <nav><button hx-get="/inbox" hx-target="#main">Inbox</button></nav>
+  <main id="main"></main>
+</body>
+</html>

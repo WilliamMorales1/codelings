@@ -1,0 +1,90 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"strings"
+	"sync"
+	"time"
+)
+
+type selfResult struct {
+	skipped  []string // missing tools
+	problems []string
+	took     time.Duration
+	exOut    string // how the untouched exercise failed, for -v
+}
+
+// selftestOne runs a check against the solution (must pass) and the untouched template (must fail).
+func selftestOne(e Exercise) selfResult {
+	start := time.Now()
+	var r selfResult
+	if m := missingTools(e.Requires()); len(m) > 0 {
+		r.skipped = m
+		return r
+	}
+	for _, d := range []string{e.SolutionDir(), e.TemplateDir(), e.Dir()} {
+		if st, err := os.Stat(d); err != nil || !st.IsDir() {
+			r.problems = append(r.problems, "missing directory "+d)
+		}
+	}
+	if len(r.problems) > 0 {
+		return r
+	}
+
+	if ok, out := runCheck(e, e.SolutionDir(), "selftest-solution"); !ok {
+		r.problems = append(r.problems, "SOLUTION FAILS:\n"+out)
+	}
+
+	ok, out := runCheck(e, e.TemplateDir(), "selftest-exercise")
+	if ok {
+		r.problems = append(r.problems, "EXERCISE PASSES WITHOUT CHANGES:\n"+out)
+	}
+	r.exOut = out
+	r.took = time.Since(start)
+	return r
+}
+
+func cmdSelftest(exs []Exercise, jobs int, verbose bool) int {
+	results := make([]selfResult, len(exs))
+	sem := make(chan struct{}, jobs)
+	var wg sync.WaitGroup
+	for i, e := range exs {
+		wg.Go(func() {
+			sem <- struct{}{}
+			defer func() { <-sem }()
+			results[i] = selftestOne(e)
+		})
+	}
+	wg.Wait()
+
+	bad, skipped := 0, 0
+	for i, e := range exs {
+		r := results[i]
+		switch {
+		case len(r.skipped) > 0:
+			skipped++
+			say(yellow, "SKIPPED %s (missing: %s)", e.ID(), strings.Join(r.skipped, " "))
+		case len(r.problems) > 0:
+			bad++
+			say(red, "BROKEN  %s", e.ID())
+			for _, p := range r.problems {
+				indent(p)
+			}
+		default:
+			fmt.Printf("%s %s %s\n", paint(green, "ok     "), e.ID(), paint(dim, r.took.Round(10*time.Millisecond).String()))
+			if verbose && r.exOut != "" {
+				indent(paint(dim, r.exOut))
+			}
+		}
+	}
+	fmt.Println()
+	fmt.Printf("%d exercises: %d ok, %d skipped, %d broken\n", len(exs), len(exs)-bad-skipped, skipped, bad)
+	if bad > 0 {
+		return 1
+	}
+	if skipped > 0 {
+		say(yellow, "Not everything was verified: install the missing tools to check the skipped chapters.")
+	}
+	return 0
+}

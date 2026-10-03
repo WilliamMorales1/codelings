@@ -1,0 +1,27 @@
+# units5: [Install] and the user manager's targets
+#
+# `systemctl enable` does not start anything. It reads [Install] and creates
+# symlinks, e.g. WantedBy=foo.target becomes
+#   <unit dir>/foo.target.wants/<this unit>
+# so that whenever foo.target starts, this unit is pulled in too.
+#
+# The user manager (systemctl --user) has its own, smaller set of targets:
+# default.target (reached when you log in), basic.target, timers.target,
+# sockets.target, graphical-session.target, ... System targets such as
+# multi-user.target do not exist there, so a unit enabled into one of them
+# never starts.
+#
+# Task: this service was copied from a system unit. Fix [Install] so that
+# `systemctl --user enable systemdlings-syncd.service` makes it start at
+# login. (The check enables it into a throwaway directory with
+# `systemctl --global --root=...`, so nothing is enabled for real.)
+
+[Unit]
+Description=systemdlings: pretend file sync daemon
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/sleep infinity
+
+[Install]
+WantedBy=multi-user.target

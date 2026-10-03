@@ -1,0 +1,5 @@
+Filesystem     1024-blocks      Used Available Capacity Mounted on
+overlay          101430960  58771440  42659520      58% /
+shm                  65536         0     65536       0% /dev/shm
+/dev/vdb         206292968 199800000   6492968      97% /var/lib/docker
+/dev/loop3           75776     75776         0     100% /snap/core22/2045

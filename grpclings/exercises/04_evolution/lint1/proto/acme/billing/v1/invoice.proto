@@ -1,0 +1,38 @@
+// lint1: buf lint
+//
+// protoc accepts almost any naming; `buf lint` enforces the conventions that
+// keep a schema pleasant in every language and safe to evolve. The STANDARD
+// rule set wants, among others:
+//   - a versioned package (acme.billing.v1) that matches the directory
+//     the file lives in (acme/billing/v1/);
+//   - PascalCase messages and enums, lower_snake_case fields;
+//   - enum values prefixed with the enum name, and a zero value ending in
+//     _UNSPECIFIED.
+//
+// Task: run `buf lint` in the exercise directory (the one with buf.yaml; or
+// `go tool buf lint`) and fix everything it reports. Keep the meaning: the
+// check expects message Invoice {invoice_id 1, customer_id 2, lines 3,
+// status 4}, message LineItem {sku 1, quantity 2} and enum InvoiceStatus with
+// UNSPECIFIED 0, DRAFT 1, PAID 2.
+
+syntax = "proto3";
+
+package billing;
+
+enum InvoiceStatus {
+  NONE = 0;
+  DRAFT = 1;
+  PAID = 2;
+}
+
+message line_item {
+  string sku = 1;
+  int32 quantity = 2;
+}
+
+message Invoice {
+  string invoiceId = 1;
+  string customerID = 2;
+  repeated line_item lines = 3;
+  InvoiceStatus status = 4;
+}

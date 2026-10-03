@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package clock.v1;
+
+option go_package = "grpclings/exercises/06_streaming/streams4;streams4";
+
+message WatchRequest {}
+
+message Tick {
+  int64 n = 1;
+}
+
+service ClockService {
+  // Never ends on its own: the client cancels when it has seen enough.
+  rpc Watch(WatchRequest) returns (stream Tick);
+}

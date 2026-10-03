@@ -1,0 +1,202 @@
+[
+  {
+    "ifindex": 1,
+    "ifname": "lo",
+    "flags": [
+      "LOOPBACK",
+      "UP",
+      "LOWER_UP"
+    ],
+    "mtu": 65536,
+    "qdisc": "noqueue",
+    "operstate": "UNKNOWN",
+    "group": "default",
+    "txqlen": 1000,
+    "link_type": "loopback",
+    "address": "00:00:00:00:00:00",
+    "broadcast": "00:00:00:00:00:00",
+    "addr_info": [
+      {
+        "family": "inet",
+        "local": "127.0.0.1",
+        "prefixlen": 8,
+        "scope": "host",
+        "label": "lo",
+        "valid_life_time": 4294967295,
+        "preferred_life_time": 4294967295
+      },
+      {
+        "family": "inet6",
+        "local": "::1",
+        "prefixlen": 128,
+        "scope": "host",
+        "noprefixroute": true,
+        "valid_life_time": 4294967295,
+        "preferred_life_time": 4294967295
+      }
+    ]
+  },
+  {
+    "ifindex": 2,
+    "ifname": "enp0s31f6",
+    "flags": [
+      "NO-CARRIER",
+      "BROADCAST",
+      "MULTICAST"
+    ],
+    "mtu": 1500,
+    "qdisc": "fq_codel",
+    "operstate": "DOWN",
+    "group": "default",
+    "txqlen": 1000,
+    "link_type": "ether",
+    "address": "8c:16:45:3a:9e:01",
+    "broadcast": "ff:ff:ff:ff:ff:ff",
+    "addr_info": []
+  },
+  {
+    "ifindex": 3,
+    "ifname": "wlan0",
+    "flags": [
+      "BROADCAST",
+      "MULTICAST",
+      "UP",
+      "LOWER_UP"
+    ],
+    "mtu": 1500,
+    "qdisc": "noqueue",
+    "operstate": "UP",
+    "group": "default",
+    "txqlen": 1000,
+    "link_type": "ether",
+    "address": "a4:c3:f0:77:12:5d",
+    "broadcast": "ff:ff:ff:ff:ff:ff",
+    "addr_info": [
+      {
+        "family": "inet",
+        "local": "192.168.1.23",
+        "prefixlen": 24,
+        "broadcast": "192.168.1.255",
+        "scope": "global",
+        "dynamic": true,
+        "noprefixroute": true,
+        "label": "wlan0",
+        "valid_life_time": 85902,
+        "preferred_life_time": 85902
+      },
+      {
+        "family": "inet6",
+        "local": "2a02:810d:4b3f:e200:9a1c:4ab2:77fe:1c02",
+        "prefixlen": 64,
+        "scope": "global",
+        "dynamic": true,
+        "noprefixroute": true,
+        "valid_life_time": 6892,
+        "preferred_life_time": 3292
+      },
+      {
+        "family": "inet6",
+        "local": "fe80::a6c3:f0ff:fe77:125d",
+        "prefixlen": 64,
+        "scope": "link",
+        "noprefixroute": true,
+        "valid_life_time": 4294967295,
+        "preferred_life_time": 4294967295
+      }
+    ]
+  },
+  {
+    "ifindex": 4,
+    "ifname": "docker0",
+    "flags": [
+      "NO-CARRIER",
+      "BROADCAST",
+      "MULTICAST",
+      "UP"
+    ],
+    "mtu": 1500,
+    "qdisc": "noqueue",
+    "operstate": "DOWN",
+    "group": "default",
+    "link_type": "ether",
+    "address": "02:42:5c:1d:8a:33",
+    "broadcast": "ff:ff:ff:ff:ff:ff",
+    "addr_info": [
+      {
+        "family": "inet",
+        "local": "172.17.0.1",
+        "prefixlen": 16,
+        "broadcast": "172.17.255.255",
+        "scope": "global",
+        "label": "docker0",
+        "valid_life_time": 4294967295,
+        "preferred_life_time": 4294967295
+      },
+      {
+        "family": "inet6",
+        "local": "fe80::42:5cff:fe1d:8a33",
+        "prefixlen": 64,
+        "scope": "link",
+        "valid_life_time": 4294967295,
+        "preferred_life_time": 4294967295
+      }
+    ]
+  },
+  {
+    "ifindex": 7,
+    "ifname": "wg0",
+    "flags": [
+      "POINTOPOINT",
+      "NOARP",
+      "UP",
+      "LOWER_UP"
+    ],
+    "mtu": 1420,
+    "qdisc": "noqueue",
+    "operstate": "UNKNOWN",
+    "group": "default",
+    "txqlen": 1000,
+    "link_type": "none",
+    "addr_info": [
+      {
+        "family": "inet",
+        "local": "10.8.0.5",
+        "prefixlen": 24,
+        "scope": "global",
+        "label": "wg0",
+        "valid_life_time": 4294967295,
+        "preferred_life_time": 4294967295
+      }
+    ]
+  },
+  {
+    "ifindex": 9,
+    "link_index": 8,
+    "ifname": "veth3f1a2c9",
+    "flags": [
+      "BROADCAST",
+      "MULTICAST",
+      "UP",
+      "LOWER_UP"
+    ],
+    "mtu": 1500,
+    "qdisc": "noqueue",
+    "master": "docker0",
+    "operstate": "UP",
+    "group": "default",
+    "link_type": "ether",
+    "address": "5e:9b:0e:41:c7:aa",
+    "broadcast": "ff:ff:ff:ff:ff:ff",
+    "link_netnsid": 0,
+    "addr_info": [
+      {
+        "family": "inet6",
+        "local": "fe80::5c9b:eff:fe41:c7aa",
+        "prefixlen": 64,
+        "scope": "link",
+        "valid_life_time": 4294967295,
+        "preferred_life_time": 4294967295
+      }
+    ]
+  }
+]

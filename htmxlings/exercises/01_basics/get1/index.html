@@ -1,0 +1,28 @@
+<!doctype html>
+<!--
+  get1 - hx-get and hx-target
+
+  hx-get="/url" makes an element issue a GET request when it is triggered
+  (a click, for a button). By default the response replaces the *inside*
+  of the element that made the request. hx-target="<css selector>" sends
+  the response somewhere else instead.
+
+  TASK: somebody wrote this button as if it were a link. Make it load a
+  quote from GET /quote and put it into the #quote box, leaving the
+  button itself alone.
+
+  Try it in a browser: npm run serve get1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>get1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Quote of the day</h1>
+  <button id="load" href="/quote">Load a quote</button>
+  <div id="quote"></div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+unit	errors	warnings
+kubelet.service	7	1
+postgresql.service	3	1
+sshd.service	2	0

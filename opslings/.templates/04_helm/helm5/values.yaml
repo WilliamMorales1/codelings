@@ -1,0 +1,12 @@
+image:
+  repository: ghcr.io/acme/worker
+  # Leave empty to deploy the chart's appVersion.
+  tag: ""
+
+# How many workers. Optional.
+replicaCount:
+
+database:
+  # Required: there is no sensible default for where your data lives.
+  host: ""
+  port: 5432

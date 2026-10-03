@@ -1,0 +1,8 @@
+4096	./.git/hooks
+18874368	./node_modules/.vite
+734003200	./node_modules
+5242880	./dist
+1536	./src/lib
+98304	./src
+3221225472	./data/fixtures.sqlite
+512	./README.md

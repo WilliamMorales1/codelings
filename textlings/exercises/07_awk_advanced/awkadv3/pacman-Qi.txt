@@ -1,0 +1,39 @@
+Name            : jq
+Version         : 1.8.2-1
+Description     : Command-line JSON processor
+Architecture    : x86_64
+URL             : https://jqlang.org/
+Licenses        : MIT
+Groups          : None
+Provides        : None
+Depends On      : glibc  oniguruma
+Optional Deps   : None
+Required By     : yay
+Installed Size  : 736.35 KiB
+Packager        : Morten Linderud <foxboron@archlinux.org>
+Install Reason  : Explicitly installed
+
+Name            : gawk
+Version         : 5.4.1-1
+Description     : GNU version of awk
+Architecture    : x86_64
+URL             : https://www.gnu.org/software/gawk/
+Licenses        : GPL-3.0-or-later
+Groups          : None
+Provides        : awk
+Depends On      : sh  glibc  mpfr
+Optional Deps   : None
+Required By     : base-devel  grub
+Installed Size  : 3.61 MiB
+Install Reason  : Installed as a dependency for another package
+
+Name            : go
+Version         : 2:1.27.1-1
+Description     : Core compiler tools for the Go programming language
+Architecture    : x86_64
+URL             : https://golang.org/
+Licenses        : BSD-3-Clause
+Provides        : None
+Depends On      : None
+Installed Size  : 243.10 MiB
+Install Reason  : Explicitly installed

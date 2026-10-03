@@ -1,0 +1,115 @@
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "creationTimestamp": "2026-09-30T12:20:38Z",
+        "generateName": "coredns-401bd7ce7-",
+        "labels": {
+            "app": "coredns",
+            "pod-template-hash": "401bd7ce7"
+        },
+        "name": "coredns-401bd7ce7-7ce73",
+        "namespace": "kube-system",
+        "ownerReferences": [
+            {
+                "apiVersion": "apps/v1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "ReplicaSet",
+                "name": "coredns-401bd7ce7",
+                "uid": "b46108cc-7217-54ef-2904-acecf5bb9188"
+            }
+        ],
+        "resourceVersion": "630903",
+        "uid": "d50e0097-8b71-99cd-6d39-eb43ad9cedde"
+    },
+    "spec": {
+        "containers": [
+            {
+                "name": "coredns",
+                "image": "registry.k8s.io/coredns/coredns:3.8.3",
+                "imagePullPolicy": "IfNotPresent",
+                "ports": [
+                    {
+                        "containerPort": 3000,
+                        "protocol": "TCP"
+                    }
+                ],
+                "resources": {
+                    "limits": {
+                        "memory": "128Mi"
+                    },
+                    "requests": {
+                        "cpu": "50m",
+                        "memory": "64Mi"
+                    }
+                },
+                "env": [
+                    {
+                        "name": "LOG_LEVEL",
+                        "value": "info"
+                    },
+                    {
+                        "name": "PORT",
+                        "value": "8080"
+                    }
+                ]
+            },
+            {
+                "name": "istio-proxy",
+                "image": "docker.io/istio/proxyv2:1.27.1",
+                "imagePullPolicy": "IfNotPresent",
+                "resources": {
+                    "limits": {
+                        "memory": "256Mi"
+                    },
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "40Mi"
+                    }
+                }
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "nodeName": "node-b",
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30
+    },
+    "status": {
+        "phase": "Running",
+        "hostIP": "10.0.0.13",
+        "podIP": "10.244.3.59",
+        "qosClass": "Burstable",
+        "startTime": "2026-09-29T22:08:56Z",
+        "containerStatuses": [
+            {
+                "name": "coredns",
+                "ready": true,
+                "restartCount": 5,
+                "image": "registry.k8s.io/coredns/coredns:3.8.3",
+                "imageID": "registry.k8s.io/coredns/coredns@sha256:e166e02b020778f1c496815f23a111bb8e9c47db06840d4a6e28573af7d99fd1",
+                "started": true,
+                "state": {
+                    "running": {
+                        "startedAt": "2026-09-29T12:55:53Z"
+                    }
+                }
+            },
+            {
+                "name": "istio-proxy",
+                "ready": true,
+                "restartCount": 0,
+                "image": "docker.io/istio/proxyv2:1.27.1",
+                "imageID": "docker.io/istio/proxyv2@sha256:39597be63ac3a319f19c20060a936e67a5343cf8faf69ef8e4ec297dc9057103",
+                "started": true,
+                "state": {
+                    "running": {
+                        "startedAt": "2026-09-28T10:34:20Z"
+                    }
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,44 @@
+# cluster3 -- CrashLoopBackOff
+#
+# CrashLoopBackOff means: the container starts, exits, and Kubernetes keeps
+# restarting it with growing delays. The cluster is fine -- the app is
+# unhappy, and it usually says why on its way out. Read its last words:
+#
+#   kubectl --context kind-opslings apply -f deployment.yaml
+#   kubectl --context kind-opslings -n opslings get pods -l app=greeter -w
+#   kubectl --context kind-opslings -n opslings logs deploy/greeter
+#   kubectl --context kind-opslings -n opslings logs deploy/greeter --previous
+#
+# Task: make the greeter run, printing
+#   hello from the cluster
+# every few seconds. Apply the fix and check the logs again.
+# (The opslings namespace comes from cluster2.)
+#
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greeter
+  namespace: opslings
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: greeter
+  template:
+    metadata:
+      labels:
+        app: greeter
+    spec:
+      containers:
+        - name: greeter
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              if [ -z "$GREETING" ]; then
+                echo "fatal: GREETING is not set" >&2
+                exit 1
+              fi
+              while true; do echo "$GREETING"; sleep 5; done

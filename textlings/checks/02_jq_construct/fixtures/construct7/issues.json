@@ -1,0 +1,211 @@
+[
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/404",
+    "html_url": "https://github.com/acme/widget/issues/404",
+    "id": 2171786288,
+    "number": 404,
+    "title": "Fix typo in README",
+    "user": {
+      "login": "pjhyett",
+      "id": 2988106,
+      "node_id": "MDQ6VXNlcj2988106",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2988106?v=4",
+      "url": "https://api.github.com/users/pjhyett",
+      "html_url": "https://github.com/pjhyett",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [],
+    "state": "open",
+    "locked": false,
+    "assignee": {
+      "login": "mona",
+      "id": 2200530,
+      "node_id": "MDQ6VXNlcj2200530",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2200530?v=4",
+      "url": "https://api.github.com/users/mona",
+      "html_url": "https://github.com/mona",
+      "type": "User",
+      "site_admin": false
+    },
+    "assignees": [
+      {
+        "login": "mona",
+        "id": 2200530,
+        "node_id": "MDQ6VXNlcj2200530",
+        "avatar_url": "https://avatars.githubusercontent.com/u/2200530?v=4",
+        "url": "https://api.github.com/users/mona",
+        "html_url": "https://github.com/mona",
+        "type": "User",
+        "site_admin": false
+      }
+    ],
+    "milestone": null,
+    "comments": 4,
+    "created_at": "2026-09-30T06:27:10Z",
+    "updated_at": "2026-09-29T17:47:40Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "body": null,
+    "reactions": {
+      "total_count": 3,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/403",
+    "html_url": "https://github.com/acme/widget/issues/403",
+    "id": 1059692358,
+    "number": 403,
+    "title": "Crash when \"name\" contains a comma, again",
+    "user": {
+      "login": "hubot",
+      "id": 4025637,
+      "node_id": "MDQ6VXNlcj4025637",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4025637?v=4",
+      "url": "https://api.github.com/users/hubot",
+      "html_url": "https://github.com/hubot",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [],
+    "state": "open",
+    "locked": false,
+    "assignee": {
+      "login": "ivey",
+      "id": 8720562,
+      "node_id": "MDQ6VXNlcj8720562",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8720562?v=4",
+      "url": "https://api.github.com/users/ivey",
+      "html_url": "https://github.com/ivey",
+      "type": "User",
+      "site_admin": false
+    },
+    "assignees": [
+      {
+        "login": "ivey",
+        "id": 8720562,
+        "node_id": "MDQ6VXNlcj8720562",
+        "avatar_url": "https://avatars.githubusercontent.com/u/8720562?v=4",
+        "url": "https://api.github.com/users/ivey",
+        "html_url": "https://github.com/ivey",
+        "type": "User",
+        "site_admin": false
+      }
+    ],
+    "milestone": null,
+    "comments": 3,
+    "created_at": "2026-09-29T14:36:43Z",
+    "updated_at": "2026-10-01T07:42:23Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "body": "See #12.",
+    "reactions": {
+      "total_count": 2,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/402",
+    "html_url": "https://github.com/acme/widget/issues/402",
+    "id": 2970448534,
+    "number": 402,
+    "title": "Make timeouts configurable",
+    "user": {
+      "login": "pjhyett",
+      "id": 7533087,
+      "node_id": "MDQ6VXNlcj7533087",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7533087?v=4",
+      "url": "https://api.github.com/users/pjhyett",
+      "html_url": "https://github.com/pjhyett",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 3204954,
+        "name": "documentation",
+        "color": "0075ca",
+        "default": false
+      },
+      {
+        "id": 4356346,
+        "name": "enhancement",
+        "color": "a2eeef",
+        "default": true
+      }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [],
+    "milestone": null,
+    "comments": 24,
+    "created_at": "2026-09-29T04:42:07Z",
+    "updated_at": "2026-09-30T06:05:47Z",
+    "closed_at": null,
+    "author_association": "NONE",
+    "body": "Steps to reproduce:\n1. run it\n2. watch it fall over",
+    "reactions": {
+      "total_count": 1,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/401",
+    "html_url": "https://github.com/acme/widget/issues/401",
+    "id": 2236721971,
+    "number": 401,
+    "title": "Drop Go 1.25 support",
+    "user": {
+      "login": "pjhyett",
+      "id": 2811845,
+      "node_id": "MDQ6VXNlcj2811845",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2811845?v=4",
+      "url": "https://api.github.com/users/pjhyett",
+      "html_url": "https://github.com/pjhyett",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [],
+    "state": "open",
+    "locked": false,
+    "assignee": {
+      "login": "mojombo",
+      "id": 6480667,
+      "node_id": "MDQ6VXNlcj6480667",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6480667?v=4",
+      "url": "https://api.github.com/users/mojombo",
+      "html_url": "https://github.com/mojombo",
+      "type": "User",
+      "site_admin": false
+    },
+    "assignees": [
+      {
+        "login": "mojombo",
+        "id": 6480667,
+        "node_id": "MDQ6VXNlcj6480667",
+        "avatar_url": "https://avatars.githubusercontent.com/u/6480667?v=4",
+        "url": "https://api.github.com/users/mojombo",
+        "html_url": "https://github.com/mojombo",
+        "type": "User",
+        "site_admin": false
+      }
+    ],
+    "milestone": null,
+    "comments": 11,
+    "created_at": "2026-09-28T13:02:26Z",
+    "updated_at": "2026-09-28T10:22:31Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "body": "Steps to reproduce:\n1. run it\n2. watch it fall over",
+    "reactions": {
+      "total_count": 5,
+      "+1": 0,
+      "-1": 0
+    }
+  }
+]

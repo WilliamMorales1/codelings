@@ -1,0 +1,4 @@
+# strings2 — counters with INCR / INCRBY
+
+INCR page:home:views
+INCRBY page:home:views 5

@@ -1,0 +1,38 @@
+<!doctype html>
+<!--
+  arbitrary1: one-off values in brackets
+
+  When the theme has no fitting value, put any CSS value in brackets:
+    w-[37rem]  bg-[#bada55]  top-[calc(100%+4px)]  grid-cols-[200px_1fr]
+  Spaces are not allowed inside a class name; write them as underscores.
+  For a CSS property Tailwind has no utility for, write the whole
+  declaration in brackets: [writing-mode:vertical-rl].
+
+  Use these sparingly: a value that repeats belongs in @theme.
+
+  Task: fix the four classes on the layout so that:
+    - #layout: grid with columns "200px 1fr"
+    - #sidebar: 12.5rem wide (200px), background #bada55
+    - #label: writing-mode vertical-rl
+    - #tooltip: top is calc(100% + 4px)
+
+  Preview: npm run preview arbitrary1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>arbitrary1</title>
+  </head>
+  <body>
+    <div id="layout" class="grid grid-cols-[200px_1fr]">
+      <aside id="sidebar" class="w-[12.5rem] bg-[#bada55] p-4">
+        <span id="label" class="[writing-mode:vertical-rl]">Menu</span>
+      </aside>
+      <main class="relative p-4">
+        Content
+        <div id="tooltip" class="absolute top-[calc(100%+4px)] left-0 rounded bg-black px-2 text-white">Hi</div>
+      </main>
+    </div>
+  </body>
+</html>

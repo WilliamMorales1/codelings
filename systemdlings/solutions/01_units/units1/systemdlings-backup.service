@@ -1,0 +1,8 @@
+# units1: the three sections of a unit
+
+[Unit]
+Description=systemdlings: nightly backup (pretend)
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/echo "backup finished"

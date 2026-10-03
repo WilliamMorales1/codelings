@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package notes.v1;
+
+option go_package = "grpclings/exercises/03_codegen_encoding/generate2;generate2";
+
+message Note {
+  string id = 1;
+  string body = 2;
+}
+
+message GetNoteRequest {
+  string id = 1;
+}
+
+message GetNoteResponse {
+  Note note = 1;
+}
+
+service NoteService {
+  rpc GetNote(GetNoteRequest) returns (GetNoteResponse);
+}

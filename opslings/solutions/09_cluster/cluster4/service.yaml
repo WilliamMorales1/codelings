@@ -1,0 +1,31 @@
+# cluster4 -- a Service with no endpoints
+#
+# A Service only forwards traffic to *ready* Pods that match its selector.
+# Kubernetes tracks that list in EndpointSlices. A Service with zero
+# endpoints still exists, still has a ClusterIP, and every request to it
+# fails -- no error anywhere else. So after creating a Service, look:
+#
+#   kubectl --context kind-opslings apply -f service.yaml
+#   kubectl --context kind-opslings -n opslings get endpointslices -l kubernetes.io/service-name=web
+#   kubectl --context kind-opslings -n opslings get pods --show-labels
+#   kubectl --context kind-opslings -n opslings port-forward svc/web 8080:80
+#   curl localhost:8080          # in another terminal
+#
+# Task: Service `web` (port 80) in front of the two nginx Pods of the `web`
+# Deployment from cluster2, with both Pods showing up as ready endpoints.
+#
+# When you are done with the chapter:  kind delete cluster --name opslings
+#
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: opslings
+spec:
+  selector:
+    app: web
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

@@ -1,0 +1,41 @@
+<!doctype html>
+<!--
+  form5 - swapping error responses (responseHandling)
+
+  By default htmx 2 does NOT swap 4xx/5xx responses - it fires
+  htmx:responseError and leaves the page alone. Servers that answer bad
+  input with 422 Unprocessable Content therefore need htmx configured to
+  swap that code. Configuration goes in a <meta name="htmx-config"> tag
+  (placed before the htmx script) or htmx.config in JavaScript;
+  the relevant setting is responseHandling, a list of rules like
+    {"code":"422", "swap": true}
+  matched in order (code is a regex over the status). Keep the defaults
+  for everything else: 204 no swap, 2xx/3xx swap, other 4xx/5xx error.
+
+  TASK: the server (already correct) returns 422 with an error message
+  for a bad coupon. Configure htmx so that message appears in #result.
+
+  Try it in a browser: npm run serve form5
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>form5</title>
+  <link rel="stylesheet" href="/style.css">
+  <meta name="htmx-config" content='{"responseHandling": [
+    {"code": "204", "swap": false},
+    {"code": "[23]..", "swap": true},
+    {"code": "422", "swap": true},
+    {"code": "[45]..", "swap": false, "error": true}
+  ]}'>
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Checkout</h1>
+  <form hx-post="/coupon" hx-target="#result">
+    <input name="code" placeholder="Coupon code">
+    <button>Apply</button>
+  </form>
+  <div id="result"></div>
+</body>
+</html>

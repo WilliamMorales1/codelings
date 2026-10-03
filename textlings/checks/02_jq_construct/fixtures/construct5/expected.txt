@@ -1,0 +1,4 @@
+{
+  "RUST_LOG": "ledger=debug,tower=warn",
+  "LISTEN": "0.0.0.0:9000"
+}

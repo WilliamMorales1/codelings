@@ -1,0 +1,31 @@
+<!doctype html>
+<!--
+  structural1: first:, last:, odd:, even:, not-*
+
+  These variants match an element by its position among its siblings:
+  first:pt-0 is .first\:pt-0:first-child. Put them on the repeated
+  element itself (every row), not on the parent.
+
+  Task, for the table rows:
+    - odd rows (1st, 3rd ...) get a gray-50 background (zebra stripes)
+    - every row except the last has a 1px bottom border (not-last:border-b)
+
+  Preview: npm run preview structural1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>structural1</title>
+  </head>
+  <body class="p-8">
+    <table class="w-full text-left">
+      <tbody>
+        <tr id="r1" class="not-last:border-b not-last:border-gray-200 odd:bg-gray-50"><td class="p-2">Ada</td><td class="p-2">Admin</td></tr>
+        <tr id="r2" class="not-last:border-b not-last:border-gray-200 odd:bg-gray-50"><td class="p-2">Grace</td><td class="p-2">Editor</td></tr>
+        <tr id="r3" class="not-last:border-b not-last:border-gray-200 odd:bg-gray-50"><td class="p-2">Linus</td><td class="p-2">Viewer</td></tr>
+        <tr id="r4" class="not-last:border-b not-last:border-gray-200 odd:bg-gray-50"><td class="p-2">Barbara</td><td class="p-2">Viewer</td></tr>
+      </tbody>
+    </table>
+  </body>
+</html>

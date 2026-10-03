@@ -1,0 +1,35 @@
+<!doctype html>
+<!--
+  activesearch - the Active Search pattern
+
+  Search as you type: the input POSTs itself to the server after a short
+  pause, and the server answers with table rows.
+  (https://htmx.org/examples/active-search/)
+
+  TASK, two parts:
+  1. index.html: the search only fires on "change" (when the input loses
+     focus). Fire on input instead, after a 300ms pause, and only when
+     the value changed.
+  2. handlers.js: POST /search ignores the query. Return only contacts
+     whose name or email contains it, case-insensitively (an empty
+     query returns everyone).
+
+  Try it in a browser: npm run serve activesearch
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>activesearch</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Contacts</h1>
+  <input type="search" name="q" placeholder="Search..."
+         hx-post="/search" hx-trigger="change" hx-target="#results">
+  <table>
+    <thead><tr><th>Name</th><th>Email</th></tr></thead>
+    <tbody id="results"></tbody>
+  </table>
+</body>
+</html>

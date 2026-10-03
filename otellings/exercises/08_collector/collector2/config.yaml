@@ -1,0 +1,44 @@
+# collector2 -- memory_limiter and batch
+#
+# Two processors belong in nearly every pipeline:
+#
+#   memory_limiter  refuses data (receivers answer "try again later") when
+#                   the collector's heap gets close to a limit, instead of
+#                   getting OOM-killed and losing everything in flight.
+#                   It must come FIRST, so it can refuse data before anything
+#                   else spends memory on it. It needs a limit: limit_mib
+#                   (absolute) or limit_percentage (of total/cgroup memory),
+#                   plus check_interval.
+#   batch           groups data into bigger requests; exporters are much
+#                   more efficient that way. It goes after anything that
+#                   drops or samples data, typically last.
+#
+# Processors run in the order the *pipeline* lists them, not the order they
+# are defined in.
+#
+# Task: give memory_limiter limit_percentage: 80 and
+# spike_limit_percentage: 20, and fix the pipeline's processor order.
+#
+
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 127.0.0.1:4318
+
+processors:
+  memory_limiter:
+    check_interval: 1s
+  batch:
+    timeout: 200ms
+
+exporters:
+  debug:
+    verbosity: detailed
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch, memory_limiter]
+      exporters: [debug]

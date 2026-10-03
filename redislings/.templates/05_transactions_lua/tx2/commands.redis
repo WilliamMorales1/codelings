@@ -1,0 +1,23 @@
+# tx2 — WATCH: optimistic locking
+#
+# Learn: MULTI/EXEC alone can't make a decision based on a value you read
+# earlier: by the time EXEC runs, another client may have changed it.
+# WATCH key (sent BEFORE you read) makes the next EXEC abort, replying
+# (nil), if the key was modified in the meantime. The app then re-reads
+# and retries.
+#
+# Task: alice buys the last widget: she reads stock:widget, sees 1, and
+# queues the purchase. The check holds this connection open at the PAUSE
+# line and lets another client buy the widget first. Make alice's
+# transaction abort in that case, so stock never goes negative and she
+# gets no order. When nobody interferes, her purchase must go through.
+#
+# Leave the "# --- PAUSE" line where it is.
+#
+
+GET stock:widget
+# --- PAUSE: another client may run here ---
+MULTI
+DECR stock:widget
+RPUSH orders:widget alice
+EXEC

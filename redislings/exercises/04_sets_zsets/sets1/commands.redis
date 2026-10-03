@@ -1,0 +1,13 @@
+# sets1 — SADD: unique members
+#
+# Learn: a set holds unique strings with no order. SADD ignores members
+# that are already there (and returns how many were new), SISMEMBER is an
+# O(1) membership test, SCARD counts members.
+#
+# Task: the tag importer sees the same tag several times. Store the tags
+# of article 1 in article:1:tags so each tag appears once, whatever the
+# input. Then ask whether the article is tagged "redis".
+#
+
+RPUSH article:1:tags redis cache redis nosql cache
+LRANGE article:1:tags 0 -1

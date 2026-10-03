@@ -1,0 +1,33 @@
+# firewall1: a chain that is never called
+#
+# nftables basics: a TABLE (with a family: ip, ip6, inet = both, arp,
+# bridge, netdev) holds CHAINS, chains hold RULES, evaluated top to bottom
+# until one gives a verdict (accept, drop, reject, jump...).
+#
+# A chain only sees packets if it is a BASE chain, one attached to a netfilter
+# hook:
+#     type filter hook input priority filter; policy drop;
+# Without that line it is a "regular" chain, which only runs when another
+# rule jumps to it. It loads without complaint and does nothing at all.
+#
+# The check loads this into server b (10.0.0.2) with `nft -f`, which runs
+# ssh-like (22), http (80) and 8080 services, and tests from a (10.0.0.1):
+#     port 22 open, ping answered, ports 80 and 8080 closed
+#
+# Your task: make this chain actually filter incoming traffic, dropping
+# everything not explicitly accepted. Right now everything gets through.
+#
+#   netlings sandbox firewall1   then   ip netns exec b nft -f ruleset.nft
+#                                       ip netns exec b nft list ruleset
+
+flush ruleset
+
+table inet filter {
+  chain input {
+    iif lo accept
+    ct state established,related accept
+    tcp dport 22 accept
+    icmp type echo-request accept
+    drop
+  }
+}

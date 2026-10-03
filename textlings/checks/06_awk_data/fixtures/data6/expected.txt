@@ -1,0 +1,6 @@
+USER	PID	%CPU	%MEM	VSZ	RSS	TTY	STAT	START	TIME	COMMAND
+root	1	28.3	1.8	898427	280712	pts/1	Ssl	09:40	3:41	/usr/lib/systemd/systemd-udevd
+dbus	42	5.3	4.4	2100460	698625	?	R+	08:12	1:43	/usr/bin/dbus-broker-launch	--scope	system	--audit
+http	140	9.2	3.2	1600403	515961	?	R+	Sep27	8:58	nginx:	worker	process
+learner1	892	4.8	4.6	2239897	739960	pts/0	Ssl	08:12	11:28	/usr/libexec/gnome-terminal-server
+learner1	1675	24.3	4.8	2397621	770775	pts/1	Ss	09:40	2:27	/usr/bin/nautilus	--gapplication-service

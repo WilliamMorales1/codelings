@@ -1,0 +1,4 @@
+ok /
+ok /dev/shm
+CRIT /var/lib/docker
+CRIT /snap/core22/2045

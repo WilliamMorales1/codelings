@@ -1,0 +1,9 @@
+# journal3: a unit that logs at several levels (nothing to change here)
+
+[Unit]
+Description=systemdlings: noisy service
+
+[Service]
+Type=oneshot
+SyslogIdentifier=mixed
+ExecStart=/usr/bin/sh -c 'echo "<6>request served"; echo "<4>slow query: 2.3s"; echo "<7>cache miss"; echo "<3>upstream timed out"; echo "<2>database corrupted"; echo "<5>config reloaded"'

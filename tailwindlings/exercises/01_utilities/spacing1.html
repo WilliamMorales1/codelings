@@ -1,0 +1,31 @@
+<!doctype html>
+<!--
+  spacing1: padding and margin
+
+  Tailwind's spacing scale is one variable, --spacing (0.25rem), multiplied:
+  p-4 is padding: calc(var(--spacing) * 4) = 1rem. Sides and axes get their
+  own letters: pt/pr/pb/pl, px (left+right), py (top+bottom), and the same
+  for margin (m, mt, mx, ...).
+
+  Task: space out the card.
+    - the card: 1.5rem padding on every side
+    - the title: 0.5rem gap below it (margin, not padding)
+    - the button: 1rem padding left and right, 0.5rem top and bottom
+    - the button sits 1rem below the text above it
+
+  Preview: npm run preview spacing1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>spacing1</title>
+  </head>
+  <body class="bg-gray-100 p-8">
+    <div id="card" class="bg-white padding-6">
+      <h2 id="title" class="pb-2 text-xl font-semibold">Weekly digest</h2>
+      <p>Seven new posts since your last visit.</p>
+      <button id="cta" class="bg-sky-600 px-4 text-white">Read them</button>
+    </div>
+  </body>
+</html>

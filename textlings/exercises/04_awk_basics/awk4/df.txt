@@ -1,0 +1,7 @@
+Filesystem     1024-blocks      Used Available Capacity Mounted on
+/dev/nvme0n1p2   498989056 402334120  96654936      81% /
+/dev/nvme0n1p1     1046508    312880    733628      30% /boot
+tmpfs              8072704    146512   7926192       2% /tmp
+/dev/sda1         62521692  61020544   1501148      98% /run/media/learner1/USB
+/dev/nvme0n1p2   498989056 402334120  96654936      81% /home
+tmpfs              1614540        88   1614452       1% /run/user/1000

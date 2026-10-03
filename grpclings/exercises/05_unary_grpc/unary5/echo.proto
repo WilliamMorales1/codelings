@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package echo.v1;
+
+option go_package = "grpclings/exercises/05_unary_grpc/unary5;unary5";
+
+message EchoRequest {
+  string text = 1;
+}
+
+message EchoResponse {
+  string text = 1;
+}
+
+service EchoService {
+  rpc Echo(EchoRequest) returns (EchoResponse);
+}

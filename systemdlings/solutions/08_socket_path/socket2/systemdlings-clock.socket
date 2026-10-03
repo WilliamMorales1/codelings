@@ -1,0 +1,8 @@
+# socket2: which service a socket starts
+
+[Unit]
+Description=systemdlings: what year is it
+
+[Socket]
+ListenStream=127.0.0.1:47812
+Accept=yes

@@ -1,0 +1,10 @@
+order_id,customer,tier,usd
+o100,Initech,bronze,300.36
+o101,Globex,silver,459.58
+o102,Acme Corp,gold,569.43
+o103,Umbrella,gold,235.09
+o104,Initech,bronze,275.25
+o105,UNKNOWN,-,643.88
+o106,Acme Corp,gold,268.14
+o107,Globex,silver,546.94
+o108,Globex,silver,821.87

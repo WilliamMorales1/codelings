@@ -1,0 +1,24 @@
+# path1: .path units
+#
+# A .path unit watches the filesystem (inotify) and starts a unit - by
+# default the .service of the same name - when something happens:
+#   PathExists=           the path exists
+#   PathExistsGlob=       something matching the glob exists
+#   PathChanged=          a file was written and closed, or moved/deleted
+#   PathModified=         like PathChanged=, but also on every write
+#   DirectoryNotEmpty=    the directory contains at least one entry
+# The "exists"/"not empty" conditions are states, not events: as long as
+# they hold, the path unit keeps (re)starting the service whenever it is
+# inactive. MakeDirectory=yes creates a DirectoryNotEmpty= directory first.
+#
+# Task: run the inbox processor whenever files land in inbox/, and only
+# then. Right now it fires as soon as the path unit starts (the inbox
+# exists, empty or not) and keeps firing until systemd trips the trigger
+# limit.
+
+[Unit]
+Description=systemdlings: watch the inbox
+
+[Path]
+PathExists=%t/systemdlings/path1/inbox
+MakeDirectory=yes

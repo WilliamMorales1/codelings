@@ -1,0 +1,3 @@
+learner1 /bin/bash
+deploy /bin/sh
+alice /usr/bin/zsh

@@ -1,0 +1,31 @@
+<!doctype html>
+<!--
+  hxtrigger1 - server-sent events with the HX-Trigger response header
+
+  A response header HX-Trigger: someEvent makes htmx dispatch
+  "someEvent" on the element that made the request; it bubbles up to
+  body. Other parts of the page can react with
+  hx-trigger="someEvent from:body". The server stays in charge of
+  *what happened*, without knowing *who cares*.
+
+  TASK: the contact counter only refreshes when it hears contactAdded.
+  In handlers.js, make POST /contacts send HX-Trigger: contactAdded.
+
+  Try it in a browser: npm run serve hxtrigger1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>hxtrigger1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Contacts (<span id="count" hx-get="/contacts/count" hx-trigger="contactAdded from:body">2</span>)</h1>
+  <form hx-post="/contacts" hx-target="#contacts" hx-swap="beforeend">
+    <input name="name" placeholder="Name">
+    <button>Add</button>
+  </form>
+  <ul id="contacts"><li>Ada</li><li>Grace</li></ul>
+</body>
+</html>

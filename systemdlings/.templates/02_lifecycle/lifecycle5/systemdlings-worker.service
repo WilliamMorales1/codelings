@@ -1,0 +1,24 @@
+# lifecycle5: ExecStop= versus ExecStopPost=
+#
+# ExecStop= tells a *running* service how to shut down. It only runs when
+# the service is stopped on purpose (systemctl stop, a dependency going
+# away) after a successful start. If the main process crashes on its own,
+# systemd skips it.
+#
+# ExecStopPost= runs after the service has stopped, whatever the reason:
+# clean stop, crash, failed start. It is where cleanup belongs. Inside it,
+# $SERVICE_RESULT, $EXIT_CODE and $EXIT_STATUS tell you what happened.
+#
+# Task: this worker takes a lock file on start and is supposed to drop it
+# when it goes down. When it crashes, the stale lock stays behind and the
+# next start would refuse to run. Make the lock disappear however the
+# worker ends.
+
+[Unit]
+Description=systemdlings: worker with a lock file
+
+[Service]
+Type=exec
+ExecStartPre=/usr/bin/touch %t/systemdlings/lifecycle5/worker.lock
+ExecStart=/usr/bin/sh %t/systemdlings/lifecycle5/worker.sh
+ExecStop=/usr/bin/rm -f %t/systemdlings/lifecycle5/worker.lock

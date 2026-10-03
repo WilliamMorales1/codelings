@@ -1,0 +1,24 @@
+# lifecycle2: start rate limiting
+#
+# Restart=always on a program that dies instantly is a crash loop: it burns
+# CPU and floods the journal forever. systemd guards against this with a start
+# rate limit, configured in the [Unit] section:
+#   StartLimitIntervalSec=  the window
+#   StartLimitBurst=        how many starts are allowed inside the window
+# Once the limit is hit, the unit enters "failed" with result
+# "start-limit-hit" and stays down until someone runs `systemctl reset-failed`
+# or the window has passed and it is started again by hand.
+# StartLimitIntervalSec=0 switches the limit off entirely.
+#
+# Task: whoever wrote this unit turned the limit off. Make systemd give up
+# after 3 starts within 30 seconds.
+
+[Unit]
+Description=systemdlings: dies immediately, every time
+StartLimitIntervalSec=0
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/sh -c 'echo "config missing, exiting" >&2; exit 2'
+Restart=always
+RestartSec=200ms

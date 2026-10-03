@@ -1,0 +1,7 @@
+JOB              RUNS  FAIL    AVG(s)
+lint                6     1     579.5
+integration         6     3     507.3
+build-image         6     4     477.5
+deploy              6     1     380.0
+unit                6     4     351.8
+TOTAL              30    13     459.2

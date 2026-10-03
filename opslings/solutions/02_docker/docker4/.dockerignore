@@ -1,0 +1,5 @@
+# Files the Docker build context should never contain.
+.env
+.env.*
+secrets/
+NOTES.md

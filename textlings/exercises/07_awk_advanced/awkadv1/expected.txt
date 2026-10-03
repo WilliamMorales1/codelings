@@ -1,0 +1,8 @@
+   4.0K  ./.git/hooks
+  18.0M  ./node_modules/.vite
+ 700.0M  ./node_modules
+   5.0M  ./dist
+   1.5K  ./src/lib
+  96.0K  ./src
+   3.0G  ./data/fixtures.sqlite
+   512B  ./README.md

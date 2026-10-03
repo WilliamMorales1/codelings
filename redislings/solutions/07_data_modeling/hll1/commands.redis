@@ -1,0 +1,5 @@
+# hll1 — counting unique visitors with HyperLogLog
+
+PFADD visitors:2026-09-29 u1 u2 new1 new2
+PFMERGE visitors:week visitors:2026-09-28 visitors:2026-09-29
+PFCOUNT visitors:week

@@ -1,0 +1,2 @@
+bob /bin/bash
+carol /usr/bin/fish

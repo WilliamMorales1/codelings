@@ -1,0 +1,37 @@
+{{- /*
+# helm2 -- referencing values
+#
+# Templates read configuration through .Values, which mirrors values.yaml
+# (merged with any --set / -f overrides). A misspelt path is not an error:
+# it quietly renders as an empty value, and you find out at deploy time.
+# Other built-in objects: .Release.Name, .Chart.Name, .Chart.AppVersion.
+#
+# Task: make this template use the values in values.yaml, so that
+#   helm template demo .
+# renders 2 replicas of ghcr.io/acme/api:1.4.2 listening on 8080, and
+#   helm template demo . --set replicaCount=5 --set image.tag=2.0.0
+# changes them accordingly. Look at the rendered output first -- the empty
+# spots give the bugs away.
+#
+*/ -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-{{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.targetPort }}

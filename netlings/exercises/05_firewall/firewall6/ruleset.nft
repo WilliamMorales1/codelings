@@ -1,0 +1,28 @@
+# firewall6: port forwarding (DNAT)
+#
+# Same network as firewall5, the other direction: a (10.1.0.2) runs a web
+# app on port 8080, and the world should reach it as http://203.0.113.1/
+# (port 80 on the router). Destination NAT rewrites the destination of
+# incoming packets before routing decides where they go, so it lives in the
+# prerouting hook:
+#     tcp dport 80 dnat to ADDRESS[:PORT]
+#
+# The check loads this on r and runs, in b:  curl http://203.0.113.1/
+# expecting "hello from a".
+#
+# Your task: the request reaches a, and a says "connection refused". Look
+# closely at where it is sent.
+
+flush ruleset
+
+table ip nat {
+  chain prerouting {
+    type nat hook prerouting priority dstnat; policy accept;
+    iifname "r1" tcp dport 80 dnat to 10.1.0.2
+  }
+
+  chain postrouting {
+    type nat hook postrouting priority srcnat; policy accept;
+    oifname "r1" masquerade
+  }
+}

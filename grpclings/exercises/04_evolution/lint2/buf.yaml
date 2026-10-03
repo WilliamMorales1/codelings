@@ -1,0 +1,7 @@
+# buf.yaml marks a buf workspace. Leave this one alone.
+version: v2
+modules:
+  - path: proto
+lint:
+  use:
+    - STANDARD

@@ -1,0 +1,44 @@
+{
+    "apiVersion": "batch/v1",
+    "kind": "CronJob",
+    "metadata": {
+        "name": "nightly-backup",
+        "namespace": "ops",
+        "uid": "fe1b1434-3b10-6980-550c-aef9618a9261",
+        "resourceVersion": "88121",
+        "creationTimestamp": "2026-09-28T20:05:25Z"
+    },
+    "spec": {
+        "schedule": "15 3 * * *",
+        "concurrencyPolicy": "Forbid",
+        "jobTemplate": {
+            "spec": {
+                "backoffLimit": 2,
+                "template": {
+                    "spec": {
+                        "initContainers": [
+                            {
+                                "name": "wait-db",
+                                "image": "docker.io/library/busybox:1.37"
+                            }
+                        ],
+                        "containers": [
+                            {
+                                "name": "backup",
+                                "image": "ghcr.io/acme/pg-backup:16.4"
+                            },
+                            {
+                                "name": "uploader",
+                                "image": "docker.io/rclone/rclone:1.71"
+                            }
+                        ],
+                        "restartPolicy": "OnFailure"
+                    }
+                }
+            }
+        }
+    },
+    "status": {
+        "lastScheduleTime": "2026-10-01T01:40:55Z"
+    }
+}

@@ -1,0 +1,37 @@
+<!doctype html>
+<!--
+  sizing1: width, height, size, max-width
+
+  w-* and h-* use the spacing scale (w-64 = 16rem), fractions (w-1/2),
+  or keywords (w-full, h-screen, w-fit). size-12 sets width AND height.
+  max-w-md, max-w-lg ... use the --container-* scale (28rem, 32rem ...).
+
+  Task:
+    - the avatar is a 48px square (width and height)
+    - the sidebar is 16rem wide and never shrinks below it in a flex row
+    - the main column fills the remaining width, but its text block is
+      capped at max-w-md
+
+  Preview: npm run preview sizing1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>sizing1</title>
+  </head>
+  <body>
+    <div class="flex h-screen">
+      <aside id="sidebar" class="w-64 shrink-0 bg-gray-900 p-4 text-white">
+        <img id="avatar" class="size-12 rounded-full" src="data:," alt="" />
+        <p class="mt-2">Ada Lovelace</p>
+      </aside>
+      <main class="flex-1 p-8">
+        <p id="copy" class="max-w-md">
+          The main column takes whatever the sidebar leaves, but long lines
+          are hard to read, so the text itself stops at 28rem.
+        </p>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,631 @@
+[
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/414",
+    "html_url": "https://github.com/acme/widget/issues/414",
+    "id": 2640627847,
+    "number": 414,
+    "title": "Drop Go 1.25 support",
+    "user": {
+      "login": "defunkt",
+      "id": 2364158,
+      "node_id": "MDQ6VXNlcj2364158",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2364158?v=4",
+      "url": "https://api.github.com/users/defunkt",
+      "html_url": "https://github.com/defunkt",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [],
+    "milestone": null,
+    "comments": 1,
+    "created_at": "2026-09-28T18:05:56Z",
+    "updated_at": "2026-10-01T05:11:46Z",
+    "closed_at": "2026-09-30T11:48:38Z",
+    "author_association": "MEMBER",
+    "body": "See #12.",
+    "reactions": {
+      "total_count": 3,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/413",
+    "html_url": "https://github.com/acme/widget/issues/413",
+    "id": 2421992068,
+    "number": 413,
+    "title": "Fix race in cache invalidation",
+    "user": {
+      "login": "pjhyett",
+      "id": 2292407,
+      "node_id": "MDQ6VXNlcj2292407",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2292407?v=4",
+      "url": "https://api.github.com/users/pjhyett",
+      "html_url": "https://github.com/pjhyett",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [],
+    "milestone": null,
+    "comments": 17,
+    "created_at": "2026-09-30T13:19:47Z",
+    "updated_at": "2026-09-29T16:36:15Z",
+    "closed_at": null,
+    "author_association": "NONE",
+    "body": "Steps to reproduce:\n1. run it\n2. watch it fall over",
+    "reactions": {
+      "total_count": 3,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/412",
+    "html_url": "https://github.com/acme/widget/issues/412",
+    "id": 2654094768,
+    "number": 412,
+    "title": "Crash when \"name\" contains a comma, again",
+    "user": {
+      "login": "octocat",
+      "id": 6761308,
+      "node_id": "MDQ6VXNlcj6761308",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6761308?v=4",
+      "url": "https://api.github.com/users/octocat",
+      "html_url": "https://github.com/octocat",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [],
+    "milestone": null,
+    "comments": 6,
+    "created_at": "2026-09-28T22:59:42Z",
+    "updated_at": "2026-09-29T08:03:08Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "body": "Steps to reproduce:\n1. run it\n2. watch it fall over",
+    "reactions": {
+      "total_count": 9,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/411",
+    "html_url": "https://github.com/acme/widget/issues/411",
+    "id": 1894078550,
+    "number": 411,
+    "title": "Fix typo in README",
+    "user": {
+      "login": "pjhyett",
+      "id": 9184537,
+      "node_id": "MDQ6VXNlcj9184537",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9184537?v=4",
+      "url": "https://api.github.com/users/pjhyett",
+      "html_url": "https://github.com/pjhyett",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [],
+    "state": "open",
+    "locked": false,
+    "assignee": {
+      "login": "wycats",
+      "id": 510519,
+      "node_id": "MDQ6VXNlcj510519",
+      "avatar_url": "https://avatars.githubusercontent.com/u/510519?v=4",
+      "url": "https://api.github.com/users/wycats",
+      "html_url": "https://github.com/wycats",
+      "type": "User",
+      "site_admin": false
+    },
+    "assignees": [
+      {
+        "login": "wycats",
+        "id": 510519,
+        "node_id": "MDQ6VXNlcj510519",
+        "avatar_url": "https://avatars.githubusercontent.com/u/510519?v=4",
+        "url": "https://api.github.com/users/wycats",
+        "html_url": "https://github.com/wycats",
+        "type": "User",
+        "site_admin": false
+      }
+    ],
+    "milestone": null,
+    "comments": 1,
+    "created_at": "2026-09-30T21:04:15Z",
+    "updated_at": "2026-09-28T21:05:57Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "body": null,
+    "reactions": {
+      "total_count": 3,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/410",
+    "html_url": "https://github.com/acme/widget/issues/410",
+    "id": 1446119576,
+    "number": 410,
+    "title": "Remove deprecated flags",
+    "user": {
+      "login": "pjhyett",
+      "id": 7255310,
+      "node_id": "MDQ6VXNlcj7255310",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7255310?v=4",
+      "url": "https://api.github.com/users/pjhyett",
+      "html_url": "https://github.com/pjhyett",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 7165153,
+        "name": "dependencies",
+        "color": "0366d6",
+        "default": false
+      },
+      {
+        "id": 4251623,
+        "name": "enhancement",
+        "color": "a2eeef",
+        "default": true
+      }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [],
+    "milestone": null,
+    "comments": 20,
+    "created_at": "2026-09-30T19:37:29Z",
+    "updated_at": "2026-09-28T23:57:37Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "body": null,
+    "reactions": {
+      "total_count": 4,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/409",
+    "html_url": "https://github.com/acme/widget/issues/409",
+    "id": 2388914292,
+    "number": 409,
+    "title": "Make timeouts configurable",
+    "user": {
+      "login": "mojombo",
+      "id": 5308918,
+      "node_id": "MDQ6VXNlcj5308918",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5308918?v=4",
+      "url": "https://api.github.com/users/mojombo",
+      "html_url": "https://github.com/mojombo",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 4576172,
+        "name": "dependencies",
+        "color": "0366d6",
+        "default": false
+      }
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [],
+    "milestone": null,
+    "comments": 3,
+    "created_at": "2026-09-30T17:30:53Z",
+    "updated_at": "2026-09-30T16:15:01Z",
+    "closed_at": "2026-09-30T05:25:12Z",
+    "author_association": "CONTRIBUTOR",
+    "body": null,
+    "reactions": {
+      "total_count": 8,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/408",
+    "html_url": "https://github.com/acme/widget/issues/408",
+    "id": 1372758054,
+    "number": 408,
+    "title": "docs: clarify rate limits",
+    "user": {
+      "login": "mona",
+      "id": 483473,
+      "node_id": "MDQ6VXNlcj483473",
+      "avatar_url": "https://avatars.githubusercontent.com/u/483473?v=4",
+      "url": "https://api.github.com/users/mona",
+      "html_url": "https://github.com/mona",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [],
+    "milestone": null,
+    "comments": 11,
+    "created_at": "2026-09-30T10:38:06Z",
+    "updated_at": "2026-10-01T05:41:17Z",
+    "closed_at": "2026-09-29T04:44:22Z",
+    "author_association": "MEMBER",
+    "body": "See #12.",
+    "reactions": {
+      "total_count": 6,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/407",
+    "html_url": "https://github.com/acme/widget/issues/407",
+    "id": 1976675663,
+    "number": 407,
+    "title": "docs: clarify rate limits",
+    "user": {
+      "login": "hubot",
+      "id": 5603444,
+      "node_id": "MDQ6VXNlcj5603444",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5603444?v=4",
+      "url": "https://api.github.com/users/hubot",
+      "html_url": "https://github.com/hubot",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [],
+    "state": "open",
+    "locked": false,
+    "assignee": {
+      "login": "hubot",
+      "id": 3257579,
+      "node_id": "MDQ6VXNlcj3257579",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3257579?v=4",
+      "url": "https://api.github.com/users/hubot",
+      "html_url": "https://github.com/hubot",
+      "type": "User",
+      "site_admin": false
+    },
+    "assignees": [
+      {
+        "login": "hubot",
+        "id": 3257579,
+        "node_id": "MDQ6VXNlcj3257579",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3257579?v=4",
+        "url": "https://api.github.com/users/hubot",
+        "html_url": "https://github.com/hubot",
+        "type": "User",
+        "site_admin": false
+      }
+    ],
+    "milestone": null,
+    "comments": 12,
+    "created_at": "2026-09-30T17:26:49Z",
+    "updated_at": "2026-09-28T11:32:01Z",
+    "closed_at": null,
+    "author_association": "NONE",
+    "body": "See #12.",
+    "reactions": {
+      "total_count": 1,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/406",
+    "html_url": "https://github.com/acme/widget/issues/406",
+    "id": 2532143142,
+    "number": 406,
+    "title": "Speed up JSON encoding",
+    "user": {
+      "login": "mona",
+      "id": 2548976,
+      "node_id": "MDQ6VXNlcj2548976",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2548976?v=4",
+      "url": "https://api.github.com/users/mona",
+      "html_url": "https://github.com/mona",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [],
+    "milestone": null,
+    "comments": 1,
+    "created_at": "2026-09-29T20:16:26Z",
+    "updated_at": "2026-09-30T04:32:15Z",
+    "closed_at": null,
+    "author_association": "NONE",
+    "body": "Steps to reproduce:\n1. run it\n2. watch it fall over",
+    "reactions": {
+      "total_count": 5,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/405",
+    "html_url": "https://github.com/acme/widget/issues/405",
+    "id": 2042437061,
+    "number": 405,
+    "title": "Add retry to webhook sender",
+    "user": {
+      "login": "pjhyett",
+      "id": 8350339,
+      "node_id": "MDQ6VXNlcj8350339",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8350339?v=4",
+      "url": "https://api.github.com/users/pjhyett",
+      "html_url": "https://github.com/pjhyett",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 1412424,
+        "name": "bug",
+        "color": "d73a4a",
+        "default": true
+      },
+      {
+        "id": 5274063,
+        "name": "good first issue",
+        "color": "7057ff",
+        "default": false
+      }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": {
+      "login": "wycats",
+      "id": 9776876,
+      "node_id": "MDQ6VXNlcj9776876",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9776876?v=4",
+      "url": "https://api.github.com/users/wycats",
+      "html_url": "https://github.com/wycats",
+      "type": "User",
+      "site_admin": false
+    },
+    "assignees": [
+      {
+        "login": "wycats",
+        "id": 9776876,
+        "node_id": "MDQ6VXNlcj9776876",
+        "avatar_url": "https://avatars.githubusercontent.com/u/9776876?v=4",
+        "url": "https://api.github.com/users/wycats",
+        "html_url": "https://github.com/wycats",
+        "type": "User",
+        "site_admin": false
+      }
+    ],
+    "milestone": null,
+    "comments": 24,
+    "created_at": "2026-09-30T16:55:01Z",
+    "updated_at": "2026-10-01T07:43:40Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "body": "Steps to reproduce:\n1. run it\n2. watch it fall over",
+    "reactions": {
+      "total_count": 3,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/404",
+    "html_url": "https://github.com/acme/widget/issues/404",
+    "id": 1096833591,
+    "number": 404,
+    "title": "Add retry to webhook sender",
+    "user": {
+      "login": "defunkt",
+      "id": 2095681,
+      "node_id": "MDQ6VXNlcj2095681",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2095681?v=4",
+      "url": "https://api.github.com/users/defunkt",
+      "html_url": "https://github.com/defunkt",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [],
+    "milestone": null,
+    "comments": 19,
+    "created_at": "2026-09-28T11:38:24Z",
+    "updated_at": "2026-10-01T03:14:14Z",
+    "closed_at": "2026-10-01T04:56:02Z",
+    "author_association": "NONE",
+    "body": null,
+    "reactions": {
+      "total_count": 3,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/403",
+    "html_url": "https://github.com/acme/widget/issues/403",
+    "id": 2190764375,
+    "number": 403,
+    "title": "ci: cache module downloads",
+    "user": {
+      "login": "pjhyett",
+      "id": 9371481,
+      "node_id": "MDQ6VXNlcj9371481",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9371481?v=4",
+      "url": "https://api.github.com/users/pjhyett",
+      "html_url": "https://github.com/pjhyett",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [],
+    "state": "closed",
+    "locked": false,
+    "assignee": {
+      "login": "evanphx",
+      "id": 7744371,
+      "node_id": "MDQ6VXNlcj7744371",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7744371?v=4",
+      "url": "https://api.github.com/users/evanphx",
+      "html_url": "https://github.com/evanphx",
+      "type": "User",
+      "site_admin": false
+    },
+    "assignees": [
+      {
+        "login": "evanphx",
+        "id": 7744371,
+        "node_id": "MDQ6VXNlcj7744371",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7744371?v=4",
+        "url": "https://api.github.com/users/evanphx",
+        "html_url": "https://github.com/evanphx",
+        "type": "User",
+        "site_admin": false
+      }
+    ],
+    "milestone": null,
+    "comments": 16,
+    "created_at": "2026-09-29T22:11:03Z",
+    "updated_at": "2026-09-30T11:40:23Z",
+    "closed_at": "2026-09-29T22:09:33Z",
+    "author_association": "NONE",
+    "body": "Steps to reproduce:\n1. run it\n2. watch it fall over",
+    "reactions": {
+      "total_count": 3,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/402",
+    "html_url": "https://github.com/acme/widget/issues/402",
+    "id": 1286981663,
+    "number": 402,
+    "title": "Handle empty payloads, part 2",
+    "user": {
+      "login": "pjhyett",
+      "id": 2072637,
+      "node_id": "MDQ6VXNlcj2072637",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2072637?v=4",
+      "url": "https://api.github.com/users/pjhyett",
+      "html_url": "https://github.com/pjhyett",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 9768312,
+        "name": "documentation",
+        "color": "0075ca",
+        "default": false
+      }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [],
+    "milestone": null,
+    "comments": 23,
+    "created_at": "2026-09-28T21:56:52Z",
+    "updated_at": "2026-10-01T04:38:57Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "body": "See #12.",
+    "reactions": {
+      "total_count": 6,
+      "+1": 0,
+      "-1": 0
+    }
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/issues/401",
+    "html_url": "https://github.com/acme/widget/issues/401",
+    "id": 1445952207,
+    "number": 401,
+    "title": "Add retry to webhook sender",
+    "user": {
+      "login": "octocat",
+      "id": 4119976,
+      "node_id": "MDQ6VXNlcj4119976",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4119976?v=4",
+      "url": "https://api.github.com/users/octocat",
+      "html_url": "https://github.com/octocat",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "id": 7387105,
+        "name": "bug",
+        "color": "d73a4a",
+        "default": true
+      },
+      {
+        "id": 6153879,
+        "name": "dependencies",
+        "color": "0366d6",
+        "default": false
+      }
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": {
+      "login": "mojombo",
+      "id": 635154,
+      "node_id": "MDQ6VXNlcj635154",
+      "avatar_url": "https://avatars.githubusercontent.com/u/635154?v=4",
+      "url": "https://api.github.com/users/mojombo",
+      "html_url": "https://github.com/mojombo",
+      "type": "User",
+      "site_admin": false
+    },
+    "assignees": [
+      {
+        "login": "mojombo",
+        "id": 635154,
+        "node_id": "MDQ6VXNlcj635154",
+        "avatar_url": "https://avatars.githubusercontent.com/u/635154?v=4",
+        "url": "https://api.github.com/users/mojombo",
+        "html_url": "https://github.com/mojombo",
+        "type": "User",
+        "site_admin": false
+      }
+    ],
+    "milestone": null,
+    "comments": 13,
+    "created_at": "2026-10-01T00:49:53Z",
+    "updated_at": "2026-09-30T11:46:47Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "body": "See #12.",
+    "reactions": {
+      "total_count": 9,
+      "+1": 0,
+      "-1": 0
+    }
+  }
+]

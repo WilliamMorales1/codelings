@@ -1,0 +1,21 @@
+# debug2: capture filters (BPF)
+#
+# tcpdump (and Wireshark's capture filter, and many other tools) use BPF
+# filter expressions to pick packets:
+#     host 10.0.0.2          src host X / dst host X
+#     port 80                src port / dst port, tcp port / udp port
+#     tcp[tcpflags] & tcp-syn != 0          the SYN bit is set
+#     tcp[tcpflags] == tcp-syn              ONLY the SYN bit is set
+#     and / or / not, with ( ) for grouping
+#
+# traffic.pcap is a real capture: several HTTP requests, an ssh-like
+# session, DNS, ping, and 10.0.0.2 itself trying to reach port 80 somewhere
+# else. The check runs
+#     tcpdump -n -r traffic.pcap -F filter.txt
+# (lines starting with # are removed first) and expects exactly the packets
+# that OPEN a connection to the web server 10.0.0.2 port 80: the client's
+# initial SYNs, not the SYN-ACK replies, not other hosts' port 80.
+#
+# Your task: `port 80` below matches 44 packets. Narrow it down to 4.
+# Try it:  tcpdump -n -r traffic.pcap 'port 80' | less
+port 80

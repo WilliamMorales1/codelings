@@ -1,0 +1,51 @@
+# k8s5 -- resources and probes
+#
+# requests  what the scheduler reserves for the container (placement)
+# limits    the ceiling; going over the memory limit gets you OOMKilled
+#
+# Quantities use Kubernetes suffixes: cpu in cores or millicores (`250m`),
+# memory in binary units `Mi` / `Gi` (or decimal `M` / `G`). "MB" is not one
+# of them.
+#
+# readinessProbe  failing => Pod removed from Service endpoints (no traffic)
+# livenessProbe   failing => container restarted
+#
+# Task, for the `checkout` container (it listens on 8080 and serves
+# /ready and /healthz):
+#   - requests: cpu 100m, memory 128Mi;  limits: memory 256Mi
+#   - readinessProbe: HTTP GET /ready on the container's port
+#   - livenessProbe:  HTTP GET /healthz on the container's port,
+#                     with initialDelaySeconds of at least 5
+#
+#   kubeconform -strict -summary deployment.yaml
+#
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkout
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: checkout
+  template:
+    metadata:
+      labels:
+        app: checkout
+    spec:
+      containers:
+        - name: checkout
+          image: ghcr.io/acme/checkout:2.7.0
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128MB
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 80
+          # TODO: livenessProbe

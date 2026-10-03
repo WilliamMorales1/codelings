@@ -1,0 +1,22 @@
+# sandbox3: PrivateTmp=
+#
+# /tmp is shared by every process on the machine. Predictable file names in
+# it are a classic source of bugs and attacks (another user creates
+# /tmp/job.lock first, or symlinks it somewhere nasty), and temp files
+# leak data between programs.
+#
+# PrivateTmp=yes gives the service its own empty /tmp and /var/tmp, removed
+# when the service stops. Nothing else sees its files; it sees nobody
+# else's.
+#
+# Task: the converter drops its intermediate file at a fixed name in /tmp,
+# where every other program can read it. Give the service a private /tmp.
+# The check looks for /tmp/systemdlings-sandbox3-intermediate.txt on the
+# real /tmp after the run: it must not be there.
+
+[Unit]
+Description=systemdlings: pretend document converter
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sh -c 'echo "secret draft" > /tmp/systemdlings-sandbox3-intermediate.txt && echo "wrote intermediate file"'

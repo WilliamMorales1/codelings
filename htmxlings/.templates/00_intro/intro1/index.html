@@ -1,0 +1,31 @@
+<!doctype html>
+<!--
+  intro1 - welcome to htmxlings
+
+  Every exercise is a directory with an index.html page and, usually, a
+  handlers.js file holding the server routes the page talks to. The tests
+  load your page into a real DOM with the real htmx library, click things,
+  and check what htmx swapped in.
+
+  The button below asks the server for GET /hello and htmx puts the
+  returned HTML fragment into #greeting.
+
+  TASK: the tests expect the fragment to say "Hello from the server!", but
+  the route in handlers.js says something else. Fix it and save. Once the
+  tests pass, the exercise is done and the runner moves you on.
+
+  Try it in a browser: npm run serve intro1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>intro1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>intro1</h1>
+  <button hx-get="/hello" hx-target="#greeting">Say hello</button>
+  <div id="greeting"></div>
+</body>
+</html>

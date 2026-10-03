@@ -1,0 +1,3 @@
+# streams3 — capping a stream with MAXLEN
+
+XADD metrics:host1 MAXLEN 3 * cpu 42

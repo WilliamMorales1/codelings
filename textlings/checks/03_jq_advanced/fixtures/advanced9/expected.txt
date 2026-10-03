@@ -1,0 +1,45 @@
+{
+  "url": "https://api.github.com/repos/acme/widget/issues/401",
+  "html_url": "https://github.com/acme/widget/issues/401",
+  "id": 1794305168,
+  "number": 401,
+  "title": "Make timeouts configurable",
+  "user": {
+    "login": "mona",
+    "id": 1616384,
+    "node_id": "MDQ6VXNlcj1616384",
+    "avatar_url": "https://avatars.githubusercontent.com/u/1616384?v=4",
+    "url": "https://api.github.com/users/mona",
+    "html_url": "https://github.com/mona",
+    "type": "User",
+    "site_admin": false
+  },
+  "labels": [
+    {
+      "id": 8603253,
+      "name": "enhancement",
+      "color": "a2eeef",
+      "default": true
+    },
+    {
+      "id": 9359620,
+      "name": "dependencies",
+      "color": "0366d6",
+      "default": false
+    }
+  ],
+  "state": "closed",
+  "locked": false,
+  "assignees": [],
+  "comments": 0,
+  "created_at": "2026-09-29T21:26:02Z",
+  "updated_at": "2026-09-29T15:29:08Z",
+  "closed_at": "2026-09-30T22:03:42Z",
+  "author_association": "NONE",
+  "body": "Steps to reproduce:\n1. run it\n2. watch it fall over",
+  "reactions": {
+    "total_count": 9,
+    "+1": 0,
+    "-1": 0
+  }
+}

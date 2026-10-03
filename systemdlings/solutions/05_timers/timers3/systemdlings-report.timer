@@ -1,0 +1,9 @@
+# timers3: which unit a timer starts
+
+[Unit]
+Description=systemdlings: run the report soon
+
+[Timer]
+OnActiveSec=1s
+AccuracySec=100ms
+Unit=systemdlings-reporter.service

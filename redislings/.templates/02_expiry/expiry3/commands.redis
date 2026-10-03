@@ -1,0 +1,13 @@
+# expiry3 — KEEPTTL and PERSIST
+#
+# Learn: SET key value KEEPTTL changes the value but keeps the remaining
+# time to live. PERSIST key removes a TTL and makes the key permanent.
+# (EXPIRE key 0 does not mean "never": it deletes the key right away.)
+#
+# Task: the check creates user:1:token and user:1:profile, both with a
+# TTL. Rotate the token's value to "tok-new" without extending or losing
+# its expiry, and make the profile permanent.
+#
+
+SET user:1:token tok-new
+EXPIRE user:1:profile 0

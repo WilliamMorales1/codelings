@@ -1,0 +1,25 @@
+{
+  "name": "tailwindlings",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@tailwindcss/node": "^4.3.3",
+    "@tailwindcss/oxide": "^4.3.3",
+    "jsdom": "^30.1.1",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^4.3.3",
+    "vitest": "^5.0.2"
+  },
+  "description": "Small rustlings-style exercises for Tailwind CSS v4",
+  "scripts": {
+    "start": "node tailwindlings.js",
+    "verify": "node tailwindlings.js verify",
+    "watch": "node tailwindlings.js watch",
+    "list": "node tailwindlings.js list",
+    "hint": "node tailwindlings.js hint",
+    "preview": "node tailwindlings.js preview",
+    "doctor": "node tailwindlings.js doctor",
+    "verify-all": "bash scripts/verify-all.sh"
+  }
+}

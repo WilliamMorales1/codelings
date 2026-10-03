@@ -1,0 +1,8 @@
+# socket1: the per-connection service (see systemdlings-hello.socket first)
+
+[Unit]
+Description=systemdlings: greet one TCP client
+
+[Service]
+ExecStart=/usr/bin/sh -c 'read -r name; echo "hello $$name"'
+StandardInput=socket

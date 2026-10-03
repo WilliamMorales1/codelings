@@ -1,0 +1,30 @@
+<!doctype html>
+<!--
+  motion1: respecting reduced motion
+
+  Some people get dizzy from animation and ask their OS to reduce motion.
+  CSS exposes that as @media (prefers-reduced-motion: reduce).
+    motion-safe:   applies only when the user has NOT asked for less motion
+    motion-reduce: applies only when they have
+
+  Task:
+    - the "scroll down" arrow bounces, but only for motion-safe users
+    - the card lifts on hover with a transition; for motion-reduce users,
+      turn the transition off and don't move it (keep the colour change)
+
+  Preview: npm run preview motion1 (devtools > Rendering > "Emulate CSS
+  media feature prefers-reduced-motion")
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>motion1</title>
+  </head>
+  <body class="p-12">
+    <span id="arrow" class="inline-block text-2xl animate-bounce">&darr;</span>
+    <a id="card" href="#" class="mt-8 block w-64 rounded-lg border p-6 transition hover:-translate-y-1 hover:border-sky-500">
+      Read more
+    </a>
+  </body>
+</html>

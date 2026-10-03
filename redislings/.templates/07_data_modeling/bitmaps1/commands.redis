@@ -1,0 +1,16 @@
+# bitmaps1 — daily active users with bitmaps
+#
+# Learn: a string is also an array of bits. SETBIT key offset value sets
+# bit number offset (here: the user id) to 0 or 1; BITCOUNT counts the
+# 1 bits; BITOP AND|OR|XOR|NOT dest key... combines bitmaps. One bit per
+# user: a million users per day is 125 KB.
+#
+# Task: users 5 and 9 were active on 2026-09-29. Record that, then store
+# the users active on BOTH 2026-09-28 and 2026-09-29 in active:both and
+# print how many there are.
+#
+
+SETBIT active:2026-09-29 1 5
+SETBIT active:2026-09-29 1 9
+BITOP OR active:both active:2026-09-28 active:2026-09-29
+BITCOUNT active:both

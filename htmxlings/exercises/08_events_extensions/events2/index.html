@@ -1,0 +1,35 @@
+<!doctype html>
+<!--
+  events2 - htmx:afterSwap
+
+  Small bits of client-side glue belong in event listeners. After
+  content is swapped in, htmx:afterSwap fires on the target
+  (event.detail.target); the new content is in the DOM by then.
+  htmx:beforeSwap fires before - the old content is still there.
+
+  TASK: after new messages land in #inbox, the tab title should show
+  the count: "(2) Inbox". The listener runs too early and counts the
+  old contents. Fix it.
+
+  Try it in a browser: npm run serve events2
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>events2</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Inbox</h1>
+  <button hx-get="/messages" hx-target="#inbox">Check mail</button>
+  <ul id="inbox"></ul>
+  <script>
+    document.body.addEventListener('htmx:beforeSwap', (event) => {
+      if (event.detail.target.id !== 'inbox') return;
+      const n = document.querySelectorAll('#inbox li').length;
+      document.title = `(${n}) Inbox`;
+    });
+  </script>
+</body>
+</html>

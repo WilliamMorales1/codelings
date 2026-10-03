@@ -1,0 +1,12 @@
+coredns-401bd7ce7-7ce73
+metrics-server-227d2186d-186d3
+metrics-server-29c74803e-803e3
+grafana-6cf79b17a-b17ae
+prometheus-443fe31d0-31d03
+prometheus-d6e1e4855-48557
+checkout-f837730ed-30edf
+payments-c99f9d012-d0129
+search-ac92c9357-9357d
+api-93d8f3341-33418
+api-a678e5106-51061
+worker-204c71709-17095

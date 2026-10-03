@@ -1,0 +1,32 @@
+<!doctype html>
+<!--
+  form4 - server-side validation, rendered as HTML
+
+  With htmx the server owns validation: on bad input it answers with the
+  same form again, now showing the errors and keeping what the user
+  typed. The form below replaces itself (hx-target="this",
+  hx-swap="outerHTML"), so whatever the server returns *is* the new form.
+
+  TASK: in handlers.js, POST /signup accepts anything. Reject a username
+  shorter than 3 characters and an email without "@": re-render the form
+  with an error message next to each bad field, inside an element with
+  class "error", and keep the submitted values in the inputs.
+
+  Try it in a browser: npm run serve form4
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>form4</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Sign up</h1>
+  <form hx-post="/signup" hx-target="this" hx-swap="outerHTML">
+    <label>Username <input name="username"></label>
+    <label>Email <input name="email"></label>
+    <button>Sign up</button>
+  </form>
+</body>
+</html>

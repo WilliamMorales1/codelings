@@ -1,0 +1,23 @@
+// optional1: field presence
+//
+// A plain proto3 scalar has no "unset": 0, "" and false are simply not sent,
+// and the reader cannot tell "the client chose 0" from "the client said
+// nothing". Mark the field `optional` and it gets presence: Go generates a
+// pointer (*int32), nil means unset, and proto.Int32(0) means a real zero.
+//
+// Here volume 0 means MUTE, and an unset volume means "use the default, 50".
+//
+// Task:
+//   1. Give volume presence in this file.
+//   2. Fix EffectiveVolume in volume.go so a muted user stays muted.
+
+syntax = "proto3";
+
+package prefs.v1;
+
+option go_package = "grpclings/exercises/02_proto_advanced/optional1;optional1";
+
+message Settings {
+  string user_id = 1;
+  optional int32 volume = 2;
+}

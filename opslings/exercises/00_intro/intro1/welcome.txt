@@ -1,0 +1,20 @@
+# intro1 -- welcome to opslings
+#
+# Every exercise in this course is a directory full of config: Dockerfiles,
+# Kubernetes manifests, Helm charts, k6 scripts, Prometheus rules, OpenTofu
+# modules, Caddyfiles. Each one is broken in a small, realistic way. You fix
+# it and save, and opslings runs a check script (in checks/) that uses the
+# real tool to see whether you got it right. Once it passes, the exercise is
+# done and opslings moves on by itself.
+#
+# This one is a warm-up:
+#
+#   1. Run `opslings watch` in a second terminal.
+#   2. Change the status line below to `status: ready for duty` and save.
+#
+# Two more commands worth knowing now:
+#
+#   opslings doctor    which tools are installed, and how to get the rest
+#   opslings hint      a nudge for the exercise you are stuck on
+
+status: not ready

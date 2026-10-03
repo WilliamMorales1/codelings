@@ -1,0 +1,24 @@
+# firewall5: NAT masquerade, how your home router works
+#
+#     a 10.1.0.2 --- r0 10.1.0.1 [r] r1 203.0.113.1 --- 203.0.113.2 b ("the internet")
+#
+# a has private addressing; b (a web server "on the internet") has no route
+# back to 10.1.0.0/24, exactly like real internet hosts know nothing about
+# your 192.168.x.x. So r must rewrite the source address of packets leaving
+# towards b to its own public address (source NAT). `masquerade` is SNAT to
+# "whatever address the outgoing interface has". Connection tracking maps
+# the replies back.
+#
+# The check loads this on r and runs, in a:  curl http://203.0.113.2/whoami
+# which reports the client address b saw. It must be 203.0.113.1.
+#
+# Your task: this masquerades on the wrong interface.
+
+flush ruleset
+
+table ip nat {
+  chain postrouting {
+    type nat hook postrouting priority srcnat; policy accept;
+    oifname "r0" masquerade
+  }
+}

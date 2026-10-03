@@ -1,0 +1,8 @@
+# deps3: one part of the stack (nothing to change here)
+
+[Unit]
+Description=systemdlings: pretend worker
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/sleep infinity

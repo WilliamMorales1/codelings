@@ -1,0 +1,12 @@
+Add retry to webhook sender
+Crash when "name" contains a comma, again
+Support ARM64 builds
+Make timeouts configurable
+Bump golang.org/x/net from 0.42.0 to 0.44.0
+Speed up JSON encoding
+ci: cache module downloads
+Log request IDs
+Crash when "name" contains a comma, again
+Handle empty payloads, part 2
+ci: cache module downloads
+Make timeouts configurable

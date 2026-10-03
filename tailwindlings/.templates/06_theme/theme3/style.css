@@ -1,0 +1,24 @@
+/*
+  theme3: replacing a whole namespace
+
+  @theme adds to the defaults. To use ONLY your own colours (so nobody can
+  sneak bg-red-500 into the design system), reset the namespace first:
+
+    @theme {
+      --color-*: initial;
+      --color-ink: ...;
+    }
+
+  After that, default palette classes generate nothing. (`--*: initial`
+  would reset the entire theme.)
+
+  Task: the design system has exactly three colours: ink #111827,
+  paper #fafaf9 and accent #f97316. Make them the only colours available.
+*/
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #111827;
+  --color-paper: #fafaf9;
+  --color-accent: #f97316;
+}

@@ -1,0 +1,3 @@
+# expiry2 — SET ... EX, and why SET wipes a TTL
+
+SET cache:weather:paris "sunny, 21C" EX 60

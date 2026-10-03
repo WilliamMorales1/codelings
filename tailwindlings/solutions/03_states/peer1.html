@@ -1,0 +1,30 @@
+<!doctype html>
+<!--
+  peer1: styling an element from a sibling's state
+
+  Mark an element with `peer`, and a LATER sibling can use peer-checked:,
+  peer-focus:, peer-invalid: ... CSS can only look at previous siblings
+  (the selector is `.peer:checked ~ *`), so the peer must come first in the
+  markup.
+
+  Task: the details panel is hidden, and shown (block) when the "Show
+  details" checkbox is checked. No JavaScript.
+
+  Preview: npm run preview peer1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>peer1</title>
+  </head>
+  <body class="p-8">
+    <label>
+      <input id="toggle" type="checkbox" class="peer" />
+      Show details
+      <div id="details" class="mt-2 hidden rounded bg-gray-100 p-4 peer-checked:block">
+        Order #1042, shipped yesterday.
+      </div>
+    </label>
+  </body>
+</html>

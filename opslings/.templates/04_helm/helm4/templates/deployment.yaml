@@ -1,0 +1,44 @@
+{{- /*
+# helm4 -- if and range
+#
+#   {{- if .Values.flag }} ... {{- end }}          render a block conditionally
+#   {{- range $key, $value := .Values.someMap }}  loop over a map (keys come
+#   ...                                           out sorted)
+#   {{- end }}
+#
+# Inside range, `.` is rebound to the current element, so reach outer values
+# through `$` (the root), e.g. $.Release.Name.
+#
+# Kubernetes env values must be *strings*: `value: 4` or `value: true` is
+# rejected. Pipe them through `quote`.
+#
+# Task:
+#   - render one env entry per key of .Values.env, values quoted
+#   - templates/ingress.yaml must only render when ingress.enabled is true
+#
+#   helm template demo .
+#   helm template demo . --set ingress.enabled=true
+#
+*/ -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-shop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-shop
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-shop
+    spec:
+      containers:
+        - name: shop
+          image: {{ .Values.image }}
+          env:
+            {{- range .Values.env }}
+            - name: {{ .name }}
+              value: {{ .value }}
+            {{- end }}

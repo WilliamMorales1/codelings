@@ -1,0 +1,5 @@
+# expiry1 — EXPIRE and TTL
+
+# 30 minutes = 1800 seconds
+EXPIRE session:9f2c 1800
+TTL session:9f2c

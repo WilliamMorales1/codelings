@@ -1,0 +1,31 @@
+# sandbox4: systemd-analyze security
+#
+# `systemd-analyze security UNIT` scores how exposed a service is, from 0
+# (locked down) to 10 (can do anything the user can), and lists every
+# setting that would lower the score. --offline=true scores a unit *file*
+# without loading it. Try it now:
+#   systemd-analyze security --offline=true --user systemdlings-parser.service
+#
+# Settings that are cheap and rarely break anything:
+#   NoNewPrivileges=yes         no setuid escalation
+#   ProtectSystem=strict        read-only filesystem
+#   ProtectHome=yes             no home directories
+#   PrivateTmp=yes              own /tmp
+#   PrivateDevices=yes          only pseudo devices (null, zero, random...)
+#   PrivateNetwork=yes          only a loopback interface
+#   ProtectKernelTunables=yes, ProtectKernelModules=yes, ProtectControlGroups=yes
+#   RestrictNamespaces=yes      may not create namespaces (containers)
+#   CapabilityBoundingSet=      (empty) no capabilities at all
+#   SystemCallFilter=@system-service   only syscalls ordinary services use
+#   LockPersonality=yes, RestrictRealtime=yes, MemoryDenyWriteExecute=yes
+#
+# Task: this parser only reads stdin and prints. Get its exposure score to
+# 3.0 or lower (the "OK" band), and keep it working: the check still starts
+# it and expects "parsed 3 records" in the journal.
+
+[Unit]
+Description=systemdlings: pretend parser of untrusted input
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/echo "parsed 3 records"

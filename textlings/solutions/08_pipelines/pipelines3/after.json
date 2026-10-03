@@ -1,0 +1,506 @@
+{
+    "apiVersion": "v1",
+    "kind": "List",
+    "items": [
+        {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/revision": "20",
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"name\":\"checkout\",\"namespace\":\"prod\"},\"spec\":{\"replicas\":3}}\n"
+                },
+                "creationTimestamp": "2026-09-28T10:22:21Z",
+                "generation": 15,
+                "labels": {
+                    "app": "checkout",
+                    "team": "storefront"
+                },
+                "managedFields": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "fieldsType": "FieldsV1",
+                        "fieldsV1": {
+                            "f:spec": {
+                                "f:replicas": {}
+                            }
+                        },
+                        "manager": "kubectl-client-side-apply",
+                        "operation": "Update",
+                        "time": "2026-09-30T02:05:43Z"
+                    }
+                ],
+                "name": "checkout",
+                "namespace": "prod",
+                "resourceVersion": "115552",
+                "uid": "7dc59a3a-d035-d259-766b-ad0734c2da80"
+            },
+            "spec": {
+                "progressDeadlineSeconds": 600,
+                "replicas": 3,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app": "checkout"
+                    }
+                },
+                "strategy": {
+                    "rollingUpdate": {
+                        "maxSurge": "25%",
+                        "maxUnavailable": "25%"
+                    },
+                    "type": "RollingUpdate"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "app": "checkout"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "checkout",
+                                "image": "registry.acme.io/checkout:3.2.0",
+                                "imagePullPolicy": "IfNotPresent",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "name": "http",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "LOG_LEVEL",
+                                        "value": "info"
+                                    },
+                                    {
+                                        "name": "DATABASE_URL",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "url",
+                                                "name": "checkout-db"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/healthz",
+                                        "port": "http"
+                                    },
+                                    "periodSeconds": 10
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "256Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "100m",
+                                        "memory": "128Mi"
+                                    }
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 3,
+                "observedGeneration": 7,
+                "readyReplicas": 3,
+                "replicas": 3,
+                "updatedReplicas": 3,
+                "conditions": [
+                    {
+                        "type": "Available",
+                        "status": "True",
+                        "reason": "MinimumReplicasAvailable",
+                        "lastTransitionTime": "2026-09-30T19:58:18Z",
+                        "lastUpdateTime": "2026-09-29T04:12:30Z"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/revision": "16",
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"name\":\"payments\",\"namespace\":\"prod\"},\"spec\":{\"replicas\":3}}\n"
+                },
+                "creationTimestamp": "2026-09-30T23:02:29Z",
+                "generation": 19,
+                "labels": {
+                    "app": "payments",
+                    "team": "storefront"
+                },
+                "managedFields": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "fieldsType": "FieldsV1",
+                        "fieldsV1": {
+                            "f:spec": {
+                                "f:replicas": {}
+                            }
+                        },
+                        "manager": "kubectl-client-side-apply",
+                        "operation": "Update",
+                        "time": "2026-09-29T16:54:05Z"
+                    }
+                ],
+                "name": "payments",
+                "namespace": "prod",
+                "resourceVersion": "632510",
+                "uid": "2f45e678-309d-6b79-965e-da32dae44550"
+            },
+            "spec": {
+                "progressDeadlineSeconds": 600,
+                "replicas": 3,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app": "payments"
+                    }
+                },
+                "strategy": {
+                    "rollingUpdate": {
+                        "maxSurge": "25%",
+                        "maxUnavailable": "25%"
+                    },
+                    "type": "RollingUpdate"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "app": "payments"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "payments",
+                                "image": "registry.acme.io/payments:5.0.2",
+                                "imagePullPolicy": "IfNotPresent",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "name": "http",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "LOG_LEVEL",
+                                        "value": "info"
+                                    },
+                                    {
+                                        "name": "DATABASE_URL",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "url",
+                                                "name": "payments-db"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/healthz",
+                                        "port": "http"
+                                    },
+                                    "periodSeconds": 10
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "256Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "100m",
+                                        "memory": "128Mi"
+                                    }
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 3,
+                "observedGeneration": 7,
+                "readyReplicas": 3,
+                "replicas": 3,
+                "updatedReplicas": 3,
+                "conditions": [
+                    {
+                        "type": "Available",
+                        "status": "True",
+                        "reason": "MinimumReplicasAvailable",
+                        "lastTransitionTime": "2026-09-30T18:32:17Z",
+                        "lastUpdateTime": "2026-09-29T21:16:33Z"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/revision": "17",
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"name\":\"search\",\"namespace\":\"prod\"},\"spec\":{\"replicas\":3}}\n"
+                },
+                "creationTimestamp": "2026-09-29T03:35:15Z",
+                "generation": 23,
+                "labels": {
+                    "app": "search",
+                    "team": "platform"
+                },
+                "managedFields": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "fieldsType": "FieldsV1",
+                        "fieldsV1": {
+                            "f:spec": {
+                                "f:replicas": {}
+                            }
+                        },
+                        "manager": "kubectl-client-side-apply",
+                        "operation": "Update",
+                        "time": "2026-09-30T08:31:35Z"
+                    }
+                ],
+                "name": "search",
+                "namespace": "prod",
+                "resourceVersion": "466776",
+                "uid": "ff22a27b-02c7-bff2-61b3-39ff248174e5"
+            },
+            "spec": {
+                "progressDeadlineSeconds": 600,
+                "replicas": 3,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app": "search"
+                    }
+                },
+                "strategy": {
+                    "rollingUpdate": {
+                        "maxSurge": "25%",
+                        "maxUnavailable": "25%"
+                    },
+                    "type": "RollingUpdate"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "app": "search"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "search",
+                                "image": "docker.io/library/nginx:1.29.1",
+                                "imagePullPolicy": "IfNotPresent",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "name": "http",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "LOG_LEVEL",
+                                        "value": "info"
+                                    },
+                                    {
+                                        "name": "DATABASE_URL",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "url",
+                                                "name": "search-db"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/healthz",
+                                        "port": "http"
+                                    },
+                                    "periodSeconds": 10
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "256Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "100m",
+                                        "memory": "128Mi"
+                                    }
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 3,
+                "observedGeneration": 7,
+                "readyReplicas": 3,
+                "replicas": 3,
+                "updatedReplicas": 3,
+                "conditions": [
+                    {
+                        "type": "Available",
+                        "status": "True",
+                        "reason": "MinimumReplicasAvailable",
+                        "lastTransitionTime": "2026-09-29T11:17:19Z",
+                        "lastUpdateTime": "2026-09-29T19:08:14Z"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/revision": "10",
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"name\":\"recommendations\",\"namespace\":\"prod\"},\"spec\":{\"replicas\":3}}\n"
+                },
+                "creationTimestamp": "2026-09-29T05:10:20Z",
+                "generation": 23,
+                "labels": {
+                    "app": "recommendations",
+                    "team": "platform"
+                },
+                "managedFields": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "fieldsType": "FieldsV1",
+                        "fieldsV1": {
+                            "f:spec": {
+                                "f:replicas": {}
+                            }
+                        },
+                        "manager": "kubectl-client-side-apply",
+                        "operation": "Update",
+                        "time": "2026-09-30T18:24:00Z"
+                    }
+                ],
+                "name": "recommendations",
+                "namespace": "prod",
+                "resourceVersion": "990593",
+                "uid": "3b05e392-a6ea-1c0d-2f8b-9e9de3d6e4b9"
+            },
+            "spec": {
+                "progressDeadlineSeconds": 600,
+                "replicas": 3,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app": "recommendations"
+                    }
+                },
+                "strategy": {
+                    "rollingUpdate": {
+                        "maxSurge": "25%",
+                        "maxUnavailable": "25%"
+                    },
+                    "type": "RollingUpdate"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "app": "recommendations"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "recommendations",
+                                "image": "ghcr.io/acme/recs:0.1.0",
+                                "imagePullPolicy": "IfNotPresent",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "name": "http",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "LOG_LEVEL",
+                                        "value": "info"
+                                    },
+                                    {
+                                        "name": "DATABASE_URL",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "url",
+                                                "name": "recommendations-db"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/healthz",
+                                        "port": "http"
+                                    },
+                                    "periodSeconds": 10
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "256Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "100m",
+                                        "memory": "128Mi"
+                                    }
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 3,
+                "observedGeneration": 7,
+                "readyReplicas": 3,
+                "replicas": 3,
+                "updatedReplicas": 3,
+                "conditions": [
+                    {
+                        "type": "Available",
+                        "status": "True",
+                        "reason": "MinimumReplicasAvailable",
+                        "lastTransitionTime": "2026-09-30T08:30:36Z",
+                        "lastUpdateTime": "2026-09-28T18:42:57Z"
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+// unary1: declaring a service
+//
+// A gRPC API is a `service` block of `rpc` methods, each taking exactly one
+// request message and returning exactly one response message:
+//   service FooService {
+//     rpc DoThing(DoThingRequest) returns (DoThingResponse);
+//   }
+// protoc-gen-go-grpc turns it into greeter_grpc.pb.go: a GreeterServiceServer
+// interface to implement, a GreeterServiceClient to call it with, and
+// RegisterGreeterServiceServer to wire an implementation into a grpc.Server.
+//
+// Task: declare GreeterService with one RPC, SayHello, from SayHelloRequest
+// to SayHelloResponse. greeter.go already implements it; it compiles once the
+// service exists.
+
+syntax = "proto3";
+
+package greet.v1;
+
+option go_package = "grpclings/exercises/05_unary_grpc/unary1;unary1";
+
+message SayHelloRequest {
+  string name = 1;
+}
+
+message SayHelloResponse {
+  string greeting = 1;
+}
+
+// TODO: service GreeterService

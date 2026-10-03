@@ -1,0 +1,26 @@
+// intro1: the ritual
+//
+// Welcome to grpclings. Every exercise is a directory like this one. Most hold
+// a .proto file (the schema) and some Go code that uses the Go types protoc
+// generates from it. You edit the files, and `grpclings watch` re-checks them
+// every time you save.
+//
+// This one has a single bug, in greet.go next to it: the check wants
+// Greet("gopher") to say "Hello, gopher!". Fix it and save; once the check
+// passes the exercise is done and grpclings moves on.
+//
+// How checking works: the check regenerates the Go code from your .proto
+// (protoc + protoc-gen-go, pinned in go.mod and run with `go tool`), lays a
+// hidden test file over the directory, and runs `go test`. Nothing is written
+// into your exercise. The *.pb.go files here are only for your editor.
+
+syntax = "proto3";
+
+package intro.v1;
+
+option go_package = "grpclings/exercises/00_intro/intro1;intro1";
+
+// A Greeting becomes the Go struct intro1.Greeting with a Text string field.
+message Greeting {
+  string text = 1;
+}

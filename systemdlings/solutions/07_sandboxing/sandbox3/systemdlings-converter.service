@@ -1,0 +1,9 @@
+# sandbox3: PrivateTmp=
+
+[Unit]
+Description=systemdlings: pretend document converter
+
+[Service]
+Type=oneshot
+PrivateTmp=yes
+ExecStart=/usr/bin/sh -c 'echo "secret draft" > /tmp/systemdlings-sandbox3-intermediate.txt && echo "wrote intermediate file"'

@@ -1,0 +1,11 @@
+# deps1: the database the app needs (nothing to change in this file)
+
+[Unit]
+Description=systemdlings: pretend database, slow to come up
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/sleep 1
+ExecStart=/usr/bin/touch %t/systemdlings/deps1/db.ready
+ExecStop=/usr/bin/rm -f %t/systemdlings/deps1/db.ready

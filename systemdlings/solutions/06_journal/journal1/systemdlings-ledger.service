@@ -1,0 +1,9 @@
+# journal1: where service output goes, and SyslogIdentifier=
+
+[Unit]
+Description=systemdlings: pretend accounting job
+
+[Service]
+Type=oneshot
+SyslogIdentifier=ledger
+ExecStart=/usr/bin/sh -c 'date -u +"ledger run at %%FT%%TZ"; echo "balance ok"'

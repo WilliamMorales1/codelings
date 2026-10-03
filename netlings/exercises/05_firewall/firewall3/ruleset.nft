@@ -1,0 +1,22 @@
+# firewall3: counters
+#
+# `counter` is a statement that counts packets and bytes of every packet that
+# reaches it. `nft list ruleset` then shows `counter packets 12 bytes 720`.
+# Great for "is anybody still using telnet before I switch it off?".
+#
+# The check loads this into b, makes a few telnet (port 23) connection
+# attempts from a, then reads the counters with `nft -j list ruleset`. It
+# wants the attempts dropped AND counted.
+#
+# Your task: the counter below stays at 0 forever. Why? (Hint: statements run
+# left to right, rules top to bottom, and a verdict ends it all.)
+
+flush ruleset
+
+table inet filter {
+  chain input {
+    type filter hook input priority filter; policy accept;
+    tcp dport 23 drop
+    tcp dport 23 counter comment "telnet attempts"
+  }
+}

@@ -1,0 +1,853 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-09-29T21:42:04Z",
+                "generateName": "metrics-server-e8e06f291-",
+                "labels": {
+                    "app": "metrics-server",
+                    "pod-template-hash": "e8e06f291"
+                },
+                "name": "metrics-server-e8e06f291-f291b",
+                "namespace": "kube-system",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "metrics-server-e8e06f291",
+                        "uid": "96838b76-9da5-9b74-a6c3-181c81e220df"
+                    }
+                ],
+                "resourceVersion": "526424",
+                "uid": "7d28f934-3533-9774-bb1e-386c4fd5079e"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "metrics-server",
+                        "image": "registry.k8s.io/metrics-server/metrics-server:3.4.7",
+                        "imagePullPolicy": "IfNotPresent",
+                        "ports": [
+                            {
+                                "containerPort": 9090,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {
+                            "limits": {
+                                "memory": "256Mi"
+                            },
+                            "requests": {
+                                "cpu": "250m",
+                                "memory": "64Mi"
+                            }
+                        },
+                        "env": [
+                            {
+                                "name": "LOG_LEVEL",
+                                "value": "warn"
+                            },
+                            {
+                                "name": "PORT",
+                                "value": "8080"
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "nodeName": "ip-10-1-9-9",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30
+            },
+            "status": {
+                "phase": "Running",
+                "hostIP": "10.0.0.18",
+                "podIP": "10.244.2.241",
+                "qosClass": "Burstable",
+                "startTime": "2026-09-30T09:49:27Z",
+                "containerStatuses": [
+                    {
+                        "name": "metrics-server",
+                        "ready": true,
+                        "restartCount": 1,
+                        "image": "registry.k8s.io/metrics-server/metrics-server:3.4.7",
+                        "imageID": "registry.k8s.io/metrics-server/metrics-server@sha256:5903b6ec1b0d0dddc7a77301a6c93e48d14b59389ec3703d91ce0ab53d5826f0",
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-09-30T00:56:14Z"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-09-29T00:52:06Z",
+                "generateName": "metrics-server-eaba9e7b8-",
+                "labels": {
+                    "app": "metrics-server",
+                    "pod-template-hash": "eaba9e7b8"
+                },
+                "name": "metrics-server-eaba9e7b8-9e7b8",
+                "namespace": "kube-system",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "metrics-server-eaba9e7b8",
+                        "uid": "b5459d83-fbc4-6f1a-ea99-0e94821d4606"
+                    }
+                ],
+                "resourceVersion": "132926",
+                "uid": "b6c004cc-3b83-67dc-3f2b-b31efe9934ad"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "metrics-server",
+                        "image": "registry.k8s.io/metrics-server/metrics-server:2.0.2",
+                        "imagePullPolicy": "IfNotPresent",
+                        "ports": [
+                            {
+                                "containerPort": 8080,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {
+                            "limits": {
+                                "memory": "128Mi"
+                            },
+                            "requests": {
+                                "cpu": "50m",
+                                "memory": "64Mi"
+                            }
+                        },
+                        "env": [
+                            {
+                                "name": "LOG_LEVEL",
+                                "value": "debug"
+                            },
+                            {
+                                "name": "PORT",
+                                "value": "8080"
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "nodeName": "ip-10-1-2-3",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30
+            },
+            "status": {
+                "phase": "Running",
+                "hostIP": "10.0.0.17",
+                "podIP": "10.244.0.66",
+                "qosClass": "Burstable",
+                "startTime": "2026-09-28T13:51:24Z",
+                "containerStatuses": [
+                    {
+                        "name": "metrics-server",
+                        "ready": true,
+                        "restartCount": 5,
+                        "image": "registry.k8s.io/metrics-server/metrics-server:2.0.2",
+                        "imageID": "registry.k8s.io/metrics-server/metrics-server@sha256:69d4a217f6dfcc37e3395ca0d747098227c768e5a2059b89b7ea4c3b55c18f26",
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-09-30T06:14:41Z"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-09-29T20:28:12Z",
+                "generateName": "grafana-29721dea3-",
+                "labels": {
+                    "app": "grafana",
+                    "pod-template-hash": "29721dea3"
+                },
+                "name": "grafana-29721dea3-dea3b",
+                "namespace": "monitoring",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "grafana-29721dea3",
+                        "uid": "5a9ac6de-cbd4-d3e2-d4de-c9ef83f0be4e"
+                    }
+                ],
+                "resourceVersion": "793827",
+                "uid": "e73695c3-e652-c71a-7466-7bffe202849d"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "grafana",
+                        "image": "docker.io/grafana/grafana:2.11.7",
+                        "imagePullPolicy": "IfNotPresent",
+                        "ports": [
+                            {
+                                "containerPort": 8080,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {
+                            "limits": {
+                                "memory": "256Mi"
+                            },
+                            "requests": {
+                                "cpu": "100m",
+                                "memory": "64Mi"
+                            }
+                        },
+                        "env": [
+                            {
+                                "name": "LOG_LEVEL",
+                                "value": "debug"
+                            },
+                            {
+                                "name": "PORT",
+                                "value": "8080"
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "nodeName": "ip-10-1-9-9",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30
+            },
+            "status": {
+                "phase": "Pending",
+                "hostIP": "10.0.0.17",
+                "qosClass": "Burstable",
+                "startTime": "2026-09-30T12:51:26Z",
+                "containerStatuses": [
+                    {
+                        "name": "grafana",
+                        "ready": false,
+                        "restartCount": 0,
+                        "image": "docker.io/grafana/grafana:2.11.7",
+                        "imageID": "docker.io/grafana/grafana@sha256:b306291c863b0b95a527c2a566b5e946753758b9a963bcf5f4f55c3369c1a671",
+                        "started": false,
+                        "state": {
+                            "waiting": {
+                                "reason": "ContainerCreating"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-09-30T21:03:01Z",
+                "generateName": "grafana-9fdcc93f0-",
+                "labels": {
+                    "app": "grafana",
+                    "pod-template-hash": "9fdcc93f0"
+                },
+                "name": "grafana-9fdcc93f0-93f0e",
+                "namespace": "monitoring",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "grafana-9fdcc93f0",
+                        "uid": "c9d531ae-72a4-7403-0632-38da1a1fe3f9"
+                    }
+                ],
+                "resourceVersion": "233731",
+                "uid": "649889c0-c7f3-8608-95bf-a81384ae65e9"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "grafana",
+                        "image": "docker.io/grafana/grafana:3.2.7",
+                        "imagePullPolicy": "IfNotPresent",
+                        "ports": [
+                            {
+                                "containerPort": 8080,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {
+                            "limits": {
+                                "memory": "128Mi"
+                            },
+                            "requests": {
+                                "cpu": "250m",
+                                "memory": "64Mi"
+                            }
+                        },
+                        "env": [
+                            {
+                                "name": "LOG_LEVEL",
+                                "value": "warn"
+                            },
+                            {
+                                "name": "PORT",
+                                "value": "8080"
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "nodeName": "ip-10-1-2-3",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30
+            },
+            "status": {
+                "phase": "Running",
+                "hostIP": "10.0.0.17",
+                "podIP": "10.244.2.38",
+                "qosClass": "Burstable",
+                "startTime": "2026-09-30T23:40:30Z",
+                "containerStatuses": [
+                    {
+                        "name": "grafana",
+                        "ready": true,
+                        "restartCount": 8,
+                        "image": "docker.io/grafana/grafana:3.2.7",
+                        "imageID": "docker.io/grafana/grafana@sha256:3896872add2342dc123758de21f27743ba6c8475e4527688b366ae8734137aad",
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-09-29T07:01:57Z"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-09-29T21:08:57Z",
+                "generateName": "checkout-8f2a1be9c-",
+                "labels": {
+                    "app": "checkout",
+                    "pod-template-hash": "8f2a1be9c"
+                },
+                "name": "checkout-8f2a1be9c-be9cd",
+                "namespace": "prod",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "checkout-8f2a1be9c",
+                        "uid": "83844b40-ffa9-b9f1-5c14-bc4a829e07b0"
+                    }
+                ],
+                "resourceVersion": "807243",
+                "uid": "e4c11ab2-fec3-f6b3-2e8d-4b8a8f54f8ce"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "checkout",
+                        "image": "registry.acme.io/checkout:1.3.3",
+                        "imagePullPolicy": "IfNotPresent",
+                        "ports": [
+                            {
+                                "containerPort": 80,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {
+                            "limits": {
+                                "memory": "128Mi"
+                            },
+                            "requests": {
+                                "cpu": "100m",
+                                "memory": "64Mi"
+                            }
+                        },
+                        "env": [
+                            {
+                                "name": "LOG_LEVEL",
+                                "value": "info"
+                            },
+                            {
+                                "name": "PORT",
+                                "value": "8080"
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "nodeName": "ip-10-1-9-9",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30
+            },
+            "status": {
+                "phase": "Running",
+                "hostIP": "10.0.0.17",
+                "podIP": "10.244.3.190",
+                "qosClass": "Burstable",
+                "startTime": "2026-09-29T22:15:21Z",
+                "containerStatuses": [
+                    {
+                        "name": "checkout",
+                        "ready": true,
+                        "restartCount": 3,
+                        "image": "registry.acme.io/checkout:1.3.3",
+                        "imageID": "registry.acme.io/checkout@sha256:eaa1d7d4c23c47352b932ddd87c78ff37e7077ae38d79ee6b0724d51ee0cdf8f",
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-09-28T17:57:14Z"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-09-29T12:04:33Z",
+                "generateName": "payments-ba0a76c19-",
+                "labels": {
+                    "pod-template-hash": "ba0a76c19"
+                },
+                "name": "payments-ba0a76c19-6c196",
+                "namespace": "prod",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "payments-ba0a76c19",
+                        "uid": "fd70bdda-cb4d-eeec-0b0c-995e96e6bc4d"
+                    }
+                ],
+                "resourceVersion": "359865",
+                "uid": "0112ff0f-0948-ecca-f887-7acf26c377c1"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "payments",
+                        "image": "registry.acme.io/payments:1.5.4",
+                        "imagePullPolicy": "IfNotPresent",
+                        "ports": [
+                            {
+                                "containerPort": 8080,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {
+                            "limits": {
+                                "memory": "128Mi"
+                            },
+                            "requests": {
+                                "cpu": "250m",
+                                "memory": "64Mi"
+                            }
+                        },
+                        "env": [
+                            {
+                                "name": "LOG_LEVEL",
+                                "value": "info"
+                            },
+                            {
+                                "name": "PORT",
+                                "value": "8080"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "istio-proxy",
+                        "image": "docker.io/istio/proxyv2:1.27.1",
+                        "imagePullPolicy": "IfNotPresent",
+                        "resources": {
+                            "limits": {
+                                "memory": "256Mi"
+                            },
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "40Mi"
+                            }
+                        }
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "nodeName": "ip-10-1-2-3",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30
+            },
+            "status": {
+                "phase": "Running",
+                "hostIP": "10.0.0.15",
+                "podIP": "10.244.0.75",
+                "qosClass": "Burstable",
+                "startTime": "2026-09-29T08:33:18Z",
+                "containerStatuses": [
+                    {
+                        "name": "payments",
+                        "ready": true,
+                        "restartCount": 0,
+                        "image": "registry.acme.io/payments:1.5.4",
+                        "imageID": "registry.acme.io/payments@sha256:596ab2f1fdce7fb782d090a5afccb91dc1a8b305d23904c9809247296f578e0b",
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-09-29T22:05:25Z"
+                            }
+                        }
+                    },
+                    {
+                        "name": "istio-proxy",
+                        "ready": true,
+                        "restartCount": 2,
+                        "image": "docker.io/istio/proxyv2:1.27.1",
+                        "imageID": "docker.io/istio/proxyv2@sha256:1d7a785b509d8e45a2afe9dd816696919b6681892c46ed5c961bf58ce3696be5",
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-09-28T08:08:27Z"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-09-30T06:29:31Z",
+                "generateName": "api-404ee207f-",
+                "labels": {
+                    "app": "api",
+                    "pod-template-hash": "404ee207f"
+                },
+                "name": "api-404ee207f-207f8",
+                "namespace": "shop",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "api-404ee207f",
+                        "uid": "dc38f519-b917-51da-cdbd-47d364be8049"
+                    }
+                ],
+                "resourceVersion": "633795",
+                "uid": "ef8acd12-8b4f-2fc1-5f3f-57ebf30b94fa"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "api",
+                        "image": "ghcr.io/acme/shop-api:3.3.9",
+                        "imagePullPolicy": "IfNotPresent",
+                        "ports": [
+                            {
+                                "containerPort": 80,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {
+                            "limits": {
+                                "memory": "512Mi"
+                            },
+                            "requests": {
+                                "cpu": "250m",
+                                "memory": "64Mi"
+                            }
+                        },
+                        "env": [
+                            {
+                                "name": "LOG_LEVEL",
+                                "value": "info"
+                            },
+                            {
+                                "name": "PORT",
+                                "value": "8080"
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "nodeName": "ip-10-1-2-3",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30
+            },
+            "status": {
+                "phase": "Running",
+                "hostIP": "10.0.0.17",
+                "podIP": "10.244.2.232",
+                "qosClass": "Burstable",
+                "startTime": "2026-09-28T10:36:57Z",
+                "containerStatuses": [
+                    {
+                        "name": "api",
+                        "ready": true,
+                        "restartCount": 3,
+                        "image": "ghcr.io/acme/shop-api:3.3.9",
+                        "imageID": "ghcr.io/acme/shop-api@sha256:07774ef0de2228567d7501e9fdc52cdeeedd0d3ec10085e028489fcf42a65855",
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-09-29T15:21:37Z"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-09-29T22:02:14Z",
+                "generateName": "worker-1bbeaa14a-",
+                "labels": {
+                    "app": "worker",
+                    "pod-template-hash": "1bbeaa14a"
+                },
+                "name": "worker-1bbeaa14a-a14a7",
+                "namespace": "shop",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "worker-1bbeaa14a",
+                        "uid": "3ead4efe-440e-2b4f-da9c-025a22f1a831"
+                    }
+                ],
+                "resourceVersion": "964810",
+                "uid": "0f756132-e16d-ce72-f18e-859835e1f291"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "worker",
+                        "image": "ghcr.io/acme/shop-worker:1.9.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "ports": [
+                            {
+                                "containerPort": 9090,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {
+                            "limits": {
+                                "memory": "512Mi"
+                            },
+                            "requests": {
+                                "cpu": "50m",
+                                "memory": "64Mi"
+                            }
+                        },
+                        "env": [
+                            {
+                                "name": "LOG_LEVEL",
+                                "value": "warn"
+                            },
+                            {
+                                "name": "PORT",
+                                "value": "8080"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "istio-proxy",
+                        "image": "docker.io/istio/proxyv2:1.27.1",
+                        "imagePullPolicy": "IfNotPresent",
+                        "resources": {
+                            "limits": {
+                                "memory": "256Mi"
+                            },
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "40Mi"
+                            }
+                        }
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "nodeName": "ip-10-1-2-3",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30
+            },
+            "status": {
+                "phase": "Failed",
+                "hostIP": "10.0.0.16",
+                "podIP": "10.244.0.16",
+                "qosClass": "Burstable",
+                "startTime": "2026-09-29T10:23:09Z",
+                "containerStatuses": [
+                    {
+                        "name": "worker",
+                        "ready": false,
+                        "restartCount": 3,
+                        "image": "ghcr.io/acme/shop-worker:1.9.0",
+                        "imageID": "ghcr.io/acme/shop-worker@sha256:c3a53fee3b7647c57cb21c7130cf3abcd10a0b7cc7e957246dd7b116508df1b4",
+                        "started": false,
+                        "state": {
+                            "waiting": {
+                                "reason": "CrashLoopBackOff"
+                            }
+                        }
+                    },
+                    {
+                        "name": "istio-proxy",
+                        "ready": false,
+                        "restartCount": 0,
+                        "image": "docker.io/istio/proxyv2:1.27.1",
+                        "imageID": "docker.io/istio/proxyv2@sha256:59017b68661e92556dc5da2973353b8472a72137df240d6f7fa43cb7b2594267",
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-09-30T14:55:53Z"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-09-28T14:23:41Z",
+                "generateName": "worker-1c02c6b95-",
+                "labels": {
+                    "app": "worker",
+                    "pod-template-hash": "1c02c6b95"
+                },
+                "name": "worker-1c02c6b95-c6b95",
+                "namespace": "shop",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "worker-1c02c6b95",
+                        "uid": "0511baeb-198a-babb-1a16-daff3da95cd2"
+                    }
+                ],
+                "resourceVersion": "290589",
+                "uid": "37a47ce4-1aef-fafc-3b45-402ac02659fe"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "worker",
+                        "image": "ghcr.io/acme/shop-worker:1.0.6",
+                        "imagePullPolicy": "IfNotPresent",
+                        "ports": [
+                            {
+                                "containerPort": 3000,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {
+                            "limits": {
+                                "memory": "128Mi"
+                            },
+                            "requests": {
+                                "cpu": "50m",
+                                "memory": "64Mi"
+                            }
+                        },
+                        "env": [
+                            {
+                                "name": "LOG_LEVEL",
+                                "value": "warn"
+                            },
+                            {
+                                "name": "PORT",
+                                "value": "8080"
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "nodeName": "ip-10-1-9-9",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30
+            },
+            "status": {
+                "phase": "Running",
+                "hostIP": "10.0.0.10",
+                "podIP": "10.244.3.118",
+                "qosClass": "Burstable",
+                "startTime": "2026-09-29T06:33:12Z",
+                "containerStatuses": [
+                    {
+                        "name": "worker",
+                        "ready": true,
+                        "restartCount": 3,
+                        "image": "ghcr.io/acme/shop-worker:1.0.6",
+                        "imageID": "ghcr.io/acme/shop-worker@sha256:1c62d35f0d951d891f9fe0697b43380ba0cd4716eaab97fb542117d38d3412ef",
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-09-30T12:42:11Z"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

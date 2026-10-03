@@ -1,0 +1,10 @@
+# units4: Type=notify and NotifyAccess=
+
+[Unit]
+Description=systemdlings: slow to warm up
+
+[Service]
+Type=notify
+NotifyAccess=all
+TimeoutStartSec=4
+ExecStart=/usr/bin/sh -c 'echo "warming up"; sleep 1; systemd-notify --ready --status=serving; exec sleep infinity'

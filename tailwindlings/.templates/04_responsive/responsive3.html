@@ -1,0 +1,28 @@
+<!doctype html>
+<!--
+  responsive3: max-* and breakpoint ranges
+
+  max-md: is the mirror of md: it applies BELOW 48rem
+  (@media (width < 48rem)). Stack a min and a max variant to target a range:
+  md:max-lg:block means "from md up to, but not including, lg".
+  Arbitrary breakpoints work too: min-[900px]:, max-[600px]:.
+
+  Task:
+    - the "Get the tablet app" banner is hidden, except from md up to lg
+      (768px to 1023px), where it is a block
+    - the Subscribe button is full width below sm (640px); at sm and up its
+      width is left alone
+
+  Preview: npm run preview responsive3
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>responsive3</title>
+  </head>
+  <body class="p-4">
+    <p id="banner" class="hidden rounded bg-amber-100 p-2 md:block">Get the tablet app</p>
+    <button id="subscribe" class="mt-4 rounded bg-sky-600 px-4 py-2 text-white w-full">Subscribe</button>
+  </body>
+</html>

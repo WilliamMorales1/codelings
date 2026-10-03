@@ -1,0 +1,7 @@
+# timers1: OnCalendar= is not cron
+
+[Unit]
+Description=systemdlings: stand-up reminder, weekdays 09:30
+
+[Timer]
+OnCalendar=Mon..Fri 09:30

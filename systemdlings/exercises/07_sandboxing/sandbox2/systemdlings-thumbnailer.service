@@ -1,0 +1,26 @@
+# sandbox2: ProtectHome=
+#
+# ProtectHome= governs /home, /root and /run/user:
+#   read-only  visible but not writable
+#   tmpfs      replaced by empty directories (paths listed in BindPaths= or
+#              ReadWritePaths= can be brought back)
+#   yes        made completely inaccessible
+# For a user service, "home" is your home directory: SSH keys, browser
+# profiles, password stores. A service that chews on untrusted input (say,
+# a thumbnailer) has no business reading it.
+#
+# Mind the fine print: /run/user, where %t lives, is covered too. That is
+# why this exercise keeps its whole script inline in ExecStart= instead of
+# in a file under %t. ($$ is how a literal $ is written in a unit file;
+# a single $ would be expanded by systemd, not by the shell.)
+#
+# Task: the thumbnailer can currently list your home directory. Make home
+# completely inaccessible to it - not even an empty directory to look at.
+
+[Unit]
+Description=systemdlings: pretend thumbnailer
+
+[Service]
+Type=oneshot
+ProtectHome=read-only
+ExecStart=/usr/bin/sh -c 'if ls -A "$$HOME" >/dev/null 2>&1; then echo "home is visible: $$(ls -A "$$HOME" | wc -l) entries"; else echo "home is hidden"; fi'

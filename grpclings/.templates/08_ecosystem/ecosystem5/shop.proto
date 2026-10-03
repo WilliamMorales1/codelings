@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package shop.v1;
+
+option go_package = "grpclings/exercises/08_ecosystem/ecosystem5;ecosystem5";
+
+message Product {
+  string sku = 1;
+  string name = 2;
+  int64 price_cents = 3;
+}
+
+message GetProductRequest {
+  string sku = 1;
+}
+
+message GetProductResponse {
+  Product product = 1;
+}
+
+service ShopService {
+  rpc GetProduct(GetProductRequest) returns (GetProductResponse);
+}

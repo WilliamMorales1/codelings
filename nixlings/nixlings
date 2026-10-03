@@ -1,0 +1,281 @@
+#!/usr/bin/env bash
+# nixlings: rustlings-style runner. Each exercise is checked by checks/<chapter>/<name>.nix,
+# a function from the imported exercise to a bool.
+set -uo pipefail
+
+usage() {
+    cat <<'EOF'
+nixlings - small exercises to get you used to reading and writing Nix
+
+USAGE:
+    nixlings [verify] [CHAPTER]  Check exercises in order, stopping at the first unsolved one (default)
+    nixlings watch [CHAPTER]     Same as verify, but re-checks every time you save a file
+    nixlings run [NAME]          Check one exercise (defaults to the next unsolved one)
+    nixlings hint [NAME]         Print the hint for an exercise
+    nixlings list                Show every exercise and its status
+    nixlings solution NAME       Print the reference solution
+    nixlings reset NAME          Restore an exercise to its original, unsolved state
+    nixlings doctor              Show which external tools are installed and how to get the rest
+    nixlings help                Show this message
+
+CHAPTER is a prefix such as 02 or 02_functions. NAME is chapter/name or just the
+file name, such as 02_functions/1_argument or 1_argument (if unique).
+Fix the file and save: as soon as its check passes, nixlings moves on.
+EOF
+}
+
+if [[ -z "${NO_COLOR:-}" && -t 1 ]]; then
+    color=1
+else
+    color=0
+fi
+
+paint() { if ((color)); then printf '\e[%sm%s\e[0m' "$1" "$2"; else printf '%s' "$2"; fi; }
+say() { paint "$1" "$2"; echo; }
+
+# file_link prints an OSC 8 hyperlink; terminals without support just show the label.
+file_link() {
+    if ((color)); then
+        printf '\e]8;;file://%s\e\\%s\e]8;;\e\\' "$PWD/$1" "$1"
+    else
+        printf '%s' "$1"
+    fi
+}
+
+progress_bar() {
+    local done=$1 total=$2 filled=0
+    ((total > 0)) && filled=$((32 * done / total))
+    local hashes='################################' dashes='--------------------------------'
+    local bar=${hashes:0:filled}${dashes:0:32-filled}
+    printf 'Progress: [%s] %d/%d\n' "$(paint 32 "$bar")" "$done" "$total"
+}
+
+indent() {
+    local line
+    while IFS= read -r line; do printf '    %s\n' "$line"; done
+}
+
+find_root() {
+    local dir=$PWD
+    while [[ "$dir" != / ]]; do
+        if [[ -d "$dir/exercises" && -d "$dir/checks" ]]; then
+            cd "$dir" || exit 2
+            return
+        fi
+        dir=$(dirname "$dir")
+    done
+    say 31 "could not find an exercises/ directory; run nixlings from inside the repository"
+    exit 2
+}
+
+# exercises lists chapter/name ids in order; discovery is driven by checks/.
+exercises() {
+    local prefix=${1:-}
+    local f id
+    for f in checks/*/*.nix; do
+        id=${f#checks/}
+        id=${id%.nix}
+        [[ "$id" == "$prefix"* ]] && echo "$id"
+    done | sort -V
+}
+
+# check_one evaluates the check against the exercise; output goes to stdout.
+check_one() {
+    local id=$1 out err
+    err=$(mktemp)
+    # stdout alone is compared, so download notices on stderr can't turn a pass into a fail.
+    if ! out=$(nix-instantiate --eval --strict --expr \
+        "(import ./checks/$id.nix) (import ./exercises/$id.nix)" 2>"$err"); then
+        cat "$err"
+        rm -f "$err"
+        return 1
+    fi
+    rm -f "$err"
+    if [[ "$out" != true ]]; then
+        echo "The file evaluates, but its output is not what this exercise asks for. It is:"
+        nix-instantiate --eval --strict --expr "(import ./exercises/$id.nix).output" 2>&1
+        return 1
+    fi
+}
+
+hint_of() {
+    local line on=0
+    while IFS= read -r line; do
+        if ((!on)); then
+            [[ "$line" == "# HINT" ]] && on=1
+            continue
+        fi
+        [[ "$line" == "#"* ]] || break
+        line=${line#\#}
+        echo "${line# }"
+    done <"checks/$1.nix"
+}
+
+resolve() {
+    local needle=${1%.nix}
+    needle=${needle#exercises/}
+    local id
+    for id in $(exercises); do
+        if [[ "$id" == "$needle" || "${id#*/}" == "$needle" ]]; then
+            echo "$id"
+            return
+        fi
+    done
+    say 31 "no exercise named \`$1\` (try \`nixlings list\`)" >&2
+    return 1
+}
+
+next_unsolved() {
+    local id
+    for id in $(exercises); do
+        if ! check_one "$id" >/dev/null; then
+            echo "$id"
+            return
+        fi
+    done
+    return 1
+}
+
+# report prints one outcome and returns 0 when the learner may move on.
+report() {
+    local id=$1 out
+    if out=$(check_one "$id"); then
+        say 32 "v $id passes!"
+        return 0
+    fi
+    say 31 "x $id fails."
+    echo "  File: $(file_link "exercises/$id.nix")"
+    printf '%s\n' "$out" | indent
+    echo
+    say 36 "Hint:"
+    hint_of "$id" | indent
+    return 1
+}
+
+cmd_verify() {
+    local ids i=0
+    mapfile -t ids < <(exercises "${1:-}")
+    if ((${#ids[@]} == 0)); then
+        say 31 "no exercises match"
+        return 2
+    fi
+    for id in "${ids[@]}"; do
+        if ! check_one "$id" >/dev/null; then
+            progress_bar "$i" "${#ids[@]}"
+            echo
+            report "$id"
+            return 1
+        fi
+        i=$((i + 1))
+    done
+    progress_bar "${#ids[@]}" "${#ids[@]}"
+    say 32 "All ${#ids[@]} exercises complete. Your derivations are pure."
+}
+
+# stamp is a cheap change token over every exercise file: path, mtime and size.
+stamp() { stat -c '%n %Y.%y %s' exercises/*/*.nix; }
+
+cmd_watch() {
+    local last=""
+    while true; do
+        local now
+        now=$(stamp)
+        if [[ "$now" != "$last" ]]; then
+            last=$now
+            ((color)) && printf '\e[2J\e[H'
+            cmd_verify "${1:-}"
+            echo
+            say 2 "watching... (Ctrl-C to quit)"
+        fi
+        sleep 0.7
+    done
+}
+
+cmd_list() {
+    local done=0 total=0 id label
+    for id in $(exercises); do
+        total=$((total + 1))
+        # Evaluating is quick, so list simply re-checks everything.
+        if check_one "$id" >/dev/null; then
+            label=$(paint 32 "DONE   ")
+            done=$((done + 1))
+        else
+            label=$(paint 33 PENDING)
+        fi
+        printf '%s  %-28s %s\n' "$label" "$id" "$(file_link "exercises/$id.nix")"
+    done
+    echo
+    progress_bar "$done" "$total"
+}
+
+cmd_doctor() {
+    local missing=0
+    if command -v nix-instantiate >/dev/null; then
+        printf '%s nix          %s\n' "$(paint 32 'ok     ')" "$(nix-instantiate --version)"
+    else
+        printf '%s nix          %s\n' "$(paint 31 missing)" "install Nix: https://nixos.org/download/"
+        missing=1
+    fi
+    if ((missing == 0)); then
+        if nix-instantiate --find-file nixpkgs >/dev/null 2>&1; then
+            printf '%s <nixpkgs>    %s %s\n' "$(paint 32 'ok     ')" "$(nix-instantiate --find-file nixpkgs)" "$(paint 2 '(03_map)')"
+        else
+            printf '%s <nixpkgs>    %s %s\n' "$(paint 31 missing)" "nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs && nix-channel --update" "$(paint 2 '(03_map)')"
+            missing=1
+        fi
+    fi
+    echo
+    if ((missing == 0)); then
+        say 32 "Everything is installed."
+    else
+        say 33 "Some tools are missing; chapters that need them will fail with an evaluation error."
+        return 1
+    fi
+}
+
+main() {
+    local cmd=${1:-verify} arg=${2:-} id
+    case "$cmd" in
+    help | -h | --help) usage; return 0 ;;
+    doctor) cmd_doctor; return ;;
+    esac
+    find_root
+    case "$cmd" in
+    verify) cmd_verify "$arg" ;;
+    watch) cmd_watch "$arg" ;;
+    list) cmd_list ;;
+    run)
+        if [[ -z "$arg" ]]; then
+            id=$(next_unsolved) || { say 32 "Every exercise passes."; return 0; }
+        else
+            id=$(resolve "$arg") || return 2
+        fi
+        report "$id"
+        ;;
+    hint)
+        if [[ -z "$arg" ]]; then
+            id=$(next_unsolved) || { say 32 "Every exercise passes."; return 0; }
+        else
+            id=$(resolve "$arg") || return 2
+        fi
+        say 1 "$id"
+        say 36 "Hint:"
+        hint_of "$id" | indent
+        echo "  File: $(file_link "exercises/$id.nix")"
+        ;;
+    solution)
+        [[ -n "$arg" ]] || { say 31 "which exercise? (try \`nixlings list\`)"; return 2; }
+        id=$(resolve "$arg") || return 2
+        say 1 "Solution for $id:"
+        cat "solutions/$id.nix"
+        ;;
+    reset)
+        [[ -n "$arg" ]] || { say 31 "which exercise? (try \`nixlings list\`)"; return 2; }
+        id=$(resolve "$arg") || return 2
+        cp ".templates/$id.nix" "exercises/$id.nix" && say 33 "reset $id to its original state"
+        ;;
+    *) usage; return 2 ;;
+    esac
+}
+
+main "$@"

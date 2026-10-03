@@ -1,0 +1,4 @@
+vda 40G -
+vda1 512M /boot/efi
+vda2 39.4G /
+sr0 1K -

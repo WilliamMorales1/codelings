@@ -1,0 +1,5 @@
+# hashes2 — HINCRBY and HDEL
+
+HINCRBY user:7 visits 1
+HINCRBY cart:7 sku:42 2
+HDEL cart:7 sku:13

@@ -1,0 +1,7 @@
+{"ts":"2026-09-28T14:02:11Z","level":"info","msg":"listening on :8080"}
+panic: runtime error: invalid memory address or nil pointer dereference
+{"ts":"2026-09-28T14:02:12Z","level":"warn","msg":"slow query","ms":812}
+{"ts":"2026-09-28T14:02:13Z","msg":"cache warmed"}
+[GIN] 2026/09/28 - 14:02:14 | 200 |     1.2ms | 10.0.4.12 | GET "/healthz"
+{"ts":"2026-09-28T14:02:15Z","level":"error","msg":"upstream timeout","upstream":"payments"}
+{"ts":"2026-09-28T14:02:16Z","level":"info","msg":"shutting down"

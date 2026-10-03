@@ -1,0 +1,12 @@
+{
+  "repos": 6,
+  "names": [
+    "api",
+    "web",
+    "cli",
+    "infra",
+    "docs",
+    "sdk-go"
+  ],
+  "stars": 9757
+}

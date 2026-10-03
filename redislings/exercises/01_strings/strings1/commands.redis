@@ -1,0 +1,13 @@
+# strings1 — SET, GET and quoting
+#
+# Learn: a string key holds one value. redis-cli splits a line on spaces,
+# so a value containing spaces has to be quoted, just like in a shell.
+#
+# Task: store the user's full name "Ada Lovelace" under user:1:name and
+# her language "en" under user:1:lang. Right now the first command is
+# rejected with a syntax error.
+#
+
+SET user:1:name Ada Lovelace
+SET user:1:lang en
+GET user:1:name

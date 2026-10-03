@@ -1,0 +1,20 @@
+// The schema as released in v1.4.0. Do not edit: it is what clients in the
+// wild were built with. `buf breaking --against released` compares against it.
+syntax = "proto3";
+
+package acme.crm.v1;
+
+enum Tier {
+  TIER_UNSPECIFIED = 0;
+  TIER_SILVER = 1;
+  TIER_GOLD = 2;
+}
+
+message Customer {
+  string id = 1;
+  string name = 2;
+  string phone = 3;
+  string fax = 4;
+  int32 loyalty_points = 5;
+  Tier tier = 6;
+}

@@ -1,0 +1,19 @@
+/*
+  sources1: what Tailwind scans, and safelisting
+
+  Tailwind generates CSS only for class names it can SEE, as complete
+  strings, in your files. It finds files automatically (ignoring
+  .gitignore'd paths and node_modules) and you can steer it:
+    @source "../lib/ui";          scan an extra path
+    @source not "./legacy";       skip a path
+    @source inline("underline");  always generate these, even if unseen
+  inline() understands brace expansion: inline("bg-{red,green}-{100,500}").
+
+  Task: app.js builds the status badge class at runtime from pieces, so
+  the scanner never sees full names like "bg-green-100". Safelist every
+  combination the script can produce (see app.js) with @source inline(...).
+  Don't change app.js.
+*/
+@import "tailwindcss";
+
+@source inline("{bg,text}-{green,amber,red}-{100,800}");

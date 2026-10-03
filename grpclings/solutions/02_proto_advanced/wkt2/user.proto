@@ -1,0 +1,33 @@
+// wkt2: FieldMask for partial updates
+//
+// An UpdateUser RPC gets a whole User, but the client usually means "change
+// only the email". google.protobuf.FieldMask carries that intent: a list of
+// field paths like ["email"]. Fields NOT in the mask must stay untouched;
+// fields in the mask are copied, and copying an unset field clears it.
+//
+// This file is fine. Task: implement ApplyUpdate in update.go.
+
+syntax = "proto3";
+
+package users.v1;
+
+import "google/protobuf/field_mask.proto";
+
+option go_package = "grpclings/exercises/02_proto_advanced/wkt2;wkt2";
+
+message Address {
+  string street = 1;
+  string city = 2;
+}
+
+message User {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  Address address = 4;
+}
+
+message UpdateUserRequest {
+  User user = 1;
+  google.protobuf.FieldMask update_mask = 2;
+}

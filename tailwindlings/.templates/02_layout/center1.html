@@ -1,0 +1,30 @@
+<!doctype html>
+<!--
+  center1: three ways to centre
+
+  1. A whole page: grid min-h-screen place-items-center.
+  2. A block of known max width, horizontally: mx-auto.
+  3. Content inside a fixed-size box: flex (or inline-flex) +
+     items-center + justify-center.
+
+  Task:
+    - the page (#page) centres the login card both ways in the viewport
+    - the initials avatar (#avatar) centres its letters inside the 40px circle
+
+  Preview: npm run preview center1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>center1</title>
+  </head>
+  <body class="bg-slate-100">
+    <div id="page" class="min-h-screen text-center">
+      <form class="w-80 rounded-xl bg-white p-6 shadow">
+        <span id="avatar" class="inline-block size-10 text-center rounded-full bg-sky-600 text-white">AL</span>
+        <p class="mt-4">Welcome back, Ada.</p>
+      </form>
+    </div>
+  </body>
+</html>

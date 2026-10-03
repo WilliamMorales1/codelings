@@ -1,0 +1,5 @@
+order_id,customer,tier,usd
+A1,Wayne Enterprises,gold,10.00
+A2,Stark Industries,gold,5.50
+A3,Wayne Enterprises,gold,99.99
+A4,UNKNOWN,-,1.00

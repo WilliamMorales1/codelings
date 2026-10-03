@@ -1,0 +1,13 @@
+# streams3 — capping a stream with MAXLEN
+#
+# Learn: XADD key MAXLEN n * ... appends and trims the oldest entries so
+# at most n remain. MAXLEN ~ n is the cheap, approximate form: it only
+# drops whole internal nodes (100 entries each by default), so the stream
+# may keep more than n. Great for "about the last million", useless for
+# "exactly the last 3".
+#
+# Task: append cpu=42 to metrics:host1 and keep EXACTLY the 3 newest
+# entries. The check seeds 10 entries first.
+#
+
+XADD metrics:host1 MAXLEN ~ 3 * cpu 42

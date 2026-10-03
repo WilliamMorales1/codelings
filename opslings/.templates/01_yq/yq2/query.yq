@@ -1,0 +1,19 @@
+# yq2 -- filtering a multi-document file
+#
+# `kubectl get -o yaml` and most repos keep several resources in one file,
+# separated by `---`. yq runs the expression once per document, and
+# `select(cond)` drops the documents where cond is false.
+#
+# Task: print the name of every Deployment that runs 2 or more replicas,
+# one per line. For manifests.yaml that is:
+#   api
+#   web
+#
+# The check runs `yq -N --from-file query.yq manifests.yaml` (-N: no `---`
+# separators in the output).
+#
+# The expression below matches nothing at all, and it has no replica filter
+# yet. Kinds are case-sensitive, and conditions combine with `and`.
+#
+
+select(.kind == "deployment") | .metadata.name

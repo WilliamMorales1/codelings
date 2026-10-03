@@ -1,0 +1,12 @@
+# lifecycle2: start rate limiting
+
+[Unit]
+Description=systemdlings: dies immediately, every time
+StartLimitIntervalSec=30s
+StartLimitBurst=3
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/sh -c 'echo "config missing, exiting" >&2; exit 2'
+Restart=always
+RestartSec=200ms

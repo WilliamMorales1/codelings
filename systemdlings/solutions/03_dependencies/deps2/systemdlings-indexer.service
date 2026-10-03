@@ -1,0 +1,10 @@
+# deps2: Wants= versus Requires=
+
+[Unit]
+Description=systemdlings: indexer that writes to the data volume
+Requires=systemdlings-mount.service
+After=systemdlings-mount.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/echo "indexer: writing index to /data"

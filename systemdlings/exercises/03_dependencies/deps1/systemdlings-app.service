@@ -1,0 +1,22 @@
+# deps1: Wants= (requirement) versus After= (ordering)
+#
+# systemd keeps two questions apart:
+#   requirement  "if I start, start that one too"    Wants=, Requires=, BindsTo=
+#   ordering     "if both start, which goes first"    After=, Before=
+# After=foo alone does NOT start foo. It only matters when foo is being
+# started anyway. Wants=foo alone starts foo in parallel, with no waiting.
+# Most of the time you want both lines.
+#
+# Task: starting the app alone should bring up the database first and wait
+# for it. Right now `systemctl --user start systemdlings-app.service` runs
+# the app without ever starting the database. Fix the [Unit] section.
+# Leave systemdlings-db.service as it is.
+
+[Unit]
+Description=systemdlings: app that needs the database
+After=systemdlings-db.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/test -e %t/systemdlings/deps1/db.ready
+ExecStart=/usr/bin/echo "app: database is ready, serving"

@@ -1,0 +1,6 @@
+nvme0n1 476.9G -
+nvme0n1p1 1G /boot
+nvme0n1p2 475.9G /,/home,/var/cache
+sda 59.6G -
+sda1 59.6G /run/media/learner1/USB
+zram0 7.6G [SWAP]

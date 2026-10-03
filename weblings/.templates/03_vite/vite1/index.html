@@ -1,0 +1,25 @@
+<!doctype html>
+<!--
+  vite1/index.html
+
+  index.html is the entry point
+
+  Vite starts from index.html, not from a JS file. Every
+  <script type="module" src="..."> it finds is bundled; the output
+  dist/index.html points at the hashed bundle instead (assets/index-XXXX.js).
+  A script without type="module" is treated as a plain classic script and
+  left alone, with only a warning.
+
+  Task: load src/main.js as a module so that `vite build` bundles it.
+  To see it in a browser: `npx vite exercises/03_vite/vite1`.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>vite1</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="src/main.js"></script>
+  </body>
+</html>

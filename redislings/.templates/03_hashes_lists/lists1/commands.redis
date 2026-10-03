@@ -1,0 +1,12 @@
+# lists1 — LPUSH, RPUSH and LRANGE
+#
+# Learn: a list is ordered. LPUSH adds to the head (left), RPUSH to the
+# tail (right), and LRANGE key 0 -1 reads the whole list head to tail.
+# LPUSH a b c pushes one at a time, so the list ends up c, b, a.
+#
+# Task: build the list pipeline:app so that LRANGE pipeline:app 0 -1
+# returns build, test, deploy, in that order.
+#
+
+LPUSH pipeline:app build test deploy
+LRANGE pipeline:app 0 -1

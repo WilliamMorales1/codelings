@@ -1,0 +1,13 @@
+# strings3 — SET ... NX: only if it does not exist yet
+#
+# Learn: SET key value NX writes only when the key is absent and replies
+# (nil) otherwise. It's the building block for locks and "first writer
+# wins" logic, and it's atomic: no GET-then-SET race.
+#
+# Task: you are worker-b. Claim the locks for the "report" and "invoice"
+# jobs, but never steal a lock another worker already holds. The check
+# runs this against different sets of existing locks.
+#
+
+SET lock:report worker-b
+SET lock:invoice worker-b

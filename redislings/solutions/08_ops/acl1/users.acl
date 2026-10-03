@@ -1,0 +1,5 @@
+# acl1 — ACL users
+
+user default on nopass ~* &* +@all
+user reporter on >report-pass ~report:* resetchannels -@all +@read
+user worker on >worker-pass ~queue:* resetchannels -@all +@list

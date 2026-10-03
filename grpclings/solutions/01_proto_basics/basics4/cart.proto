@@ -1,0 +1,32 @@
+// basics4: repeated fields and nested messages
+//
+// `repeated T name = N;` is a list (a Go slice). A message can declare other
+// messages inside itself; from outside, refer to them as Outer.Inner.
+//
+// Task:
+//   - a Cart holds MANY items: make `items` a list.
+//   - add `coupon_codes`, a list of strings, field number 3.
+//   - Receipt is a separate, top-level message: fix how it names the item type.
+
+syntax = "proto3";
+
+package shop.v1;
+
+option go_package = "grpclings/exercises/01_proto_basics/basics4;basics4";
+
+message Cart {
+  message Item {
+    string sku = 1;
+    int32 quantity = 2;
+  }
+
+  string id = 1;
+  repeated Item items = 2;
+  repeated string coupon_codes = 3;
+}
+
+message Receipt {
+  string cart_id = 1;
+  repeated Cart.Item lines = 2;
+  int64 total_cents = 3;
+}

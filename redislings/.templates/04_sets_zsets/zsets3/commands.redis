@@ -1,0 +1,14 @@
+# zsets3 — score ranges: BYSCORE, ZCOUNT and exclusive bounds
+#
+# Learn: ZRANGE key min max BYSCORE (older: ZRANGEBYSCORE) selects by
+# score instead of by position; ZCOUNT key min max counts. Bounds are
+# inclusive; prefix one with "(" to make it exclusive, and use -inf/+inf
+# for open ends.
+#
+# Task: the "silver league" is players with MORE THAN 100 points, up to
+# and including 200. Print them lowest score first, then print how many
+# there are.
+#
+
+ZRANGE lb:weekly 100 200 BYSCORE
+ZCOUNT lb:weekly 100 200

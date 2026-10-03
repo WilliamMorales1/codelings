@@ -1,0 +1,3 @@
+ubuntu: adm,sudo,lxd
+syslog: adm
+ci: lxd

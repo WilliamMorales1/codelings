@@ -1,0 +1,27 @@
+<!doctype html>
+<!--
+  respond1 - return fragments, not pages
+
+  When htmx asks for /contacts it wants just the bit that goes into the
+  target, not a whole document. Send a full page and you get a heading,
+  nav and all nested inside your list.
+
+  TASK: in handlers.js, make GET /contacts return only the <li> items.
+  Leave the full page template alone - index.html still uses it for the
+  first load (there is nothing to change in this file).
+
+  Try it in a browser: npm run serve respond1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>respond1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Contacts</h1>
+  <button hx-get="/contacts" hx-target="#list">Load contacts</button>
+  <ul id="list"></ul>
+</body>
+</html>

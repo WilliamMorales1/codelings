@@ -1,0 +1,29 @@
+<!doctype html>
+<!--
+  group1: styling children when the parent is hovered
+
+  hover: on a child only fires when the pointer is over that child. To react
+  to the parent's state, mark the parent with `group` and use group-hover:
+  (or group-focus:, group-active: ...) on the children.
+
+  Task: the whole card is a link. When the card is hovered (anywhere, not
+  just over the title), the title turns sky-600 and the arrow moves 0.25rem
+  to the right (translate-x-1).
+
+  Preview: npm run preview group1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>group1</title>
+  </head>
+  <body class="p-8">
+    <a id="card" href="#" class="block max-w-sm rounded-lg border border-gray-200 p-6">
+      <h3 id="title" class="font-semibold hover:text-sky-600">
+        Getting started <span id="arrow" class="inline-block transition-transform hover:translate-x-1">&rarr;</span>
+      </h3>
+      <p class="mt-1 text-gray-500">Install Tailwind and build your first page.</p>
+    </a>
+  </body>
+</html>

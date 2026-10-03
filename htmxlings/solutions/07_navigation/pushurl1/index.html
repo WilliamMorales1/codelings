@@ -1,0 +1,32 @@
+<!doctype html>
+<!--
+  pushurl1 - hx-push-url
+
+  An htmx request does not change the address bar by default, so a
+  search result cannot be bookmarked, shared or reached with Back.
+  hx-push-url="true" pushes the request URL into history (and saves a
+  snapshot of the page for Back); hx-push-url="/some/url" pushes that.
+
+  The server already answers /search?q=... with a full page when you
+  visit it directly, so the pushed URL is a real, reloadable address.
+
+  TASK: make the search form push its URL.
+
+  Try it in a browser: npm run serve pushurl1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>pushurl1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Library search</h1>
+  <form hx-get="/search" hx-target="#results" hx-push-url="true">
+    <input name="q" placeholder="Title">
+    <button>Search</button>
+  </form>
+  <div id="results"></div>
+</body>
+</html>

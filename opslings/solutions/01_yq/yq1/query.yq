@@ -1,0 +1,18 @@
+# yq1 -- reading one field
+#
+# yq (mikefarah/yq, itself written in Go) is jq for YAML. The expression in
+# this file is run as:
+#
+#   yq --from-file query.yq deployment.yaml
+#
+# Lines starting with `#` are comments; everything else is the expression.
+#
+# Task: print the image of the *first* container of the Deployment, i.e.
+#   ghcr.io/acme/api:1.4.2
+#
+# The expression below was copied from a Pod query and prints `null`.
+# A Deployment wraps its Pod spec in a template. Try it yourself:
+#   yq --from-file query.yq deployment.yaml
+#
+
+.spec.template.spec.containers[0].image

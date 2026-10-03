@@ -1,0 +1,10 @@
+# journal4: StandardOutput= and StandardError=
+
+[Unit]
+Description=systemdlings: CSV report
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sh %t/systemdlings/journal4/report.sh
+StandardOutput=truncate:%t/systemdlings/journal4/report.csv
+StandardError=journal

@@ -1,0 +1,13 @@
+# expiry1 — EXPIRE and TTL
+#
+# Learn: EXPIRE key seconds gives a key a time to live; TTL key tells you
+# how many seconds are left (-1: no expiry, -2: no such key). PEXPIRE and
+# PTTL do the same in milliseconds.
+#
+# Task: the login session session:9f2c exists (the check creates it) and
+# must live for 30 minutes. A colleague wrote the line below. Fix it.
+#
+
+# 30 minutes
+EXPIRE session:9f2c 30
+TTL session:9f2c

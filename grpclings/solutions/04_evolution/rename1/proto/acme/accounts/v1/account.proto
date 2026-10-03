@@ -1,0 +1,25 @@
+// rename1: renaming a field without breaking anyone
+//
+// `user_name` was never a user name: it is the name shown in the UI. The
+// team renamed it to `display_name` in place, but buf breaking objects: the
+// field name is the JSON key (and the text format key), so every JSON client
+// would silently lose the value.
+//
+// The safe rename takes two releases:
+//   now:   add the new field with a NEW number, keep the old one and mark it
+//          `[deprecated = true]`; servers fill in both, clients move over.
+//   later: once nobody reads it, delete the old field and reserve it.
+//
+// Task: do the "now" half. user_name keeps number 2 and is deprecated;
+// display_name gets number 4. `buf breaking --against released` must pass.
+
+syntax = "proto3";
+
+package acme.accounts.v1;
+
+message Account {
+  string account_id = 1;
+  string user_name = 2 [deprecated = true];
+  string email = 3;
+  string display_name = 4;
+}

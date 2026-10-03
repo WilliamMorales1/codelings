@@ -1,0 +1,33 @@
+rule_files: [rules.yml]
+evaluation_interval: 1m
+tests:
+  - interval: 1m
+    input_series:
+      - series: 'up{job="node",instance="a:9100"}'
+        values: '1x15'
+      - series: 'up{job="node",instance="b:9100"}'
+        values: '1 1 1 0x12'
+    alert_rule_test:
+      - eval_time: 10m
+        alertname: InstanceDown
+        exp_alerts:
+          - exp_labels: {job: node, instance: "b:9100", severity: warning}
+            exp_annotations:
+              summary: "b:9100 of node is down"
+      - eval_time: 10m
+        alertname: ApiMissing
+        exp_alerts:
+          - exp_labels: {job: api, severity: page}
+            exp_annotations:
+              summary: "No api targets are being scraped"
+  - interval: 1m
+    input_series:
+      - series: 'up{job="api",instance="api:8080"}'
+        values: '1x15'
+    alert_rule_test:
+      - eval_time: 10m
+        alertname: ApiMissing
+        exp_alerts: []
+      - eval_time: 10m
+        alertname: InstanceDown
+        exp_alerts: []

@@ -1,0 +1,9 @@
+# units3: Type=exec for long-running programs
+
+[Unit]
+Description=systemdlings: tick every second
+
+[Service]
+Type=exec
+TimeoutStartSec=3
+ExecStart=/usr/bin/sh -c 'while :; do echo tick; sleep 1; done'

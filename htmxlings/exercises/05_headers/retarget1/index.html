@@ -1,0 +1,33 @@
+<!doctype html>
+<!--
+  retarget1 - HX-Retarget and HX-Reswap
+
+  The server can override where and how its response goes:
+    HX-Retarget: <css selector>   swap into this element instead
+    HX-Reswap: innerHTML          use this swap style instead
+  Perfect for errors: the happy path appends to a list, the error goes
+  to an error box.
+
+  TASK: in handlers.js, an empty comment currently answers with an error
+  paragraph that gets *appended to the comment list*. Send it to #errors
+  instead, replacing whatever error was there before.
+
+  Try it in a browser: npm run serve retarget1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>retarget1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Comments</h1>
+  <ul id="comments"></ul>
+  <div id="errors" class="error"></div>
+  <form hx-post="/comments" hx-target="#comments" hx-swap="beforeend">
+    <input name="text" placeholder="Say something">
+    <button>Post</button>
+  </form>
+</body>
+</html>

@@ -1,0 +1,9 @@
+# tx2 — WATCH: optimistic locking
+
+WATCH stock:widget
+GET stock:widget
+# --- PAUSE: another client may run here ---
+MULTI
+DECR stock:widget
+RPUSH orders:widget alice
+EXEC

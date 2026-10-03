@@ -1,0 +1,8 @@
+# timers1: what the timer triggers (nothing to change here)
+
+[Unit]
+Description=systemdlings: stand-up reminder
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/echo "stand-up in 5 minutes"

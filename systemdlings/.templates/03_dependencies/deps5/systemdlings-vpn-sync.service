@@ -1,0 +1,20 @@
+# deps5: BindsTo= - live and die together
+#
+# Requires= fails this unit if the dependency fails to *start*, and passes on
+# explicit stops. But if the dependency's process simply dies later, a unit
+# with Requires= keeps running as if nothing happened.
+# BindsTo= is stronger: whenever the other unit becomes inactive, for any
+# reason, this unit is stopped too. Pair it with After= (for the ordering,
+# and because BindsTo= only acts on units it is ordered after).
+#
+# Task: the sync client only makes sense while the VPN is up. When the
+# tunnel drops, the sync client must stop by itself.
+
+[Unit]
+Description=systemdlings: sync over the VPN
+Requires=systemdlings-vpn.service
+After=systemdlings-vpn.service
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/sleep infinity

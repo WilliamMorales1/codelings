@@ -1,0 +1,16 @@
+# pubsub2 — SUBSCRIBE versus PSUBSCRIBE
+#
+# Learn: SUBSCRIBE takes exact channel names. PSUBSCRIBE takes glob-style
+# patterns (orders:*, user:?:events) and delivers "pmessage" replies that
+# also say which channel matched. Once a connection subscribes, it can
+# only run (P)SUBSCRIBE, (P)UNSUBSCRIBE, PING and QUIT.
+#
+# Task: listen to order events of EVERY region: orders:eu, orders:us and
+# any region added later, but not payments:*. The check keeps this
+# connection open and publishes to a few channels.
+#
+# Try it: redislings server; in one terminal `redis-cli -p 6390`, paste
+# your command; in another `redis-cli -p 6390 PUBLISH orders:eu hi`.
+#
+
+SUBSCRIBE orders:*

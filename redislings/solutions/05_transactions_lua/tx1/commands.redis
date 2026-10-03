@@ -1,0 +1,6 @@
+# tx1 — MULTI / EXEC
+
+MULTI
+DECRBY account:a 30
+INCRBY account:b 30
+EXEC

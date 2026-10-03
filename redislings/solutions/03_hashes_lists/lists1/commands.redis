@@ -1,0 +1,4 @@
+# lists1 — LPUSH, RPUSH and LRANGE
+
+RPUSH pipeline:app build test deploy
+LRANGE pipeline:app 0 -1

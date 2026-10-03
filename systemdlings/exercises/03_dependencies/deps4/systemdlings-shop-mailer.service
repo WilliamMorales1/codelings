@@ -1,0 +1,17 @@
+# deps4: PartOf= - stop and restart together
+#
+# Wants= only works at start time. Stopping a target does not stop the units
+# it wanted: they keep running, orphaned. PartOf=foo.target is the reverse
+# link: when foo.target is stopped or restarted, this unit is stopped or
+# restarted too (but starting this unit does not start the target).
+#
+# Task: `systemctl --user stop systemdlings-shop.target` stops the web
+# frontend but leaves the mailer running. Make the mailer follow the target
+# the way systemdlings-shop-web.service already does.
+
+[Unit]
+Description=systemdlings: shop mailer
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/sleep infinity

@@ -1,0 +1,10 @@
+# firewall5: NAT masquerade
+
+flush ruleset
+
+table ip nat {
+  chain postrouting {
+    type nat hook postrouting priority srcnat; policy accept;
+    oifname "r1" masquerade
+  }
+}

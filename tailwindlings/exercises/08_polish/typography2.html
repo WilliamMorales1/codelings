@@ -1,0 +1,41 @@
+<!doctype html>
+<!--
+  typography2: text polish without a plugin
+
+  truncate          one line, cut with an ellipsis
+                    (overflow: hidden; text-overflow: ellipsis; white-space: nowrap)
+  line-clamp-3      at most 3 lines, then an ellipsis
+  text-balance      even line lengths for headings (text-wrap: balance)
+  text-pretty       avoids a lonely last word in paragraphs
+  tabular-nums      equal-width digits, so numbers line up in columns
+  underline decoration-sky-500 decoration-2 underline-offset-4
+                    a styled link underline
+
+  Task:
+    - #file: one line with an ellipsis (text-ellipsis alone does nothing:
+      the text has to be kept on one line and clipped too)
+    - #summary: at most 3 lines
+    - #headline: balanced
+    - #price: tabular numbers
+    - #more: a 2px sky-500 underline, 4px below the text
+
+  Preview: npm run preview typography2
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>typography2</title>
+  </head>
+  <body class="max-w-sm p-8">
+    <h1 id="headline" class="text-3xl font-bold">A surprisingly long headline about typography</h1>
+    <p id="file" class="mt-4 w-48 text-ellipsis font-mono">quarterly-report-final-v7-really-final.pdf</p>
+    <p id="summary" class="mt-4 overflow-hidden">
+      This summary is far too long for the card it sits in. It goes on about
+      the quarter, then the year, then the decade, and would push every
+      other card down the page if nothing stopped it.
+    </p>
+    <p id="price" class="mt-4">$1,111.10</p>
+    <a id="more" href="#" class="underline">Read more</a>
+  </body>
+</html>

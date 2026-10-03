@@ -1,0 +1,5 @@
+# groups2 — recovering stuck messages with XAUTOCLAIM
+
+XPENDING events mailer
+XAUTOCLAIM events mailer alice 60000 0-0
+XACK events mailer 1700000000000-0 1700000000000-1

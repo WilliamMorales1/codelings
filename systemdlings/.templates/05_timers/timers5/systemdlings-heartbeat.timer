@@ -1,0 +1,17 @@
+# timers5: repeating monotonic timers
+#
+# OnActiveSec= fires once. To repeat, add OnUnitActiveSec=: "again this long
+# after the service was last activated". Together they read "first run
+# after X, then every Y" - the systemd replacement for a `while sleep` loop.
+# Repetition is measured from the last run, so runs never overlap and a
+# missed beat does not queue up.
+#
+# Task: send the first heartbeat 1 second after the timer starts, then one
+# every 2 seconds. (AccuracySec= is already small so the beats are on time.)
+
+[Unit]
+Description=systemdlings: heartbeat every 2 seconds
+
+[Timer]
+OnActiveSec=1s
+AccuracySec=100ms

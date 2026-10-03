@@ -1,0 +1,44 @@
+# caddy3 -- reverse proxy
+#
+# `reverse_proxy` forwards requests to an upstream and relays the answer.
+# The practice API (`opslings target`) plays the upstream; its address comes
+# in through $UPSTREAM, e.g. http://127.0.0.1:8080.
+#
+# Path matchers are exact unless they end in `*`:
+#   /api      matches only /api
+#   /api/*    matches /api/ and everything below it
+#
+# Directive order is NOT the order in the file: Caddy sorts directives by a
+# built-in list (see "directive order" in the docs). `handle` blocks make
+# routing explicit when that sorting gets in your way.
+#
+# `header` edits *response* headers: `header Name value` sets one,
+# `header -Name` deletes one.
+#
+# Task, on $PORT:
+#   /api/...        proxied to $UPSTREAM (path unchanged)
+#   anything else   200 "edge ok", answered by Caddy itself
+#   every response carries  X-Served-By: opslings-edge
+#   and no `Server` header (why advertise what you run?)
+#
+#   opslings target --port 8080
+#   env PORT=8083 UPSTREAM=http://127.0.0.1:8080 caddy run --config Caddyfile --adapter caddyfile
+#   curl -i localhost:8083/api/items
+#
+
+{
+	admin off
+}
+
+:{$PORT} {
+	header X-Served-By opslings-edge
+	header -Server
+
+	handle /api/* {
+		reverse_proxy {$UPSTREAM}
+	}
+
+	handle {
+		respond "edge ok" 200
+	}
+}

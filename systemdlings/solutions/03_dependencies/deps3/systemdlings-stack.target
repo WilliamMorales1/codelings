@@ -1,0 +1,5 @@
+# deps3: targets group units
+
+[Unit]
+Description=systemdlings: the whole pretend stack
+Wants=systemdlings-api.service systemdlings-worker.service

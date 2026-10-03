@@ -1,0 +1,40 @@
+<!doctype html>
+<!--
+  a11y1: sr-only and focus-visible
+
+  `hidden` (display: none) hides content from everyone, screen readers
+  included. `sr-only` hides it visually but keeps it in the accessibility
+  tree, the standard way to label an icon-only button. `not-sr-only`
+  undoes it, so `sr-only focus:not-sr-only` is a skip link that appears
+  when tabbed to.
+
+  focus-visible: applies when the browser decides focus should be shown
+  (keyboard navigation), not on every mouse click. It is the right place
+  for focus rings.
+
+  Task:
+    - the close button's "Close" label is sr-only (not hidden)
+    - the close button shows a 2px sky-600 outline, offset 2px, on
+      focus-visible
+    - the skip link is sr-only until focused, then shown (focus:not-sr-only)
+
+  Preview: npm run preview a11y1 (press Tab)
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>a11y1</title>
+  </head>
+  <body class="p-8">
+    <a id="skip" href="#main" class="hidden rounded bg-white p-2">Skip to content</a>
+    <div class="flex items-start justify-between rounded border p-4">
+      <p>Your changes were saved.</p>
+      <button id="close" class="rounded focus:outline-none">
+        <span aria-hidden="true">&times;</span>
+        <span id="close-label" class="hidden">Close</span>
+      </button>
+    </div>
+    <main id="main" class="mt-8">Main content</main>
+  </body>
+</html>

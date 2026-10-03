@@ -1,0 +1,126 @@
+$ curl -sv -L --cacert shop-ca.pem --resolve shop.example.test:443:10.0.0.2 https://shop.example.test/old
+* [DNS] added shop.example.test:443:10.0.0.2 to cache
+* Hostname shop.example.test was found in DNS cache
+* Host shop.example.test:443 was resolved.
+* IPv6: (none)
+* IPv4: 10.0.0.2
+*   Trying 10.0.0.2:443...
+* ALPN: curl offers h2,http/1.1
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [1572 bytes data]
+* SSL Trust Anchors:
+*   CAfile: shop-ca.pem
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+{ [1210 bytes data]
+* TLSv1.3 (IN), TLS change cipher, Change cipher spec (1):
+{ [1 bytes data]
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+{ [19 bytes data]
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+{ [857 bytes data]
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+{ [80 bytes data]
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+{ [36 bytes data]
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+} [1 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+} [36 bytes data]
+* SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256 / X25519MLKEM768 / id-ecPublicKey
+* ALPN: server accepted h2
+* Server certificate:
+*   subject: O=netlings; CN=shop.example.test
+*   start date: Sep 29 23:08:16 2026 GMT
+*   expire date: Oct  1 00:08:16 2026 GMT
+*   issuer: O=netlings; CN=netlings test CA
+*   Certificate level 0: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA256
+*   Certificate level 1: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA256
+*   subjectAltName: "shop.example.test" matches cert's "shop.example.test"
+* OpenSSL verify result: 0
+* SSL certificate verified via OpenSSL.
+* Established connection to shop.example.test (10.0.0.2 port 443) from 10.0.0.1 port 41754 
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://shop.example.test/old
+* [HTTP/2] [1] [:method: GET]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: shop.example.test]
+* [HTTP/2] [1] [:path: /old]
+* [HTTP/2] [1] [user-agent: curl/8.22.0]
+* [HTTP/2] [1] [accept: */*]
+} [5 bytes data]
+> GET /old HTTP/2
+> Host: shop.example.test
+> User-Agent: curl/8.22.0
+> Accept: */*
+> 
+* Request completely sent off
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+{ [122 bytes data]
+< HTTP/2 301 
+< content-type: text/html; charset=utf-8
+< location: /moved
+< server: netlings/shop
+< content-length: 41
+< date: Wed, 30 Sep 2026 00:08:16 GMT
+* Ignoring the response-body
+* setting size while ignoring
+< 
+{ [5 bytes data]
+* Connection #0 to host shop.example.test:443 left intact
+* Issue another request to this URL: 'https://shop.example.test/moved'
+* Reusing existing https: connection with host shop.example.test
+* [HTTP/2] [3] OPENED stream for https://shop.example.test/moved
+* [HTTP/2] [3] [:method: GET]
+* [HTTP/2] [3] [:scheme: https]
+* [HTTP/2] [3] [:authority: shop.example.test]
+* [HTTP/2] [3] [:path: /moved]
+* [HTTP/2] [3] [user-agent: curl/8.22.0]
+* [HTTP/2] [3] [accept: */*]
+} [5 bytes data]
+> GET /moved HTTP/2
+> Host: shop.example.test
+> User-Agent: curl/8.22.0
+> Accept: */*
+> 
+* Request completely sent off
+} [5 bytes data]
+< HTTP/2 302 
+< content-type: text/html; charset=utf-8
+< location: /final
+< server: netlings/shop
+< content-length: 29
+< date: Wed, 30 Sep 2026 00:08:16 GMT
+* Ignoring the response-body
+* setting size while ignoring
+< 
+{ [5 bytes data]
+* Connection #0 to host shop.example.test:443 left intact
+* Issue another request to this URL: 'https://shop.example.test/final'
+* Reusing existing https: connection with host shop.example.test
+* [HTTP/2] [5] OPENED stream for https://shop.example.test/final
+* [HTTP/2] [5] [:method: GET]
+* [HTTP/2] [5] [:scheme: https]
+* [HTTP/2] [5] [:authority: shop.example.test]
+* [HTTP/2] [5] [:path: /final]
+* [HTTP/2] [5] [user-agent: curl/8.22.0]
+* [HTTP/2] [5] [accept: */*]
+} [5 bytes data]
+> GET /final HTTP/2
+> Host: shop.example.test
+> User-Agent: curl/8.22.0
+> Accept: */*
+> 
+* Request completely sent off
+} [5 bytes data]
+< HTTP/2 200 
+< server: netlings/shop
+< content-type: text/plain; charset=utf-8
+< content-length: 12
+< date: Wed, 30 Sep 2026 00:08:16 GMT
+< 
+{ [5 bytes data]
+* Connection #0 to host shop.example.test:443 left intact
+you made it

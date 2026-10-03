@@ -1,0 +1,18 @@
+# lifecycle6: KillSignal= and TimeoutStopSec=
+#
+# `systemctl stop` (without ExecStop=) sends KillSignal= (default SIGTERM)
+# to the processes of the unit, waits TimeoutStopSec= (default 90s), then
+# sends SIGKILL. A program that shuts down cleanly on some other signal
+# needs KillSignal= to match, or every stop becomes a slow, dirty kill.
+#
+# Task: queue.sh ignores SIGTERM and only flushes its queue on SIGINT. Right
+# now a stop hangs for TimeoutStopSec and then SIGKILLs it, losing the queue.
+# Make `systemctl stop` shut it down cleanly.
+
+[Unit]
+Description=systemdlings: queue consumer that wants SIGINT
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/bash %t/systemdlings/lifecycle6/queue.sh
+TimeoutStopSec=2

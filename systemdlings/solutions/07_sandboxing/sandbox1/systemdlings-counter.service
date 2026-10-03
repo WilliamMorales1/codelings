@@ -1,0 +1,10 @@
+# sandbox1: ProtectSystem=strict and ReadWritePaths=
+
+[Unit]
+Description=systemdlings: sandboxed counter
+
+[Service]
+Type=oneshot
+ProtectSystem=strict
+ReadWritePaths=%t/systemdlings/sandbox1/state
+ExecStart=/usr/bin/sh %t/systemdlings/sandbox1/counter.sh

@@ -1,0 +1,11 @@
+# sandbox5: resource limits - MemoryMax=, MemorySwapMax=, CPUQuota=
+
+[Unit]
+Description=systemdlings: memory hog
+
+[Service]
+Type=oneshot
+MemoryMax=64M
+MemorySwapMax=0
+CPUQuota=50%
+ExecStart=/usr/bin/sh %t/systemdlings/sandbox5/hog.sh

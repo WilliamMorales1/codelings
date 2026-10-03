@@ -1,0 +1,8 @@
+# dropin2: the api unit (nothing to change here)
+
+[Unit]
+Description=systemdlings: api that logs its log level
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/echo "log level: ${LOG_LEVEL}"

@@ -1,0 +1,4 @@
+kubelet.service: Error syncing pod, skipping
+postgresql.service: PANIC:  could not write to file "pg_wal/xlogtemp.211": No space left on device
+kubelet.service: Error syncing pod, skipping
+entries: 25

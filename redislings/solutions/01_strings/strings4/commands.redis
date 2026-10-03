@@ -1,0 +1,3 @@
+# strings4 — SET ... GET: swap and see what was there
+
+SET config:active v2 GET

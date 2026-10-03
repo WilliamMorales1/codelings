@@ -1,0 +1,8 @@
+203.0.113.99 - /api/v1/checkout
+198.51.100.77 - /api/v1/search?q=lamp
+10.0.4.12 - /login
+203.0.113.18 - /
+203.0.113.7 - /api/v1/products/42
+203.0.113.18 - /favicon.ico
+203.0.113.7 - /static/app.css
+203.0.113.99 - /api/v1/checkout

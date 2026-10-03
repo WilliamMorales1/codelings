@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package quote.v1;
+
+option go_package = "grpclings/exercises/07_middleware/middleware4;middleware4";
+
+message GetPriceRequest {
+  string sku = 1;
+}
+
+message GetPriceResponse {
+  int64 cents = 1;
+}
+
+// Both the frontend and the pricing backend speak this service.
+service PriceService {
+  rpc GetPrice(GetPriceRequest) returns (GetPriceResponse);
+}

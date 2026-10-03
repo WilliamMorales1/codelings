@@ -1,0 +1,10 @@
+// The schema as released. Do not edit.
+syntax = "proto3";
+
+package acme.accounts.v1;
+
+message Account {
+  string account_id = 1;
+  string user_name = 2;
+  string email = 3;
+}

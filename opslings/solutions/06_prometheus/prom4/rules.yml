@@ -1,0 +1,23 @@
+# prom4 -- latency percentiles from histograms
+#
+# A Prometheus histogram is a set of counters, one per bucket:
+#   http_request_duration_seconds_bucket{le="0.1"}   requests that took <= 0.1s
+#   http_request_duration_seconds_bucket{le="0.5"}   ... <= 0.5s
+#   ...                                    {le="+Inf"} all requests
+#
+# histogram_quantile(φ, buckets) estimates the φ-quantile, where φ is
+# between 0 and 1. It needs the `le` label to know which bucket is which, so
+# when you aggregate the buckets, `le` must survive the sum:
+#   histogram_quantile(0.99, sum by (le) (rate(x_bucket[5m])))
+#
+# Task: record the per-job 95th percentile latency over 5 minutes as
+#   job:http_request_duration_seconds:p95
+#
+#   promtool check rules rules.yml
+#
+
+groups:
+  - name: latency
+    rules:
+      - record: job:http_request_duration_seconds:p95
+        expr: histogram_quantile(0.95, sum by (job, le) (rate(http_request_duration_seconds_bucket[5m])))

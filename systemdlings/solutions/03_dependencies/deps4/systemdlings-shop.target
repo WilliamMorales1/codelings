@@ -1,0 +1,5 @@
+# deps4: the shop target (nothing to change here)
+
+[Unit]
+Description=systemdlings: pretend shop
+Wants=systemdlings-shop-web.service systemdlings-shop-mailer.service

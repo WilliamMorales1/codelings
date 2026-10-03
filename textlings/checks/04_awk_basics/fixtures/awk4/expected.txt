@@ -1,0 +1,4 @@
+MOUNT                         USE    FREE
+/                             58%    40.7 GiB
+/dev/shm                       0%     0.1 GiB
+/var/lib/docker               97%     6.2 GiB

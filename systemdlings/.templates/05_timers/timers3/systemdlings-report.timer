@@ -1,0 +1,23 @@
+# timers3: which unit a timer starts
+#
+# foo.timer starts foo.service unless it says otherwise with Unit=. When the
+# names drift apart (someone renamed the service), the timer refuses to
+# start: "Refusing to start, unit ... to trigger not loaded".
+#
+# Besides OnCalendar=, timers can count from events ("monotonic" timers):
+#   OnActiveSec=      after the timer itself was started
+#   OnBootSec=        after boot
+#   OnStartupSec=     after the service manager started (your login, for --user)
+#   OnUnitActiveSec=  after the triggered unit was last started
+# AccuracySec= (default 1min!) lets systemd batch wakeups; keep it small when
+# timing matters.
+#
+# Task: this timer should run systemdlings-reporter.service one second after
+# the timer is started. Do not rename files; fix the timer.
+
+[Unit]
+Description=systemdlings: run the report soon
+
+[Timer]
+OnActiveSec=1s
+AccuracySec=100ms

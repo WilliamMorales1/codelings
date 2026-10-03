@@ -1,0 +1,28 @@
+<!doctype html>
+<!--
+  clickedit - the Click To Edit pattern
+
+  A read-only view with an Edit button; Edit swaps in a form; Save PUTs
+  the form and swaps the view back; Cancel just GETs the view again.
+  Both view and form carry hx-target="this" hx-swap="outerHTML", so
+  each replaces the other in place.
+  (https://htmx.org/examples/click-to-edit/)
+
+  TASK: in handlers.js, the PUT /contact/1 route is a stub. Save the
+  submitted firstName, lastName and email, and answer with the updated
+  view.
+
+  Try it in a browser: npm run serve clickedit
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>clickedit</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Contact</h1>
+  <div hx-get="/contact/1" hx-trigger="load" hx-swap="outerHTML">Loading...</div>
+</body>
+</html>

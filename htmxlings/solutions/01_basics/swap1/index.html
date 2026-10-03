@@ -1,0 +1,30 @@
+<!doctype html>
+<!--
+  swap1 - hx-swap modes
+
+  hx-swap decides *how* the response goes into the target:
+    innerHTML (default)  replace the target's children
+    outerHTML            replace the target itself
+    beforeend            append inside the target
+    afterbegin           prepend inside the target
+    beforebegin/afterend next to the target; delete; none
+
+  TASK: "Log an event" should append a new <li> to the end of #log, and
+  "Pin a note" should put its <li> at the top. Right now both wipe the list.
+
+  Try it in a browser: npm run serve swap1
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>swap1</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Event log</h1>
+  <button id="event" hx-post="/event" hx-target="#log" hx-swap="beforeend">Log an event</button>
+  <button id="pin" hx-post="/pin" hx-target="#log" hx-swap="afterbegin">Pin a note</button>
+  <ul id="log"></ul>
+</body>
+</html>

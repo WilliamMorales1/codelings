@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package chat.v1;
+
+option go_package = "grpclings/exercises/06_streaming/streams3;streams3";
+
+message ChatMessage {
+  string user = 1;
+  string text = 2;
+}
+
+service ChatService {
+  // Both sides send whenever they like, independently.
+  rpc Chat(stream ChatMessage) returns (stream ChatMessage);
+}

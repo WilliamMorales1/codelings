@@ -1,0 +1,17 @@
+root /usr/bin/bash
+bin /usr/bin/nologin
+daemon /usr/bin/nologin
+mail /usr/bin/nologin
+ftp /usr/bin/nologin
+http /usr/bin/nologin
+nobody /usr/bin/nologin
+dbus /usr/bin/nologin
+systemd-journal-remote /usr/bin/nologin
+systemd-network /usr/bin/nologin
+learner1 /bin/bash
+deploy /bin/sh
+alice /usr/bin/zsh
+polkitd /usr/bin/nologin
+git /usr/bin/git-shell
+postgres /bin/bash
+sync /bin/sync

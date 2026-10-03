@@ -1,0 +1,36 @@
+# caddy2 -- static files and the SPA fallback
+#
+# `root` sets the directory files are served from, `file_server` serves
+# them. A single-page app does its own routing in the browser, so a hard
+# refresh on /dashboard/settings asks the server for a file that does not
+# exist. The usual fix is  try_files {path} /index.html : try the requested
+# path, and if there is no such file, serve /index.html instead.
+#
+# But a missing *asset* should stay a 404: serving HTML in place of a
+# missing .js file just produces confusing browser errors. try_files cannot
+# take a matcher, so spell it out with a named matcher and `rewrite`. A named
+# matcher block ANDs its conditions; `file` matches when the file exists:
+#
+#   @name {
+#       not path /some/prefix/*
+#       not file
+#   }
+#   rewrite @name /fallback.html
+#
+# Task, serving the ./site directory on $PORT:
+#   /                       ->  index.html
+#   /assets/app.js          ->  the JS file
+#   /dashboard/settings     ->  index.html (200)
+#   /assets/missing.js      ->  404
+#
+#   env PORT=8082 caddy run --config Caddyfile --adapter caddyfile
+#
+
+{
+	admin off
+}
+
+:{$PORT} {
+	root * public
+	file_server
+}

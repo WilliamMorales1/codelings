@@ -1,0 +1,12 @@
+# expiry4 — GETEX: sliding expiration
+#
+# Learn: a "sliding" session expires 30 minutes after the LAST request,
+# so every read should also push the expiry out. GETEX key EX seconds
+# returns the value and resets the TTL in one atomic command (GETEX key
+# PERSIST removes it instead).
+#
+# Task: read session:9f2c and refresh its TTL to 1800 seconds using ONE
+# command. The check expects the session's value as the only output.
+#
+
+GET session:9f2c

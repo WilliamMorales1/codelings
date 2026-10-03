@@ -1,0 +1,9 @@
+# timers5: repeating monotonic timers
+
+[Unit]
+Description=systemdlings: heartbeat every 2 seconds
+
+[Timer]
+OnActiveSec=1s
+OnUnitActiveSec=2s
+AccuracySec=100ms

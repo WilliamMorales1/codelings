@@ -1,0 +1,28 @@
+// wkt1: well-known types
+//
+// Protobuf ships a few standard messages under google/protobuf/. Use them
+// instead of inventing your own encodings: every language maps them to its
+// native type, and protojson prints them as RFC 3339 / "1.5s" strings.
+//   google.protobuf.Timestamp  a point in time    (Go: timestamppb, .AsTime())
+//   google.protobuf.Duration   a span of time     (Go: durationpb, .AsDuration())
+//   google.protobuf.Empty      "no fields" for RPCs that take or return nothing
+//
+// This schema is not released yet, so we can still redesign it.
+//
+// Task:
+//   1. Replace created_unix with `created_at` (a Timestamp, number 2) and make
+//      ttl (number 3) a Duration instead of a string like "15m". Import the
+//      two .proto files they are defined in.
+//   2. Implement Expired in expiry.go.
+
+syntax = "proto3";
+
+package auth.v1;
+
+option go_package = "grpclings/exercises/02_proto_advanced/wkt1;wkt1";
+
+message Session {
+  string user_id = 1;
+  int64 created_unix = 2;
+  string ttl = 3;
+}

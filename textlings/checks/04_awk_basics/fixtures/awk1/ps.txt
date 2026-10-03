@@ -1,0 +1,10 @@
+USER          PID %CPU %MEM     VSZ    RSS TTY   STAT START   TIME COMMAND
+root            1 18.2  1.7  873646 264704 ?     Ssl  Sep27   2:27 /usr/lib/systemd/systemd-journald
+root          655 24.1  2.6 1307368 413548 pts/0 Ssl  09:40   8:17 /usr/lib/systemd/systemd-udevd
+root          692 10.9  0.2  130775  29678 pts/1 R+   Sep27   2:35 /usr/bin/sshd -D
+learner1      874  6.9  1.6  768642 248493 pts/0 S    08:12   8:32 /usr/bin/gnome-shell
+http         1243 20.2  3.4 1642610 539592 pts/1 R+   Sep27   8:58 nginx: worker process
+learner1     2025 23.7  2.4 1194918 382849 pts/0 R+   08:12  12:25 nvim prog.awk
+postgres     2758 13.8  4.8 2395615 775367 ?     R+   09:40   7:32 postgres: checkpointer
+learner1     3286 23.9  5.5 2705176 872816 pts/1 R+   09:40   9:46 /usr/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle 0:40887
+root         3857 13.7  4.7 2365851 759830 ?     Sl   Sep27   2:56 /usr/bin/NetworkManager --no-daemon

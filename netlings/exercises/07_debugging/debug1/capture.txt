@@ -1,0 +1,18 @@
+$ tcpdump -n -i a0 not ip6       # on 10.0.0.1
+19:06:33.611883 IP 10.0.0.1.34916 > 10.0.0.2.53: 40745+ [1au] A? shop.example.test. (58)
+19:06:33.611985 IP 10.0.0.2.53 > 10.0.0.1.34916: 40745* 1/0/0 A 10.0.0.2 (68)
+19:06:33.633747 IP 10.0.0.1.35290 > 10.0.0.2.80: Flags [S], seq 2617220918, win 64240, options [mss 1460,sackOK,TS val 3815332888 ecr 0,nop,wscale 10], length 0
+19:06:33.633782 IP 10.0.0.2.80 > 10.0.0.1.35290: Flags [S.], seq 3054464397, ack 2617220919, win 65160, options [mss 1460,sackOK,TS val 989552210 ecr 3815332888,nop,wscale 10], length 0
+19:06:33.633796 IP 10.0.0.1.35290 > 10.0.0.2.80: Flags [.], ack 1, win 63, options [nop,nop,TS val 3815332888 ecr 989552210], length 0
+19:06:33.633880 IP 10.0.0.1.35290 > 10.0.0.2.80: Flags [P.], seq 1:82, ack 1, win 63, options [nop,nop,TS val 3815332888 ecr 989552210], length 81: HTTP: GET / HTTP/1.1
+19:06:33.633887 IP 10.0.0.2.80 > 10.0.0.1.35290: Flags [.], ack 82, win 64, options [nop,nop,TS val 989552210 ecr 3815332888], length 0
+19:06:33.635532 IP 10.0.0.2.80 > 10.0.0.1.35290: Flags [P.], seq 1:157, ack 82, win 64, options [nop,nop,TS val 989552212 ecr 3815332888], length 156: HTTP: HTTP/1.1 200 OK
+19:06:33.635553 IP 10.0.0.1.35290 > 10.0.0.2.80: Flags [.], ack 157, win 63, options [nop,nop,TS val 3815332890 ecr 989552212], length 0
+19:06:33.635674 IP 10.0.0.1.35290 > 10.0.0.2.80: Flags [F.], seq 82, ack 157, win 63, options [nop,nop,TS val 3815332890 ecr 989552212], length 0
+19:06:33.635732 IP 10.0.0.2.80 > 10.0.0.1.35290: Flags [F.], seq 157, ack 83, win 64, options [nop,nop,TS val 989552212 ecr 3815332890], length 0
+19:06:33.635740 IP 10.0.0.1.35290 > 10.0.0.2.80: Flags [.], ack 158, win 63, options [nop,nop,TS val 3815332890 ecr 989552212], length 0
+19:06:33.656785 IP 10.0.0.1.38130 > 10.0.0.2.8443: Flags [S], seq 942951331, win 64240, options [mss 1460,sackOK,TS val 4267063400 ecr 0,nop,wscale 10], length 0
+19:06:33.656805 IP 10.0.0.2.8443 > 10.0.0.1.38130: Flags [R.], seq 0, ack 942951332, win 0, length 0
+19:06:33.677453 IP 10.0.0.1.49600 > 10.0.0.2.5432: Flags [S], seq 1812688690, win 64240, options [mss 1460,sackOK,TS val 857206915 ecr 0,nop,wscale 10], length 0
+19:06:34.680054 IP 10.0.0.1.49600 > 10.0.0.2.5432: Flags [S], seq 1812688690, win 64240, options [mss 1460,sackOK,TS val 857207918 ecr 0,nop,wscale 10], length 0
+19:06:35.704054 IP 10.0.0.1.49600 > 10.0.0.2.5432: Flags [S], seq 1812688690, win 64240, options [mss 1460,sackOK,TS val 857208942 ecr 0,nop,wscale 10], length 0

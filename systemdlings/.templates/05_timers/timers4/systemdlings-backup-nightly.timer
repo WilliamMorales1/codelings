@@ -1,0 +1,19 @@
+# timers4: laptops sleep - Persistent= and RandomizedDelaySec=
+#
+# A laptop is often off or suspended when a calendar timer is due. By
+# default the run is simply skipped. With Persistent=true, systemd records
+# the last trigger time on disk and, when the timer is started again (next
+# boot or login), runs the job at once if a trigger was missed. Only works
+# with OnCalendar=.
+#
+# RandomizedDelaySec= adds a random delay (0..value) to every trigger, so
+# many machines - or many timers on one machine - do not all wake at 00:00.
+#
+# Task: make the nightly backup catch up after the laptop was off, and
+# spread its start over up to 30 minutes after midnight.
+
+[Unit]
+Description=systemdlings: nightly backup timer
+
+[Timer]
+OnCalendar=daily

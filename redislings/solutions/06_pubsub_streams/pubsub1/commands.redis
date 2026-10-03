@@ -1,0 +1,3 @@
+# pubsub1 — PUBLISH
+
+PUBLISH orders:eu "shipped 42"

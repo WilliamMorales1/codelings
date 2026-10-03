@@ -1,0 +1,10 @@
+Name            : busybox
+Version         : 1.37.0-1
+Installed Size  : 1024.00 KiB
+Install Reason  : Explicitly installed
+
+Name            : nawk
+Version         : 20260426-1
+Description     : The one, true implementation of AWK
+Installed Size  : 205.64 KiB
+Install Reason  : Installed as a dependency for another package

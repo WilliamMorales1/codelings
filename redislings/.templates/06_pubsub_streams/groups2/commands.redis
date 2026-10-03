@@ -1,0 +1,16 @@
+# groups2 — recovering stuck messages with XAUTOCLAIM
+#
+# Learn: when a consumer dies, its pending entries stay pending forever:
+# XREADGROUP ... > only hands out NEW entries. XPENDING shows who holds
+# what and for how long; XAUTOCLAIM key group consumer min-idle-ms start
+# transfers entries idle for longer than min-idle-ms to another consumer.
+#
+# Task: consumer bob crashed ten minutes ago holding 1700000000000-0 and
+# 1700000000000-1. Consumer carol is alive and just picked up
+# 1700000000000-2. As alice, take over every entry that has been idle
+# for more than a minute, then acknowledge the two you recovered. Don't
+# take carol's entry, and don't read new ones.
+#
+
+XPENDING events mailer
+XREADGROUP GROUP mailer alice STREAMS events >

@@ -1,0 +1,80 @@
+[
+  {
+    "url": "https://api.github.com/repos/acme/widget/releases/40427945",
+    "tag_name": "v0.9.0-rc.1",
+    "name": "v0.9.0-rc.1",
+    "draft": false,
+    "prerelease": true,
+    "created_at": "2026-09-29T10:58:21Z",
+    "published_at": "2026-10-01T06:04:19Z",
+    "author": {
+      "login": "hubot",
+      "id": 2120480,
+      "node_id": "MDQ6VXNlcj2120480",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2120480?v=4",
+      "url": "https://api.github.com/users/hubot",
+      "html_url": "https://github.com/hubot",
+      "type": "User",
+      "site_admin": false
+    },
+    "assets": [
+      {
+        "name": "widget_0.9.0-rc.1_linux_amd64.tar.gz",
+        "size": 5809989,
+        "download_count": 358
+      }
+    ]
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/releases/21433373",
+    "tag_name": "v0.8.3",
+    "name": "v0.8.3",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2026-09-28T17:57:52Z",
+    "published_at": "2026-09-29T02:01:05Z",
+    "author": {
+      "login": "mona",
+      "id": 3514109,
+      "node_id": "MDQ6VXNlcj3514109",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3514109?v=4",
+      "url": "https://api.github.com/users/mona",
+      "html_url": "https://github.com/mona",
+      "type": "User",
+      "site_admin": false
+    },
+    "assets": [
+      {
+        "name": "widget_0.8.3_linux_amd64.tar.gz",
+        "size": 6680700,
+        "download_count": 248
+      }
+    ]
+  },
+  {
+    "url": "https://api.github.com/repos/acme/widget/releases/71623890",
+    "tag_name": "v0.8.2",
+    "name": "v0.8.2",
+    "draft": false,
+    "prerelease": false,
+    "created_at": "2026-09-29T19:29:29Z",
+    "published_at": "2026-09-29T16:59:45Z",
+    "author": {
+      "login": "hubot",
+      "id": 8305431,
+      "node_id": "MDQ6VXNlcj8305431",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8305431?v=4",
+      "url": "https://api.github.com/users/hubot",
+      "html_url": "https://github.com/hubot",
+      "type": "User",
+      "site_admin": false
+    },
+    "assets": [
+      {
+        "name": "widget_0.8.2_linux_amd64.tar.gz",
+        "size": 7403860,
+        "download_count": 1574
+      }
+    ]
+  }
+]

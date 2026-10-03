@@ -1,0 +1,27 @@
+[
+  {
+    "date": "2026-08-25",
+    "service": "storage",
+    "usd": 6.29
+  },
+  {
+    "date": "2026-08-26",
+    "service": "storage",
+    "usd": 7.5
+  },
+  {
+    "date": "2026-08-27",
+    "service": "storage",
+    "usd": 7.48
+  },
+  {
+    "date": "2026-08-28",
+    "service": "storage",
+    "usd": 8.19
+  },
+  {
+    "date": "2026-08-29",
+    "service": "storage",
+    "usd": 4.72
+  }
+]

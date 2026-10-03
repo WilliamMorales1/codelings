@@ -1,0 +1,11 @@
+USER	PID	%CPU	%MEM	VSZ	RSS	TTY	STAT	START	TIME	COMMAND
+root	1	22.3	0.6	367008	100713	?	R+	Sep27	2:58	/usr/lib/systemd/systemd-udevd
+learner1	805	2.1	4.7	2302837	751736	?	R+	Sep27	11:29	/usr/lib/firefox/firefox
+http	1460	0.9	3.3	1605742	530341	pts/1	S	09:40	0:56	nginx:	worker	process
+root	1470	6.2	4.7	2297445	745367	?	Sl	Sep27	7:19	nginx:	master	process	/usr/bin/nginx
+dbus	1677	2.1	1.9	1017706	306152	pts/0	Sl	09:40	1:19	/usr/bin/dbus-broker-launch	--scope	system	--audit
+postgres	1767	8.2	2.7	1352175	424044	?	Sl	09:40	9:26	/usr/bin/postgres	-D	/var/lib/postgres/data
+learner1	1825	11.9	4.3	2151110	686303	?	Ssl	09:40	5:30	/usr/libexec/gnome-terminal-server
+root	2668	23.7	2.4	1264986	390248	?	S	08:12	5:51	/usr/bin/NetworkManager	--no-daemon
+learner1	2987	0.4	5.4	2655360	864453	pts/0	Ssl	Sep27	7:21	/usr/lib/firefox/firefox	-contentproc	-isForBrowser	-prefsHandle	0:40887
+learner1	3023	15.5	4.0	1941641	639587	pts/0	Sl	08:12	5:03	-bash

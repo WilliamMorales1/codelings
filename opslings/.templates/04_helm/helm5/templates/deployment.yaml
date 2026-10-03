@@ -1,0 +1,42 @@
+{{- /*
+# helm5 -- default and required
+#
+#   {{ .Values.x | default "fallback" }}   use fallback when x is empty
+#   {{ required "msg" .Values.x }}      abort rendering with that message
+#                                          when x is empty
+#
+# `required` turns a silent misconfiguration (a worker pointed at host "")
+# into an error at `helm install` time, before anything reaches the cluster.
+#
+# Task:
+#   - image tag: .Values.image.tag, or the chart's appVersion when empty
+#   - replicas:  .Values.replicaCount, or 1 when empty
+#   - DB_HOST:   .Values.database.host, and fail with a message that
+#                mentions database.host when it is not set
+#
+#   helm template demo .                                  # must fail
+#   helm template demo . --set database.host=db.internal  # must work
+#
+*/ -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-worker
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-worker
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-worker
+    spec:
+      containers:
+        - name: worker
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          env:
+            - name: DB_HOST
+              value: {{ .Values.database.host | quote }}
+            - name: DB_PORT
+              value: {{ .Values.database.port | quote }}

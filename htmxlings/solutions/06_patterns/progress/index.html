@@ -1,0 +1,27 @@
+<!doctype html>
+<!--
+  progress - polling a job, and stopping (status 286)
+
+  Start a job, then poll its progress with hx-trigger="every 150ms".
+  Polling stops when the element is removed - or when the server
+  answers with the special status 286, which htmx treats as "swap this,
+  then stop polling". (https://htmx.org/examples/progress-bar/)
+
+  TASK: in handlers.js the job finishes but the page keeps polling
+  forever. When progress reaches 100, answer with status 286.
+
+  Try it in a browser: npm run serve progress
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>progress</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/htmx.js"></script>
+</head>
+<body>
+  <h1>Export</h1>
+  <button hx-post="/jobs" hx-target="#job">Start export</button>
+  <div id="job"></div>
+</body>
+</html>

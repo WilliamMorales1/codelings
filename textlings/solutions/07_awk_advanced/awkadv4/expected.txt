@@ -1,0 +1,14 @@
+203.0.113.42 - /api/v1/products
+203.0.113.7 lb-1.acme.io /api/v1/checkout
+203.0.113.7 lb-1.acme.io /healthz
+203.0.113.18 office-vpn.acme.io /login
+203.0.113.42 - /wp-login.php
+203.0.113.18 office-vpn.acme.io /favicon.ico
+203.0.113.7 lb-1.acme.io /static/app.css
+198.51.100.77 - /
+192.0.2.200 - /api/v1/search?q=lamp
+203.0.113.99 - /static/app.js
+203.0.113.18 office-vpn.acme.io /wp-login.php
+203.0.113.99 - /api/v1/cart
+203.0.113.99 - /api/v1/search?q=lamp
+203.0.113.7 lb-1.acme.io /api/v1/search?q=lamp

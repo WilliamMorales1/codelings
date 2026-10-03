@@ -1,0 +1,9 @@
+# env1: Environment= and quoting
+
+[Unit]
+Description=systemdlings: greeter
+
+[Service]
+Type=oneshot
+Environment="GREETING=hello world" TARGET=systemd
+ExecStart=/usr/bin/echo "${GREETING}, ${TARGET}"

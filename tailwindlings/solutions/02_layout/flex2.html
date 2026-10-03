@@ -1,0 +1,35 @@
+<!doctype html>
+<!--
+  flex2: a sticky footer with flex-col and flex-1
+
+  flex-col turns the main axis vertical. A child with flex-1 grows to take
+  all the leftover space (flex: 1), and ml-auto on a flex item eats the
+  space to its left, pushing it to the end of a row.
+
+  Task:
+    - the page shell: a column that is at least the screen's height
+      (min-h-screen), so the footer sits at the bottom of a short page
+    - main grows to fill the space between header and footer
+    - in the header, the "New" button is pushed to the far right with
+      ml-auto (the other items stay on the left)
+
+  Preview: npm run preview flex2
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>flex2</title>
+  </head>
+  <body>
+    <div id="shell" class="flex min-h-screen flex-col">
+      <header class="flex items-center gap-4 border-b border-gray-200 p-4">
+        <strong>Inbox</strong>
+        <span class="text-gray-500">3 unread</span>
+        <button id="new" class="ml-auto rounded bg-sky-600 px-3 py-1 text-white">New</button>
+      </header>
+      <main id="main" class="flex-1 p-4">Nothing here yet.</main>
+      <footer class="bg-gray-100 p-4 text-sm">&copy; acme</footer>
+    </div>
+  </body>
+</html>

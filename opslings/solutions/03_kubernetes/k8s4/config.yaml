@@ -1,0 +1,68 @@
+# k8s4 -- ConfigMaps as environment variables
+#
+# Keep configuration out of the image: put it in a ConfigMap and inject it.
+# Two ways to turn a ConfigMap into env vars:
+#
+#   envFrom:                     every key becomes a variable
+#     - configMapRef:
+#         name: some-config
+#
+#   env:                         one variable from one key
+#     - name: LOG_LEVEL
+#       valueFrom:
+#         configMapKeyRef:
+#           name: some-config
+#           key: some-key
+#
+# Task, in the Deployment below:
+#   - load *every* key of the `app-config` ConfigMap with envFrom
+#   - set LOG_LEVEL from the key `level` of the `logging` ConfigMap
+# A wrong ConfigMap name or key only shows up at runtime
+# (CreateContainerConfigError), so the check cross-references them for you.
+#
+#   kubeconform -strict -summary config.yaml
+#
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  DATABASE_HOST: db.internal
+  CACHE_TTL: "300"
+  FEATURE_CHECKOUT_V2: "true"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logging
+data:
+  level: debug
+  format: json
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shop
+  template:
+    metadata:
+      labels:
+        app: shop
+    spec:
+      containers:
+        - name: shop
+          image: ghcr.io/acme/shop:3.0.1
+          envFrom:
+            - configMapRef:
+                name: app-config
+          env:
+            - name: LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: logging
+                  key: level

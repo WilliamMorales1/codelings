@@ -1,0 +1,13 @@
+# firewall1: a chain that is never called
+
+flush ruleset
+
+table inet filter {
+  chain input {
+    type filter hook input priority filter; policy drop;
+    iif lo accept
+    ct state established,related accept
+    tcp dport 22 accept
+    icmp type echo-request accept
+  }
+}

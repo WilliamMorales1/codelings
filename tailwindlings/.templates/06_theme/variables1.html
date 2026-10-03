@@ -1,0 +1,31 @@
+<!doctype html>
+<!--
+  variables1: CSS variables in utilities
+
+  Any utility can read a CSS variable with parentheses:
+    bg-(--accent)       background-color: var(--accent)
+    w-(--sidebar-w)     width: var(--sidebar-w)
+  (v3 wrote this as bg-[--accent]; in v4 square brackets hold a literal
+  value, so bg-[--accent] now means "background-color: --accent", which is
+  invalid.)
+
+  Setting the variable in a style attribute (or from JS) gives one
+  component many looks without new classes. Theme variables are ordinary
+  CSS variables too: bg-(--color-sky-500) works.
+
+  Task: each tag sets --accent in its style attribute. Make the tag's
+  text and 1px border use that colour.
+
+  Preview: npm run preview variables1
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>variables1</title>
+  </head>
+  <body class="flex gap-2 p-8">
+    <span id="bug" style="--accent: #dc2626" class="rounded-full border border-[--accent] px-2 text-[--accent]">bug</span>
+    <span id="docs" style="--accent: #2563eb" class="rounded-full border border-[--accent] px-2 text-[--accent]">docs</span>
+  </body>
+</html>

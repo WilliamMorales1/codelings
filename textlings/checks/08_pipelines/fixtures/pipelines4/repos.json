@@ -1,0 +1,147 @@
+[
+  {
+    "id": 763022102,
+    "name": "alpha",
+    "full_name": "acme/alpha",
+    "private": false,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/alpha",
+    "description": null,
+    "fork": false,
+    "created_at": "2026-10-01T04:51:05Z",
+    "pushed_at": "2026-09-28T21:59:11Z",
+    "homepage": null,
+    "size": 29176,
+    "stargazers_count": 1889,
+    "watchers_count": 0,
+    "language": "Rust",
+    "forks_count": 199,
+    "archived": false,
+    "open_issues_count": 58,
+    "license": {
+      "key": "mit",
+      "spdx_id": "MIT"
+    },
+    "topics": [],
+    "default_branch": "main"
+  },
+  {
+    "id": 414326567,
+    "name": "beta",
+    "full_name": "acme/beta",
+    "private": false,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/beta",
+    "description": "A tiny beta service",
+    "fork": false,
+    "created_at": "2026-09-30T09:48:44Z",
+    "pushed_at": "2026-09-30T02:40:19Z",
+    "homepage": null,
+    "size": 78822,
+    "stargazers_count": 2340,
+    "watchers_count": 0,
+    "language": null,
+    "forks_count": 119,
+    "archived": false,
+    "open_issues_count": 7,
+    "license": null,
+    "topics": [
+      "cli",
+      "infra"
+    ],
+    "default_branch": "main"
+  },
+  {
+    "id": 675027527,
+    "name": "gamma",
+    "full_name": "acme/gamma",
+    "private": false,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/gamma",
+    "description": "Internal tooling",
+    "fork": false,
+    "created_at": "2026-09-30T07:03:15Z",
+    "pushed_at": "2026-09-30T23:12:35Z",
+    "homepage": null,
+    "size": 28903,
+    "stargazers_count": 520,
+    "watchers_count": 0,
+    "language": "TypeScript",
+    "forks_count": 106,
+    "archived": false,
+    "open_issues_count": 7,
+    "license": {
+      "key": "mit",
+      "spdx_id": "MIT"
+    },
+    "topics": [],
+    "default_branch": "main"
+  },
+  {
+    "id": 420178748,
+    "name": "delta",
+    "full_name": "acme/delta",
+    "private": false,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/delta",
+    "description": "A tiny delta service",
+    "fork": false,
+    "created_at": "2026-09-30T08:56:13Z",
+    "pushed_at": "2026-09-30T00:00:44Z",
+    "homepage": null,
+    "size": 30056,
+    "stargazers_count": 167,
+    "watchers_count": 0,
+    "language": "Go",
+    "forks_count": 117,
+    "archived": false,
+    "open_issues_count": 56,
+    "license": {
+      "key": "mit",
+      "spdx_id": "MIT"
+    },
+    "topics": [],
+    "default_branch": "main"
+  },
+  {
+    "id": 121501626,
+    "name": "epsilon",
+    "full_name": "acme/epsilon",
+    "private": false,
+    "owner": {
+      "login": "acme",
+      "type": "Organization"
+    },
+    "html_url": "https://github.com/acme/epsilon",
+    "description": null,
+    "fork": false,
+    "created_at": "2026-09-30T00:30:30Z",
+    "pushed_at": "2026-09-30T15:42:07Z",
+    "homepage": null,
+    "size": 21934,
+    "stargazers_count": 1015,
+    "watchers_count": 0,
+    "language": "Python",
+    "forks_count": 63,
+    "archived": false,
+    "open_issues_count": 45,
+    "license": {
+      "key": "mit",
+      "spdx_id": "MIT"
+    },
+    "topics": [],
+    "default_branch": "main"
+  }
+]

@@ -1,0 +1,34 @@
+# collector1 -- receivers, exporters, pipelines
+#
+# The OpenTelemetry Collector is a pipeline: receivers take telemetry in,
+# processors change it, exporters send it on. Defining a component under
+# `receivers:` or `exporters:` does nothing by itself; only components that a
+# pipeline under `service.pipelines` references are started.
+#
+# Task: this config defines an OTLP receiver and a debug exporter (which
+# prints everything to the collector's log), but no pipeline, so the collector
+# refuses to start. Add a `traces` pipeline from the otlp receiver to the
+# debug exporter, and make the debug exporter print every attribute
+# (verbosity: detailed).
+#
+# Try it yourself:
+#   otelcol-contrib validate --config config.yaml
+#   otelcol-contrib --config config.yaml     # then Ctrl-C
+#
+# (The check moves the receiver to a free port, so 4318 does not have to be free.)
+#
+
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 127.0.0.1:4318
+
+exporters:
+  debug:
+    verbosity: basic
+
+service:
+  telemetry:
+    logs:
+      level: info

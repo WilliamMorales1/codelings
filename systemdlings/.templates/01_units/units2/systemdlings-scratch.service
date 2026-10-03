@@ -1,0 +1,23 @@
+# units2: oneshot services and RemainAfterExit=
+#
+# Type=oneshot means "ExecStart= runs to completion, then the unit is started".
+# By default the unit then drops straight back to inactive, as if nothing
+# happened. For setup jobs that should look "on" until you undo them, add
+# RemainAfterExit=yes: the unit stays active (SubState "exited") and
+# `systemctl stop` later runs ExecStop= to tear things down.
+#
+# Task: this unit creates a scratch directory on start and removes it on
+# stop. Right now the directory vanishes the moment the unit starts. Make the
+# unit stay active after ExecStart= finishes, so the directory survives until
+# `systemctl --user stop systemdlings-scratch.service`.
+#
+# (%t is the user's runtime directory, $XDG_RUNTIME_DIR. The check copies this
+# exercise to %t/systemdlings/units2/.)
+
+[Unit]
+Description=systemdlings: set up a scratch directory
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mkdir -p %t/systemdlings/units2/scratch
+ExecStop=/usr/bin/rm -rf %t/systemdlings/units2/scratch

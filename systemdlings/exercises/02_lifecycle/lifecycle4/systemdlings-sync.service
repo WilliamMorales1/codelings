@@ -1,0 +1,19 @@
+# lifecycle4: SuccessExitStatus=
+#
+# To systemd, exit code 0 is success and everything else is failure (plus
+# SIGHUP/SIGINT/SIGTERM/SIGPIPE count as clean for most types). Plenty of
+# tools use other codes for "fine, but nothing happened" - rsync, grep,
+# backup tools. SuccessExitStatus= adds exit codes (and signal names) to the
+# list of clean exits. RestartPreventExitStatus= and RestartForceExitStatus=
+# are its cousins for Restart=.
+#
+# Task: sync.sh exits 3 when there is nothing to sync, and the unit then
+# shows up as failed in `systemctl --user --failed` every night. Teach the
+# unit that 3 is a success. Real errors (any other code) must still fail.
+
+[Unit]
+Description=systemdlings: sync job with a creative exit code
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sh %t/systemdlings/lifecycle4/sync.sh
