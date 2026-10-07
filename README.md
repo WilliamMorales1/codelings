@@ -44,6 +44,7 @@ Imported from other projects (see credits below):
 | [cplings](cplings) | C++ |
 | [dockerlings](dockerlings) | Docker |
 | [erlings](erlings) | Erlang |
+| [exlings](exlings) | Elixir |
 | [golings](golings) | Go |
 | [haskellings](haskellings) | Haskell |
 | [nimlings](nimlings) | Nim |
@@ -65,6 +66,7 @@ their own licenses (each folder keeps its `LICENSE`), with runners adapted to th
 | cplings | [rdjondo/cplings](https://github.com/rdjondo/cplings) | rdjondo | MIT |
 | dockerlings | [furkan/dockerlings](https://github.com/furkan/dockerlings) | Furkan Aldemir | MIT |
 | erlings | [lambdaclass/erlings](https://github.com/lambdaclass/erlings) | LambdaClass | MIT |
+| exlings | [zoedsoupe/exlings](https://github.com/zoedsoupe/exlings) | zoedsoupe and contributors | Apache-2.0 |
 | golings | [mauricioabreu/golings](https://github.com/mauricioabreu/golings) | Mauricio Abreu | Apache-2.0 |
 | haskellings | [MondayMorningHaskell/haskellings](https://github.com/MondayMorningHaskell/haskellings) | Monday Morning Haskell | BSD-3-Clause |
 | nimlings | [sergiotapia/nimlings](https://github.com/sergiotapia/nimlings) | Sergio Tapia | MIT |

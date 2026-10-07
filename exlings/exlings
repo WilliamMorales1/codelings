@@ -1,0 +1,489 @@
+#!/usr/bin/env elixir
+# exlings: rustlings-style runner for the exercises in this directory.
+
+defmodule Exlings.Exercise do
+  defstruct [:chapter, :name, :path, :rel, :check]
+
+  def id(e), do: "#{e.chapter}/#{e.name}"
+end
+
+defmodule Exlings.Term do
+  def color?, do: System.get_env("NO_COLOR") in [nil, ""]
+
+  def paint(code, s), do: if(color?(), do: "\e[#{code}m#{s}\e[0m", else: s)
+
+  def say(code, s), do: IO.puts(paint(code, s))
+
+  # OSC 8 hyperlink; terminals without support just show the label.
+  def file_link(path, label) do
+    if color?(), do: "\e]8;;file://#{path}\e\\#{label}\e]8;;\e\\", else: label
+  end
+
+  def bar(done, total) do
+    filled = if total == 0, do: 0, else: div(32 * done, total)
+    fill = String.duplicate("#", filled) <> String.duplicate("-", 32 - filled)
+    "Progress: [#{paint("32", fill)}] #{done}/#{total}"
+  end
+
+  def indent(text) do
+    text
+    |> String.trim_trailing()
+    |> String.split("\n")
+    |> Enum.each(&IO.puts("    " <> &1))
+  end
+
+  def clear, do: if(color?(), do: IO.write("\e[2J\e[H"))
+end
+
+defmodule Exlings do
+  alias Exlings.{Exercise, Term}
+
+  @timeout_ms 10_000
+  @watch_ms 700
+
+  def usage do
+    """
+    exlings - small exercises to get you used to reading and writing Elixir
+
+    USAGE:
+        exlings [verify]        Check exercises in order, stopping at the first unsolved one (default)
+        exlings watch [CHAPTER] Same as verify, but re-checks every time you save a file
+        exlings run [NAME]      Check one exercise (defaults to the next unsolved one)
+        exlings hint [NAME]     Print the hints for an exercise
+        exlings list            Show every exercise, its status and the file to edit
+        exlings solution NAME   Print the reference solution
+        exlings reset NAME      Restore an exercise to its original state
+        exlings doctor          Show which external tools are installed and how to get the rest
+        exlings help            Show this message
+
+    NAME is an exercise such as 001_hello_world, hello_world, 00_intro/hello_world or 1.
+    An exercise is done as soon as its check passes; there is no marker to delete.
+    """
+  end
+
+  def main(args) do
+    root = find_root()
+    File.cd!(root)
+
+    code =
+      case args do
+        [] -> verify(discover(), %{}) |> elem(0)
+        ["verify"] -> verify(discover(), %{}) |> elem(0)
+        ["watch"] -> watch(nil)
+        ["watch", chapter] -> watch(chapter)
+        ["run"] -> with_next(&run/1)
+        ["run", n] -> with_named(n, &run/1)
+        ["hint"] -> with_next(&hint/1)
+        ["hint", n] -> with_named(n, &hint/1)
+        ["list"] -> list()
+        ["solution", n] -> with_named(n, &solution/1)
+        ["reset", n] -> with_named(n, &reset/1)
+        ["doctor"] -> doctor()
+        [h | _] when h in ["help", "-h", "--help"] -> IO.write(usage()) && 0
+        _ -> IO.write(usage()) && 2
+      end
+
+    System.halt(code)
+  end
+
+  # ---------------------------------------------------------------- discovery
+
+  defp find_root do
+    start = File.cwd!()
+
+    Stream.iterate(start, &Path.dirname/1)
+    |> Enum.take(8)
+    |> Enum.find(&(File.dir?(Path.join(&1, "exercises")) and File.dir?(Path.join(&1, "checks"))))
+    |> case do
+      nil -> Path.dirname(Path.expand(__ENV__.file))
+      dir -> dir
+    end
+  end
+
+  # Discovery is driven by checks/: one check file per exercise.
+  def discover do
+    for chapter <- sorted_ls("checks"),
+        File.dir?(Path.join("checks", chapter)),
+        file <- sorted_ls(Path.join("checks", chapter)),
+        String.ends_with?(file, ".exs") do
+      name = Path.rootname(file)
+      rel = Path.join(["exercises", chapter, name <> ".ex"])
+
+      %Exercise{
+        chapter: chapter,
+        name: name,
+        rel: rel,
+        path: Path.expand(rel),
+        check: Path.join(["checks", chapter, file])
+      }
+    end
+  end
+
+  defp sorted_ls(dir), do: dir |> File.ls!() |> Enum.sort_by(&natural/1)
+
+  # Natural sort, so ex2 comes before ex10.
+  defp natural(s) do
+    Regex.split(~r/(\d+)/, s, include_captures: true)
+    |> Enum.map(fn part ->
+      case Integer.parse(part) do
+        {n, ""} -> {0, n}
+        _ -> {1, part}
+      end
+    end)
+  end
+
+  defp find(exs, needle) do
+    n = needle |> String.trim_trailing("/") |> String.replace_suffix(".ex", "")
+
+    Enum.find(exs, fn e ->
+      short = String.replace(e.name, ~r/^\d+_/, "")
+      number = e.name |> Integer.parse() |> elem(0)
+
+      n in [e.name, short, Exercise.id(e), e.rel, "#{e.chapter}/#{short}"] or
+        match?({^number, ""}, Integer.parse(n))
+    end)
+  end
+
+  defp with_named(needle, fun) do
+    case find(discover(), needle) do
+      nil -> Term.say("31", "no exercise named `#{needle}` (try `exlings list`)") && 2
+      e -> fun.(e)
+    end
+  end
+
+  defp with_next(fun) do
+    case Enum.find(discover(), &(not done?(&1))) do
+      nil -> Term.say("32", "Every exercise passes.") && 0
+      e -> fun.(e)
+    end
+  end
+
+  # ---------------------------------------------------------------- progress
+
+  @progress ".exlings-progress"
+
+  # A cheap change token: mtime plus size.
+  defp stamp(e) do
+    case File.stat(e.path, time: :posix) do
+      {:ok, st} -> "#{st.mtime}:#{st.size}"
+      _ -> "gone"
+    end
+  end
+
+  # Passes are remembered with their stamp, so editing a solved exercise re-queues it.
+  defp progress do
+    case File.read(@progress) do
+      {:ok, text} ->
+        for line <- String.split(text, "\n", trim: true),
+            [id, st] <- [String.split(line, " ")],
+            into: %{},
+            do: {id, st}
+
+      _ ->
+        %{}
+    end
+  end
+
+  defp done?(e), do: Map.get(progress(), Exercise.id(e)) == stamp(e)
+
+  defp record(e, passed?) do
+    p = Map.delete(progress(), Exercise.id(e))
+    p = if passed?, do: Map.put(p, Exercise.id(e), stamp(e)), else: p
+    File.write!(@progress, Enum.map(Enum.sort(p), fn {id, st} -> "#{id} #{st}\n" end))
+  end
+
+  # ---------------------------------------------------------------- checking
+
+  defp spec(e) do
+    {spec, _} = Code.eval_file(e.check)
+    spec
+  end
+
+  @doc "check runs the exercise with `elixir` and compares stdout against its check."
+  def check(e) do
+    spec = spec(e)
+
+    case exec(e.path) do
+      {:timeout, out, err} ->
+        {false, out <> err <> "\n(no result after #{div(@timeout_ms, 1000)}s: infinite loop?)"}
+
+      {0, out, err} ->
+        case spec do
+          %{kind: :exunit} ->
+            {true, out}
+
+          %{expected_output: nil} ->
+            {true, out}
+
+          %{expected_output: want} ->
+            if String.trim_trailing(out) == String.trim_trailing(want) do
+              {true, out}
+            else
+              {false,
+               err <>
+                 "Expected output:\n" <>
+                 indent_text(want) <> "\nGot:\n" <> indent_text(out)}
+            end
+        end
+
+      {_, out, err} ->
+        {false, err <> out}
+    end
+  end
+
+  defp indent_text(s) do
+    s |> String.trim_trailing() |> String.split("\n") |> Enum.map_join("\n", &("  " <> &1))
+  end
+
+  # stderr goes to a temp file so compiler warnings never pollute the compared output.
+  defp exec(path) do
+    err_file = Path.join(System.tmp_dir!(), "exlings-#{System.unique_integer([:positive])}.err")
+    elixir = System.find_executable("elixir")
+
+    ansi =
+      if Term.color?(), do: "Application.put_env(:elixir, :ansi_enabled, true)", else: ":ok"
+
+    port =
+      Port.open({:spawn_executable, "/bin/sh"}, [
+        :binary,
+        :exit_status,
+        args: ["-c", ~s(exec "$0" "$@" 2>"#{err_file}"), elixir, "-e", ansi, "-r", path]
+      ])
+
+    {:os_pid, pid} = Port.info(port, :os_pid)
+    deadline = System.monotonic_time(:millisecond) + @timeout_ms
+    result = collect(port, pid, deadline, [])
+    err =
+      case File.read(err_file) do
+        {:ok, text} -> text
+        _ -> ""
+      end
+
+    File.rm(err_file)
+
+    case result do
+      {:timeout, out} -> {:timeout, out, err}
+      {status, out} -> {status, out, err}
+    end
+  end
+
+  @max_output 64_000
+
+  # The deadline is checked before receive: a script printing in a loop keeps the
+  # mailbox full, so `after` alone would never fire.
+  defp collect(port, pid, deadline, acc) do
+    left = deadline - System.monotonic_time(:millisecond)
+
+    if left <= 0 do
+      System.cmd("kill", ["-9", to_string(pid)])
+      {:timeout, IO.iodata_to_binary(acc)}
+    else
+      receive do
+        {^port, {:data, d}} ->
+          acc = if IO.iodata_length(acc) < @max_output, do: [acc, d], else: acc
+          collect(port, pid, deadline, acc)
+
+        {^port, {:exit_status, s}} ->
+          {s, IO.iodata_to_binary(acc)}
+      after
+        left -> collect(port, pid, deadline, acc)
+      end
+    end
+  end
+
+  # ---------------------------------------------------------------- reporting
+
+  defp report(e, {true, out}) do
+    Term.say("32", "v #{Exercise.id(e)} passes!")
+    Term.indent(out)
+    true
+  end
+
+  defp report(e, {false, out}) do
+    Term.say("31", "x #{Exercise.id(e)} fails.")
+    IO.puts("  File: " <> Term.file_link(e.path, e.rel))
+    Term.indent(out)
+    IO.puts("")
+    show_hint(e)
+    false
+  end
+
+  defp hints(e) do
+    e.check
+    |> File.read!()
+    |> String.split("\n")
+    |> Enum.drop_while(&(String.trim(&1) != "# HINT"))
+    |> Enum.drop(1)
+    |> Enum.take_while(&String.starts_with?(&1, "#"))
+    |> Enum.map(&String.replace_prefix(String.replace_prefix(&1, "#", ""), " ", ""))
+  end
+
+  defp show_hint(e) do
+    case hints(e) do
+      [] ->
+        Term.say("2", "(this exercise has no hint)")
+
+      lines ->
+        Term.say("36", "Hint:")
+        Enum.each(lines, &IO.puts("    " <> &1))
+    end
+  end
+
+  # ---------------------------------------------------------------- commands
+
+  # verify stops at the first unsolved exercise; cache maps id to {stamp, result} for watch.
+  defp verify(exs, cache) do
+    total = length(exs)
+
+    Enum.reduce_while(Enum.with_index(exs), {0, cache}, fn {e, i}, {_, cache} ->
+      if done?(e) do
+        {:cont, {0, cache}}
+      else
+        st = stamp(e)
+
+        result = cached(cache, e, st)
+        record(e, elem(result, 0))
+        cache = Map.put(cache, Exercise.id(e), {st, result})
+
+        if elem(result, 0) do
+          {:cont, {0, cache}}
+        else
+          IO.puts(Term.bar(i, total) <> "\n")
+          report(e, result)
+          {:halt, {1, cache}}
+        end
+      end
+    end)
+    |> case do
+      {0, cache} ->
+        IO.puts(Term.bar(total, total))
+        Term.say("32", "All #{total} exercises complete. You have tamed the BEAM.")
+        {0, cache}
+
+      other ->
+        other
+    end
+  end
+
+  defp cached(cache, e, st) do
+    case Map.get(cache, Exercise.id(e)) do
+      {^st, result} -> result
+      _ -> check(e)
+    end
+  end
+
+  defp watch(chapter) do
+    Term.say("1", "Watching exercises. Save a file to re-check it; Ctrl-C twice to quit.")
+    watch_loop(chapter, nil, %{})
+  end
+
+  defp watch_loop(chapter, last, cache) do
+    exs = Enum.filter(discover(), &(chapter == nil or String.starts_with?(&1.chapter, chapter)))
+    key = Enum.map(exs, &stamp/1)
+
+    cache =
+      if key == last do
+        cache
+      else
+        Term.clear()
+        {_, cache} = verify(exs, cache)
+        Term.say("2", "\nwatching...")
+        cache
+      end
+
+    Process.sleep(@watch_ms)
+    watch_loop(chapter, key, cache)
+  end
+
+  defp run(e) do
+    result = check(e)
+    record(e, elem(result, 0))
+    if report(e, result), do: 0, else: 1
+  end
+
+  defp hint(e) do
+    Term.say("1", Exercise.id(e))
+    show_hint(e)
+    IO.puts("  File: " <> Term.file_link(e.path, e.rel))
+    0
+  end
+
+  defp list do
+    exs = discover()
+    p = progress()
+
+    done =
+      Enum.count(exs, fn e ->
+        ok = Map.get(p, Exercise.id(e)) == stamp(e)
+        label = if ok, do: Term.paint("32", "DONE   "), else: Term.paint("33", "PENDING")
+        IO.puts("#{label}  #{String.pad_trailing(Exercise.id(e), 44)} #{Term.file_link(e.path, e.rel)}")
+        ok
+      end)
+
+    IO.puts("\n" <> Term.bar(done, length(exs)))
+    0
+  end
+
+  defp solution(e) do
+    path = Path.join(["solutions", e.chapter, e.name <> ".ex"])
+
+    case File.read(path) do
+      {:ok, src} ->
+        Term.say("1", "Solution for #{Exercise.id(e)} (#{path}):")
+        IO.write(src)
+        0
+
+      _ ->
+        Term.say("33", "no solution file at #{path}")
+        1
+    end
+  end
+
+  defp reset(e) do
+    template = Path.join([".templates", e.chapter, e.name <> ".ex"])
+
+    if File.exists?(template) do
+      File.cp!(template, e.path)
+      record(e, false)
+      Term.say("33", "reset #{Exercise.id(e)} to its original state")
+      0
+    else
+      Term.say("31", "no pristine copy at #{template}")
+      1
+    end
+  end
+
+  defp doctor do
+    install =
+      "sudo pacman -S elixir | sudo apt install elixir | sudo dnf install elixir | brew install elixir"
+
+    missing =
+      Enum.count([{"elixir", install}, {"erl", install}], fn {tool, how} ->
+        case System.find_executable(tool) do
+          nil ->
+            IO.puts("#{Term.paint("31", "missing")} #{String.pad_trailing(tool, 8)} #{how}")
+            true
+
+          path ->
+            IO.puts("#{Term.paint("32", "ok     ")} #{String.pad_trailing(tool, 8)} #{path}")
+            false
+        end
+      end)
+
+    IO.puts(
+      "#{Term.paint("32", "ok     ")} #{String.pad_trailing("version", 8)} Elixir #{System.version()}, OTP #{System.otp_release()}"
+    )
+
+    IO.puts("")
+
+    if missing == 0 do
+      Term.say("32", "Everything is installed.")
+      0
+    else
+      Term.say("33", "#{missing} missing.")
+      1
+    end
+  end
+end
+
+Exlings.main(System.argv())

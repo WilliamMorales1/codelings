@@ -81,6 +81,7 @@ own language so the course needs nothing extra:
 | `dockerlings/` | github.com/furkan/dockerlings | Go/cobra; `watch` is the Bubble Tea TUI, re-checks on save |
 | `golings/` | github.com/mauricioabreu/golings | Go/cobra; no solutions upstream |
 | `erlings/` | github.com/lambdaclass/erlings | `./erlings` escript; done = tests pass, cached in `.erlings-progress` |
+| `exlings/` | github.com/zoedsoupe/exlings | Elixir script `./exlings`; checks in `checks/` (hint + expected output), solutions added |
 | `haskellings/` | github.com/MondayMorningHaskell/haskellings | Haskell (stack, lts-18.4 / GHC 8.10.4) |
 | `clings/` | github.com/danwritecode/clings | C; default verb is the original watch loop |
 | `nimlings/` | github.com/sergiotapia/nimlings | Nim (`src/nimlings.nim`); exercises moved to `exercises/` |
