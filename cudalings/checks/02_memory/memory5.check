@@ -1,0 +1,4 @@
+# HINT
+# cudaMemcpyToSymbol(symbol, src, bytes): the symbol is the __constant__
+# variable itself, `weights`, not its address.
+0 0 0 0 0 0 1 4 6 4 1 0 0 0 0 0

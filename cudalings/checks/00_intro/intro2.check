@@ -1,0 +1,4 @@
+# HINT
+# Change the return type to void and delete the `return` line. The answer
+# already reaches the host through `out`.
+The answer is 42

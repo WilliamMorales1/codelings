@@ -1,0 +1,4 @@
+# HINT
+# Going down column `col` of B, element k is B[k][col], which is B[k * N + col].
+C[0][1] = -5, C[63][63] = 4
+mismatches: 0

@@ -1,0 +1,3 @@
+# HINT
+# v += __shfl_down_sync(0xffffffff, v, offset);
+496 1520 2544 3568

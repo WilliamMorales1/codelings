@@ -1,0 +1,4 @@
+#! sanitizer initcheck
+# HINT
+# Before the launch: cudaMemcpy(d_in, h_in, sizeof h_in, cudaMemcpyHostToDevice).
+1 4 7 10 13 16 19 22 25 28 31 34 37 40 43 46

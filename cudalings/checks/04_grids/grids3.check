@@ -1,0 +1,5 @@
+#! sanitizer memcheck
+# HINT
+# Columns run from 0 to W - 1. Where does column 0 land with (W - col)?
+out[0][0] = 147, in[0][49] = 147
+mismatches: 0

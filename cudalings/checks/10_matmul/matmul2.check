@@ -1,0 +1,6 @@
+#! sanitizer racecheck
+# HINT
+# In step t, the B tile is rows t*TILE .. t*TILE+TILE-1 of B, at this block's
+# columns. Thread (tx, ty) loads row t * TILE + ty, column col.
+C[0][1] = -9, C[127][127] = -6
+mismatches: 0

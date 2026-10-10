@@ -1,0 +1,5 @@
+# HINT
+# The first number inside <<< >>> is how many blocks to launch.
+# Zero blocks means zero threads. Make it 1.
+Hello from the CPU!
+Hello from the GPU!

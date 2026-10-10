@@ -1,0 +1,5 @@
+# HINT
+# "invalid configuration argument" means the <<< >>> numbers are out of range.
+# Any block size up to 1024 works; multiples of 32 (one warp) are the norm.
+launch: no error
+filled: 4096 of 4096

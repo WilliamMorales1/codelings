@@ -1,0 +1,4 @@
+# HINT
+# cudaDeviceSynchronize() returns the error from the kernel it waited for.
+launch: no error
+run: an illegal memory access was encountered

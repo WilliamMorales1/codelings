@@ -1,0 +1,5 @@
+# HINT
+# The tile was filled as tile[threadIdx.y][threadIdx.x]. Reading it back the
+# same way copies the block without transposing it; swap the two indices.
+out[1][0] = 1
+mismatches: 0

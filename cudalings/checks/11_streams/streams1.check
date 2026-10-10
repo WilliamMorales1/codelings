@@ -1,0 +1,4 @@
+# HINT
+# The third slot is a byte count, not a stream. Pass 0 there and the stream fourth.
+h[1] = 0.5, h[1023] = 511.5
+sum = 261888.0

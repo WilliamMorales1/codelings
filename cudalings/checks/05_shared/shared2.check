@@ -1,0 +1,5 @@
+#! sanitizer memcheck
+# HINT
+# Third value inside <<< >>>: threads * sizeof(float).
+out[0] = 1, out[127] = 0
+mismatches: 0

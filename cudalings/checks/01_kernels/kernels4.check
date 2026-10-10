@@ -1,0 +1,6 @@
+#! sanitizer memcheck
+# HINT
+# The output is already right; the sanitizer complains about threads with
+# i >= n. Only let a thread work when i < n.
+out[999] = 1998.0
+sum = 999000.0

@@ -1,0 +1,8 @@
+#! sanitizer racecheck
+# HINT
+# int add = t >= offset ? x[t - offset] : 0;
+# __syncthreads();
+# x[t] += add;
+1 3 6 10 15 16 18 21
+out[255] = 766
+wrong: 0

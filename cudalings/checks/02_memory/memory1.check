@@ -1,0 +1,4 @@
+# HINT
+# cudaMemcpy(dst, src, bytes, kind). The destination is the host array h and
+# the source is d on the GPU, so the kind is cudaMemcpyDeviceToHost.
+2 4 6 8 10 12 14 16

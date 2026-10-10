@@ -1,0 +1,5 @@
+# HINT
+# Three calls: cudaEventRecord(start) before the launch, cudaEventRecord(stop)
+# after it, then cudaEventSynchronize(stop). Wrap each in CUDA_CHECK.
+elapsed time: ok
+positive: yes

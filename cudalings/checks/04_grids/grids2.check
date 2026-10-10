@@ -1,0 +1,5 @@
+# HINT
+# x covers columns, so the first argument is the number of blocks across W.
+m[0][99] = 99
+m[39][0] = 39000
+mismatches: 0

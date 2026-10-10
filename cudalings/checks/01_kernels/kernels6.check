@@ -1,0 +1,5 @@
+# HINT
+# Read the compiler error: a __global__ function is calling a host function.
+# Put `__host__ __device__` in front of smoothstep's return type.
+0.000 0.000 0.007 0.104 0.282 0.500 0.718 0.896 0.993 1.000 1.000
+matches CPU: yes

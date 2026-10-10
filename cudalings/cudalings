@@ -1,0 +1,354 @@
+#!/usr/bin/env bash
+# cudalings: rustlings-style runner. Each exercise is compiled with nvcc, run, and its stdout
+# compared with the expected output in checks/<chapter>/<name>.check.
+set -uo pipefail
+
+usage() {
+    cat <<'EOF'
+cudalings - small exercises to get you used to writing CUDA kernels
+
+USAGE:
+    cudalings [verify] [CHAPTER]  Check exercises in order, stopping at the first unsolved one (default)
+    cudalings watch [CHAPTER]     Same as verify, but re-checks every time you save a file
+    cudalings run [NAME]          Check one exercise (defaults to the next unsolved one)
+    cudalings hint [NAME]         Print the hint for an exercise
+    cudalings list                Show every exercise and its status
+    cudalings solution NAME       Print the reference solution
+    cudalings reset NAME          Restore an exercise to its original, unsolved state
+    cudalings doctor              Show which external tools are installed and how to get the rest
+    cudalings help                Show this message
+
+CHAPTER is a prefix such as 02 or 02_memory. NAME is chapter/name or just the
+file name, such as 02_memory/memory3 or memory3.
+Fix the file and save: as soon as its check passes, cudalings moves on.
+
+Environment: CUDALINGS_ARCH overrides nvcc's -arch (default: native).
+EOF
+}
+
+if [[ -z "${NO_COLOR:-}" && -t 1 ]]; then
+    color=1
+else
+    color=0
+fi
+
+# Colab and most distro packages put the toolkit here without adding it to PATH.
+for d in /usr/local/cuda/bin /opt/cuda/bin; do
+    [[ -d "$d" && ":$PATH:" != *":$d:"* ]] && PATH="$PATH:$d"
+done
+
+paint() { if ((color)); then printf '\e[%sm%s\e[0m' "$1" "$2"; else printf '%s' "$2"; fi; }
+say() { paint "$1" "$2"; echo; }
+
+# file_link prints an OSC 8 hyperlink; terminals without support just show the label.
+file_link() {
+    if ((color)); then
+        printf '\e]8;;file://%s\e\\%s\e]8;;\e\\' "$PWD/$1" "$1"
+    else
+        printf '%s' "$1"
+    fi
+}
+
+progress_bar() {
+    local done=$1 total=$2 filled=0
+    ((total > 0)) && filled=$((32 * done / total))
+    local hashes='################################' dashes='--------------------------------'
+    local bar=${hashes:0:filled}${dashes:0:32-filled}
+    printf 'Progress: [%s] %d/%d\n' "$(paint 32 "$bar")" "$done" "$total"
+}
+
+indent() {
+    local line
+    while IFS= read -r line; do printf '    %s\n' "$line"; done
+}
+
+find_root() {
+    local dir=$PWD
+    while [[ "$dir" != / ]]; do
+        if [[ -d "$dir/exercises" && -d "$dir/checks" ]]; then
+            cd "$dir" || exit 2
+            return
+        fi
+        dir=$(dirname "$dir")
+    done
+    say 31 "could not find an exercises/ directory; run cudalings from inside the repository"
+    exit 2
+}
+
+# exercises lists chapter/name ids in order; discovery is driven by checks/.
+exercises() {
+    local prefix=${1:-}
+    local f id
+    for f in checks/*/*.check; do
+        id=${f#checks/}
+        id=${id%.check}
+        [[ "$id" == "$prefix"* ]] && echo "$id"
+    done | sort -V
+}
+
+# expected prints the lines of a check that are not comments or directives.
+expected() { grep -v '^#' "checks/$1.check"; }
+
+# directive prints the value of a `#! key value` line in the check, if any.
+directive() { sed -n "s/^#! $2 //p" "checks/$1.check"; }
+
+stamp_of() { stat -c '%Y.%y %s' "exercises/$1.cu" 2>/dev/null; }
+
+# check_one compiles and runs an exercise; diagnostics go to stdout.
+check_one() {
+    local id=$1 bin=".build/$1" out err rc tool
+    mkdir -p "$(dirname "$bin")"
+    if ! command -v nvcc >/dev/null; then
+        echo "nvcc not found; run \`cudalings doctor\`"
+        return 1
+    fi
+    if ! out=$(nvcc -O2 -arch="${CUDALINGS_ARCH:-native}" -I include -o "$bin" "exercises/$id.cu" 2>&1); then
+        echo "It does not compile:"
+        echo
+        printf '%s\n' "$out"
+        return 1
+    fi
+    err=$(mktemp)
+    out=$(timeout 20 "$bin" 2>"$err")
+    rc=$?
+    if ((rc == 124)); then
+        echo "It ran for over 20 seconds and was stopped. Is a loop never ending?"
+        rm -f "$err"
+        return 1
+    fi
+    if ((rc != 0)); then
+        echo "It compiles, but exited with status $rc. Its output was:"
+        echo
+        printf '%s\n' "$out"
+        cat "$err"
+        rm -f "$err"
+        return 1
+    fi
+    rm -f "$err"
+    if [[ "$out" != "$(expected "$id")" ]]; then
+        echo "It runs, but its output is not what this exercise asks for."
+        echo
+        diff --label expected --label "your output" -u <(expected "$id") <(printf '%s\n' "$out") | tail -n +3
+        return 1
+    fi
+    tool=$(directive "$id" sanitizer)
+    if [[ -n "$tool" ]]; then
+        if ! out=$(timeout 120 compute-sanitizer --tool "$tool" --error-exitcode 99 "$bin" 2>&1); then
+            echo "The output is right, but compute-sanitizer --tool $tool found a problem:"
+            echo
+            printf '%s\n' "$out" | grep '^=========' | head -n 12
+            return 1
+        fi
+    fi
+}
+
+# Passes are remembered by file stamp so list is instant and editing re-queues an exercise.
+progress_file=.cudalings-progress
+
+cached_pass() {
+    local id=$1 s
+    s=$(stamp_of "$id")
+    [[ -f "$progress_file" ]] && grep -qxF "$id $s" "$progress_file"
+}
+
+record_pass() {
+    local id=$1 tmp
+    tmp=$(mktemp)
+    [[ -f "$progress_file" ]] && grep -v "^$id " "$progress_file" >"$tmp"
+    echo "$id $(stamp_of "$id")" >>"$tmp"
+    mv "$tmp" "$progress_file"
+}
+
+passes() {
+    local id=$1
+    cached_pass "$id" && return 0
+    check_one "$id" >/dev/null || return 1
+    record_pass "$id"
+}
+
+hint_of() {
+    local line on=0
+    while IFS= read -r line; do
+        if ((!on)); then
+            [[ "$line" == "# HINT" ]] && on=1
+            continue
+        fi
+        [[ "$line" == "#"* && "$line" != "#!"* ]] || break
+        line=${line#\#}
+        echo "${line# }"
+    done <"checks/$1.check"
+}
+
+resolve() {
+    local needle=${1%.cu}
+    needle=${needle#exercises/}
+    local id
+    for id in $(exercises); do
+        if [[ "$id" == "$needle" || "${id#*/}" == "$needle" ]]; then
+            echo "$id"
+            return
+        fi
+    done
+    say 31 "no exercise named \`$1\` (try \`cudalings list\`)" >&2
+    return 1
+}
+
+next_unsolved() {
+    local id
+    for id in $(exercises); do
+        if ! passes "$id"; then
+            echo "$id"
+            return
+        fi
+    done
+    return 1
+}
+
+# report prints one outcome and returns 0 when the learner may move on.
+report() {
+    local id=$1 out
+    if out=$(check_one "$id"); then
+        record_pass "$id"
+        say 32 "v $id passes!"
+        return 0
+    fi
+    say 31 "x $id fails."
+    echo "  File: $(file_link "exercises/$id.cu")"
+    printf '%s\n' "$out" | indent
+    echo
+    say 36 "Hint:"
+    hint_of "$id" | indent
+    return 1
+}
+
+cmd_verify() {
+    local ids i=0
+    mapfile -t ids < <(exercises "${1:-}")
+    if ((${#ids[@]} == 0)); then
+        say 31 "no exercises match"
+        return 2
+    fi
+    for id in "${ids[@]}"; do
+        if ! passes "$id"; then
+            progress_bar "$i" "${#ids[@]}"
+            echo
+            report "$id"
+            return 1
+        fi
+        i=$((i + 1))
+    done
+    progress_bar "${#ids[@]}" "${#ids[@]}"
+    say 32 "All ${#ids[@]} exercises complete. Every warp is accounted for."
+}
+
+# stamp is a cheap change token over every exercise file: path, mtime and size.
+stamp() { stat -c '%n %Y.%y %s' exercises/*/*.cu; }
+
+cmd_watch() {
+    local last=""
+    while true; do
+        local now
+        now=$(stamp)
+        if [[ "$now" != "$last" ]]; then
+            last=$now
+            ((color)) && printf '\e[2J\e[H'
+            cmd_verify "${1:-}"
+            echo
+            say 2 "watching... (Ctrl-C to quit)"
+        fi
+        sleep 0.7
+    done
+}
+
+cmd_list() {
+    local done=0 total=0 id label
+    for id in $(exercises); do
+        total=$((total + 1))
+        # Compiling every exercise would take a minute, so list trusts the progress file.
+        if cached_pass "$id"; then
+            label=$(paint 32 "DONE   ")
+            done=$((done + 1))
+        else
+            label=$(paint 33 PENDING)
+        fi
+        printf '%s  %-28s %s\n' "$label" "$id" "$(file_link "exercises/$id.cu")"
+    done
+    echo
+    progress_bar "$done" "$total"
+}
+
+cmd_doctor() {
+    local missing=0
+    if command -v nvcc >/dev/null; then
+        printf '%s nvcc               %s\n' "$(paint 32 'ok     ')" "$(nvcc --version | sed -n 's/.*release \([^,]*\).*/\1/p')"
+    else
+        printf '%s nvcc               %s\n' "$(paint 31 missing)" "install the CUDA toolkit (see README)"
+        missing=1
+    fi
+    if command -v compute-sanitizer >/dev/null; then
+        printf '%s compute-sanitizer  %s\n' "$(paint 32 'ok     ')" "$(command -v compute-sanitizer)"
+    else
+        printf '%s compute-sanitizer  %s\n' "$(paint 31 missing)" "ships with the CUDA toolkit; add its bin/ to PATH"
+        missing=1
+    fi
+    if command -v nvidia-smi >/dev/null && nvidia-smi -L >/dev/null 2>&1; then
+        printf '%s GPU                %s\n' "$(paint 32 'ok     ')" "$(nvidia-smi -L | head -n 1)"
+    else
+        printf '%s GPU                %s\n' "$(paint 31 missing)" "needs an NVIDIA GPU and driver; no GPU? see README for Colab"
+        missing=1
+    fi
+    echo
+    if ((missing == 0)); then
+        say 32 "Everything is installed."
+    else
+        say 33 "Some tools are missing; exercises will fail until they are installed."
+        return 1
+    fi
+}
+
+main() {
+    local cmd=${1:-verify} arg=${2:-} id
+    case "$cmd" in
+    help | -h | --help) usage; return 0 ;;
+    doctor) cmd_doctor; return ;;
+    esac
+    find_root
+    case "$cmd" in
+    verify) cmd_verify "$arg" ;;
+    watch) cmd_watch "$arg" ;;
+    list) cmd_list ;;
+    run)
+        if [[ -z "$arg" ]]; then
+            id=$(next_unsolved) || { say 32 "Every exercise passes."; return 0; }
+        else
+            id=$(resolve "$arg") || return 2
+        fi
+        report "$id"
+        ;;
+    hint)
+        if [[ -z "$arg" ]]; then
+            id=$(next_unsolved) || { say 32 "Every exercise passes."; return 0; }
+        else
+            id=$(resolve "$arg") || return 2
+        fi
+        say 1 "$id"
+        say 36 "Hint:"
+        hint_of "$id" | indent
+        echo "  File: $(file_link "exercises/$id.cu")"
+        ;;
+    solution)
+        [[ -n "$arg" ]] || { say 31 "which exercise? (try \`cudalings list\`)"; return 2; }
+        id=$(resolve "$arg") || return 2
+        say 1 "Solution for $id:"
+        cat "solutions/$id.cu"
+        ;;
+    reset)
+        [[ -n "$arg" ]] || { say 31 "which exercise? (try \`cudalings list\`)"; return 2; }
+        id=$(resolve "$arg") || return 2
+        cp ".templates/$id.cu" "exercises/$id.cu" && say 33 "reset $id to its original state"
+        ;;
+    *) usage; return 2 ;;
+    esac
+}
+
+main "$@"

@@ -1,0 +1,5 @@
+# HINT
+# Same kernel, different arguments: one block of BLOCK threads, reading
+# d_partial (which holds `blocks` values) and writing d_total.
+total: 99900000
+correct: yes

@@ -1,0 +1,4 @@
+# HINT
+# The last argument of __shfl_sync is the lane to read from. Everyone wants lane 0.
+reserved: 512
+every thread wrote exactly one slot: yes

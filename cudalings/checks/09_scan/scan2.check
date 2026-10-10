@@ -1,0 +1,4 @@
+# HINT
+# Block 0 adds nothing. Block b > 0 adds scanned_totals[b - 1].
+out[255] = 766, out[256] = 768, out[4095] = 12286
+wrong: 0

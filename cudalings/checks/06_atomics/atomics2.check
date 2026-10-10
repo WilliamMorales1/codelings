@@ -1,0 +1,5 @@
+# HINT
+# Replace the two lines that read and bump *count with one call:
+# int slot = atomicAdd(count, 1);
+kept: 1429
+all multiples of 7, each once: yes

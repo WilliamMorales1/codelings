@@ -1,0 +1,6 @@
+#! sanitizer racecheck
+# HINT
+# Thread t reads tile[BLOCK - 1 - t], which a different thread (often in a
+# different warp) wrote. Put __syncthreads(); between the write and the read.
+out[0] = 255, out[255] = 0, out[256] = 511
+mismatches: 0

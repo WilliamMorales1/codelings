@@ -1,0 +1,4 @@
+# HINT
+# atomicAdd(address, amount). The address is &bins[values[i]].
+131074 131072 131071 131072 131072 131072 131073 131070
+total: 1048576 of 1048576

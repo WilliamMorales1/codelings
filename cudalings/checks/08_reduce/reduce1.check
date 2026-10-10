@@ -1,0 +1,5 @@
+#! sanitizer racecheck
+# HINT
+# if (t < s) sdata[t] += sdata[t + s];
+12749 12773 12898 12720 12845 12768 12792 12816
+wrong blocks: 0

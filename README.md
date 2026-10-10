@@ -23,6 +23,7 @@ Written for this repo:
 
 | Course | Learn |
 |---|---|
+| [cudalings](cudalings) | CUDA kernels, needs an NVIDIA GPU (or Colab) |
 | [grpclings](grpclings) | Protocol Buffers and gRPC in Go |
 | [htmxlings](htmxlings) | htmx and hypermedia patterns |
 | [leanlings](leanlings) | Lean 4 |

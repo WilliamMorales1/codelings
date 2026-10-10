@@ -1,0 +1,5 @@
+# HINT
+# The right halo is the R elements just past this block: tile slots
+# l + BLOCK for the first R threads, read from in[g + BLOCK + R].
+out[0] = 28, out[127] = 48, out[128] = 44
+mismatches: 0

@@ -1,0 +1,4 @@
+# HINT
+# The copies use d + off. What does the kernel get?
+h[1048575] = 330625
+wrong: 0 of 1048576

@@ -1,0 +1,6 @@
+# HINT
+# The grid's x dimension was sized from W, so x walks along a row (the column
+# index) and y walks down (the row index).
+m[0][36] = 36
+m[18][0] = 18000
+mismatches: 0

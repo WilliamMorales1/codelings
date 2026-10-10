@@ -1,0 +1,3 @@
+# HINT
+# for (int i = <global index>; i < n; i += blockDim.x * gridDim.x) { ... }
+wrong: 0 of 100000

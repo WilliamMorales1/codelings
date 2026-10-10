@@ -1,0 +1,3 @@
+# HINT
+# A mask with five bits set means five lanes voted yes. __popc(mask) counts them.
+13 14 13 14

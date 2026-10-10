@@ -1,0 +1,5 @@
+#! sanitizer memcheck
+# HINT
+# n floats take n * sizeof(float) bytes. The cudaMemcpy calls already get it right.
+h[255] = -127.5
+sum = -16320.0

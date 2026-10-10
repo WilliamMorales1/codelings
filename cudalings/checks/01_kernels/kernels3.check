@@ -1,0 +1,5 @@
+# HINT
+# Integer division rounds down. The usual trick to round up is
+# (n + threads - 1) / threads.
+blocks: 4
+filled: 1000 of 1000

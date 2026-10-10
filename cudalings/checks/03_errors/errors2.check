@@ -1,0 +1,6 @@
+# HINT
+# if (err == cudaSuccess) return true;
+# then printf("%s failed: %s\n", what, cudaGetErrorString(err)) and return false.
+cudaMalloc(huge) failed: out of memory
+small allocation ok
+done
