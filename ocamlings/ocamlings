@@ -1,0 +1,318 @@
+#!/usr/bin/env bash
+# ocamlings: rustlings-style runner. Each exercise runs in the `ocaml` toplevel together with
+# checks/<chapter>/<name>.ml, whose assertions decide whether it passes.
+set -uo pipefail
+
+usage() {
+    cat <<'EOF'
+ocamlings - small exercises to get you used to reading and writing OCaml
+
+USAGE:
+    ocamlings [verify] [CHAPTER]  Check exercises in order, stopping at the first unsolved one (default)
+    ocamlings watch [CHAPTER]     Same as verify, but re-checks every time you save a file
+    ocamlings run [NAME]          Check one exercise (defaults to the next unsolved one)
+    ocamlings hint [NAME]         Print the hint for an exercise
+    ocamlings list                Show every exercise and its status
+    ocamlings solution NAME       Print the reference solution
+    ocamlings reset NAME          Restore an exercise to its original, unsolved state
+    ocamlings doctor              Show which external tools are installed and how to get the rest
+    ocamlings help                Show this message
+
+CHAPTER is a prefix such as 02 or 02_functions. NAME is chapter/name or just the
+file name, such as 02_functions/functions3 or functions3.
+Fix the file and save: as soon as its check passes, ocamlings moves on.
+EOF
+}
+
+if [[ -z "${NO_COLOR:-}" && -t 1 ]]; then
+    color=1
+else
+    color=0
+fi
+
+paint() { if ((color)); then printf '\e[%sm%s\e[0m' "$1" "$2"; else printf '%s' "$2"; fi; }
+say() { paint "$1" "$2"; echo; }
+
+# file_link prints an OSC 8 hyperlink; terminals without support just show the label.
+file_link() {
+    if ((color)); then
+        printf '\e]8;;file://%s\e\\%s\e]8;;\e\\' "$PWD/$1" "$1"
+    else
+        printf '%s' "$1"
+    fi
+}
+
+progress_bar() {
+    local done=$1 total=$2 filled=0
+    ((total > 0)) && filled=$((32 * done / total))
+    local hashes='################################' dashes='--------------------------------'
+    local bar=${hashes:0:filled}${dashes:0:32-filled}
+    printf 'Progress: [%s] %d/%d\n' "$(paint 32 "$bar")" "$done" "$total"
+}
+
+indent() {
+    local line
+    while IFS= read -r line; do printf '    %s\n' "$line"; done
+}
+
+find_root() {
+    local dir=$PWD
+    while [[ "$dir" != / ]]; do
+        if [[ -d "$dir/exercises" && -d "$dir/checks" ]]; then
+            cd "$dir" || exit 2
+            return
+        fi
+        dir=$(dirname "$dir")
+    done
+    say 31 "could not find an exercises/ directory; run ocamlings from inside the repository"
+    exit 2
+}
+
+# exercises lists chapter/name ids in order; discovery is driven by checks/.
+exercises() {
+    local prefix=${1:-}
+    local f id
+    for f in checks/*/*.ml; do
+        id=${f#checks/}
+        id=${id%.ml}
+        [[ "$id" == "$prefix"* ]] && echo "$id"
+    done | sort -V
+}
+
+stamp_of() { stat -c '%Y.%y %s' "exercises/$1.ml" 2>/dev/null; }
+
+# Non-exhaustive and unused match cases are errors, so the patterns chapter can lean on them.
+warnings=@8@11
+
+# check_one runs the exercise followed by its check in one toplevel script; diagnostics go to stdout.
+check_one() {
+    local id=$1 script out rc
+    if ! command -v ocaml >/dev/null; then
+        echo "ocaml not found; run \`ocamlings doctor\`"
+        return 1
+    fi
+    script=$(mktemp --suffix=.ml)
+    # Line directives keep compiler errors pointing at the learner's file, not the temp script.
+    {
+        printf '# 1 "checks/lib.ml"\n'
+        cat checks/lib.ml
+        printf '\n;;\n# 1 "exercises/%s.ml"\n' "$id"
+        cat "exercises/$id.ml"
+        printf '\n;;\n# 1 "checks/%s.ml"\n' "$id"
+        cat "checks/$id.ml"
+        printf '\n;;\nlet () = Check.finish ()\n'
+    } >"$script"
+    out=$(timeout 10 ocaml -w "$warnings" "$script" 2>&1)
+    rc=$?
+    rm -f "$script"
+    if ((rc == 124)); then
+        [[ -n "$out" ]] && printf '%s\n' "$out"
+        echo "It ran for over 10 seconds and was stopped. Is something recomputed, or a loop never ending?"
+        return 1
+    fi
+    if ((rc != 0)); then
+        printf '%s\n' "$out"
+        return 1
+    fi
+}
+
+# Passes are remembered by file stamp so list is instant and editing re-queues an exercise.
+progress_file=.ocamlings-progress
+
+cached_pass() {
+    local id=$1 s
+    s=$(stamp_of "$id")
+    [[ -f "$progress_file" ]] && grep -qxF "$id $s" "$progress_file"
+}
+
+record_pass() {
+    local id=$1 tmp
+    tmp=$(mktemp)
+    [[ -f "$progress_file" ]] && grep -v "^$id " "$progress_file" >"$tmp"
+    echo "$id $(stamp_of "$id")" >>"$tmp"
+    mv "$tmp" "$progress_file"
+}
+
+passes() {
+    local id=$1
+    cached_pass "$id" && return 0
+    check_one "$id" >/dev/null || return 1
+    record_pass "$id"
+}
+
+# hint_of prints the `(* HINT ... *)` block of a check without its comment markers.
+hint_of() {
+    local line on=0
+    while IFS= read -r line; do
+        if ((!on)); then
+            [[ "$line" == "(* HINT"* ]] || continue
+            on=1
+            line=${line#"(* HINT"}
+            [[ -z "${line// /}" ]] && continue
+        fi
+        local last=0
+        [[ "$line" == *"*)" ]] && { last=1; line=${line%"*)"}; }
+        line="${line#"${line%%[![:space:]]*}"}"
+        line="${line%"${line##*[![:space:]]}"}"
+        [[ -n "$line" ]] && echo "$line"
+        ((last)) && break
+    done <"checks/$1.ml"
+}
+
+resolve() {
+    local needle=${1%.ml}
+    needle=${needle#exercises/}
+    local id
+    for id in $(exercises); do
+        if [[ "$id" == "$needle" || "${id#*/}" == "$needle" ]]; then
+            echo "$id"
+            return
+        fi
+    done
+    say 31 "no exercise named \`$1\` (try \`ocamlings list\`)" >&2
+    return 1
+}
+
+next_unsolved() {
+    local id
+    for id in $(exercises); do
+        if ! passes "$id"; then
+            echo "$id"
+            return
+        fi
+    done
+    return 1
+}
+
+# report prints one outcome and returns 0 when the learner may move on.
+report() {
+    local id=$1 out
+    if out=$(check_one "$id"); then
+        record_pass "$id"
+        say 32 "v $id passes!"
+        return 0
+    fi
+    say 31 "x $id fails."
+    echo "  File: $(file_link "exercises/$id.ml")"
+    printf '%s\n' "$out" | indent
+    echo
+    say 36 "Hint:"
+    hint_of "$id" | indent
+    return 1
+}
+
+cmd_verify() {
+    local ids i=0
+    mapfile -t ids < <(exercises "${1:-}")
+    if ((${#ids[@]} == 0)); then
+        say 31 "no exercises match"
+        return 2
+    fi
+    for id in "${ids[@]}"; do
+        if ! passes "$id"; then
+            progress_bar "$i" "${#ids[@]}"
+            echo
+            report "$id"
+            return 1
+        fi
+        i=$((i + 1))
+    done
+    progress_bar "${#ids[@]}" "${#ids[@]}"
+    say 32 "All ${#ids[@]} exercises complete. Well typed, and it shows."
+}
+
+# stamp is a cheap change token over every exercise file: path, mtime and size.
+stamp() { stat -c '%n %Y.%y %s' exercises/*/*.ml; }
+
+cmd_watch() {
+    local last=""
+    while true; do
+        local now
+        now=$(stamp)
+        if [[ "$now" != "$last" ]]; then
+            last=$now
+            ((color)) && printf '\e[2J\e[H'
+            cmd_verify "${1:-}"
+            echo
+            say 2 "watching... (Ctrl-C to quit)"
+        fi
+        sleep 0.7
+    done
+}
+
+cmd_list() {
+    local done=0 total=0 id label
+    for id in $(exercises); do
+        total=$((total + 1))
+        # Running every exercise takes a while, so list trusts the progress file.
+        if cached_pass "$id"; then
+            label=$(paint 32 "DONE   ")
+            done=$((done + 1))
+        else
+            label=$(paint 33 PENDING)
+        fi
+        printf '%s  %-28s %s\n' "$label" "$id" "$(file_link "exercises/$id.ml")"
+    done
+    echo
+    progress_bar "$done" "$total"
+}
+
+cmd_doctor() {
+    if command -v ocaml >/dev/null; then
+        printf '%s ocaml  %s\n' "$(paint 32 'ok     ')" "$(ocaml -vnum)"
+        echo
+        say 32 "Everything is installed."
+    else
+        printf '%s ocaml  %s\n' "$(paint 31 missing)" "sudo pacman -S ocaml | sudo apt install ocaml | sudo dnf install ocaml | brew install ocaml"
+        echo
+        say 33 "OCaml is missing; every exercise will fail until it is installed."
+        return 1
+    fi
+}
+
+main() {
+    local cmd=${1:-verify} arg=${2:-} id
+    case "$cmd" in
+    help | -h | --help) usage; return 0 ;;
+    doctor) cmd_doctor; return ;;
+    esac
+    find_root
+    case "$cmd" in
+    verify) cmd_verify "$arg" ;;
+    watch) cmd_watch "$arg" ;;
+    list) cmd_list ;;
+    run)
+        if [[ -z "$arg" ]]; then
+            id=$(next_unsolved) || { say 32 "Every exercise passes."; return 0; }
+        else
+            id=$(resolve "$arg") || return 2
+        fi
+        report "$id"
+        ;;
+    hint)
+        if [[ -z "$arg" ]]; then
+            id=$(next_unsolved) || { say 32 "Every exercise passes."; return 0; }
+        else
+            id=$(resolve "$arg") || return 2
+        fi
+        say 1 "$id"
+        say 36 "Hint:"
+        hint_of "$id" | indent
+        echo "  File: $(file_link "exercises/$id.ml")"
+        ;;
+    solution)
+        [[ -n "$arg" ]] || { say 31 "which exercise? (try \`ocamlings list\`)"; return 2; }
+        id=$(resolve "$arg") || return 2
+        say 1 "Solution for $id:"
+        cat "solutions/$id.ml"
+        ;;
+    reset)
+        [[ -n "$arg" ]] || { say 31 "which exercise? (try \`ocamlings list\`)"; return 2; }
+        id=$(resolve "$arg") || return 2
+        cp ".templates/$id.ml" "exercises/$id.ml" && say 33 "reset $id to its original state"
+        ;;
+    *) usage; return 2 ;;
+    esac
+}
+
+main "$@"

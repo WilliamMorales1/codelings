@@ -39,6 +39,7 @@ a marker line; runners that support it (clings) treat a marker as "not done yet"
 Hint lives in the check/test file, not the exercise, in a block the runner extracts:
 - shell: a `# HINT` line followed by `#`-prefixed lines, ends at first non-`#` line
 - JS: `/* HINT ... */`
+- OCaml: `(* HINT ... *)`
 
 ## Runner CLI (identical verbs across courses)
 

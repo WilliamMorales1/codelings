@@ -28,6 +28,7 @@ Written for this repo:
 | [htmxlings](htmxlings) | htmx and hypermedia patterns |
 | [leanlings](leanlings) | Lean 4 |
 | [netlings](netlings) | Linux networking |
+| [ocamlings](ocamlings) | OCaml |
 | [opslings](opslings) | Docker, Kubernetes and the ops toolbox |
 | [otellings](otellings) | OpenTelemetry in Go |
 | [redislings](redislings) | Redis / Valkey |
