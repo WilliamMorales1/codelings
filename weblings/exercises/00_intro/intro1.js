@@ -11,6 +11,6 @@
 // Task: the spec wants greeting() to say "Hello, weblings!", and
 // greeting('rust') to say "Hello, rustlings!". Fix the default and save.
 
-export function greeting(name = "web") {
+export function greeting(name = 'world') {
   return `Hello, ${name}lings!`;
 }

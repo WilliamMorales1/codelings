@@ -16,9 +16,7 @@
 // The test imports index.js in a fresh `node` process, not through vitest,
 // so it sees exactly what Node sees.
 
-export { add, multiply } from "./math.js";
-export { default } from "./math.js";
-const math = require("./math");
+const math = require('./math');
 
 module.exports = {
   add: math.add,
