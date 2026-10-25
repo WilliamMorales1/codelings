@@ -76,8 +76,8 @@ has a **Terminal** (bottom left), you can `cd` to the course there and run
 
 #### From your own terminal, with the colab CLI
 
-The [`colab` CLI](https://pypi.org/project/google-colab-cli/) (`uv tool install
-google-colab-cli`) rents the same VM from your shell and gives you a real terminal on it,
+The [`colab` CLI](https://pypi.org/project/google-colab-cli/) (`conda create -n colab python pip`, then
+`pip install google-colab-cli` inside it) rents the same VM from your shell and gives you a real terminal on it,
 so `watch` works:
 
 ```sh

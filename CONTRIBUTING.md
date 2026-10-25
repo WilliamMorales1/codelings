@@ -40,6 +40,7 @@ Hint lives in the check/test file, not the exercise, in a block the runner extra
 - shell: a `# HINT` line followed by `#`-prefixed lines, ends at first non-`#` line
 - JS: `/* HINT ... */`
 - OCaml: `(* HINT ... *)`
+- Elm: `{- HINT ... -}`
 
 ## Runner CLI (identical verbs across courses)
 

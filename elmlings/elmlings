@@ -1,0 +1,393 @@
+#!/usr/bin/env bash
+# elmlings: rustlings-style runner. Each exercise is compiled with `elm make` together with
+# checks/<chapter>/<Name>Check.elm, and the compiled checks run in node to decide whether it passes.
+set -uo pipefail
+
+usage() {
+    cat <<'EOF'
+elmlings - small exercises to get you used to reading and writing Elm
+
+USAGE:
+    elmlings [verify] [CHAPTER]  Check exercises in order, stopping at the first unsolved one (default)
+    elmlings watch [CHAPTER]     Same as verify, but re-checks every time you save a file
+    elmlings run [NAME]          Check one exercise (defaults to the next unsolved one)
+    elmlings hint [NAME]         Print the hint for an exercise
+    elmlings list                Show every exercise and its status
+    elmlings solution NAME       Print the reference solution
+    elmlings reset NAME          Restore an exercise to its original, unsolved state
+    elmlings doctor              Show which external tools are installed and how to get the rest
+    elmlings help                Show this message
+
+CHAPTER is a prefix such as 02 or 02_functions. NAME is chapter/Name or just the
+module name in any case, such as 02_functions/Functions3 or functions3.
+Fix the file and save: as soon as its check passes, elmlings moves on.
+EOF
+}
+
+if [[ -z "${NO_COLOR:-}" && -t 1 ]]; then
+    color=1
+else
+    color=0
+fi
+
+paint() { if ((color)); then printf '\e[%sm%s\e[0m' "$1" "$2"; else printf '%s' "$2"; fi; }
+say() { paint "$1" "$2"; echo; }
+
+# file_link prints an OSC 8 hyperlink; terminals without support just show the label.
+file_link() {
+    if ((color)); then
+        printf '\e]8;;file://%s\e\\%s\e]8;;\e\\' "$PWD/$1" "$1"
+    else
+        printf '%s' "$1"
+    fi
+}
+
+progress_bar() {
+    local done=$1 total=$2 filled=0
+    ((total > 0)) && filled=$((32 * done / total))
+    local hashes='################################' dashes='--------------------------------'
+    local bar=${hashes:0:filled}${dashes:0:32-filled}
+    printf 'Progress: [%s] %d/%d\n' "$(paint 32 "$bar")" "$done" "$total"
+}
+
+indent() {
+    local line
+    while IFS= read -r line; do printf '    %s\n' "$line"; done
+}
+
+find_root() {
+    local dir=$PWD
+    while [[ "$dir" != / ]]; do
+        if [[ -d "$dir/exercises" && -d "$dir/checks" ]]; then
+            cd "$dir" || exit 2
+            return
+        fi
+        dir=$(dirname "$dir")
+    done
+    say 31 "could not find an exercises/ directory; run elmlings from inside the repository"
+    exit 2
+}
+
+# exercises lists chapter/Name ids in order; discovery is driven by checks/.
+exercises() {
+    local prefix=${1:-}
+    local f id
+    for f in checks/[0-9]*/*Check.elm; do
+        id=${f#checks/}
+        id=${id%Check.elm}
+        [[ "$id" == "$prefix"* ]] && echo "$id"
+    done | sort -V
+}
+
+stamp_of() { stat -c '%Y.%y %s' "exercises/$1.elm" 2>/dev/null; }
+
+build=.elmlings-build
+
+# write_project points one elm.json at every chapter, so elm-stuff caches across exercises;
+# elm only compiles the modules Main actually imports.
+write_project() {
+    local dirs="" d json
+    for d in exercises/*/ checks/*/; do
+        dirs+="        \"../${d%/}\","$'\n'
+    done
+    json=$(
+        cat <<EOF
+{
+    "type": "application",
+    "source-directories": [
+$dirs        "src"
+    ],
+    "elm-version": "0.19.1",
+    "dependencies": {
+        "direct": {
+            "elm/browser": "1.0.2",
+            "elm/core": "1.0.5",
+            "elm/html": "1.0.1",
+            "elm/json": "1.1.4"
+        },
+        "indirect": {
+            "elm/time": "1.0.0",
+            "elm/url": "1.0.0",
+            "elm/virtual-dom": "1.0.5"
+        }
+    },
+    "test-dependencies": {
+        "direct": {},
+        "indirect": {}
+    }
+}
+EOF
+    )
+    mkdir -p "$build/src"
+    # Rewriting an unchanged elm.json would make elm rebuild everything.
+    [[ -f "$build/elm.json" && "$(cat "$build/elm.json")" == "$json" ]] || printf '%s\n' "$json" >"$build/elm.json"
+}
+
+write_main() {
+    local check=$1Check
+    cat >"$build/src/Main.elm" <<EOF
+port module Main exposing (main)
+
+import $check
+
+
+port start : (Int -> msg) -> Sub msg
+
+
+port report : List String -> Cmd msg
+
+
+main : Program () () Int
+main =
+    Platform.worker
+        { init = \\_ -> ( (), Cmd.none )
+        , update = \\_ model -> ( model, report $check.failures )
+        , subscriptions = \\_ -> start identity
+        }
+EOF
+}
+
+# check_one compiles the exercise with its check and runs it; diagnostics go to stdout.
+check_one() {
+    local id=$1 name=${1#*/} out rc
+    local tool
+    for tool in elm node; do
+        if ! command -v "$tool" >/dev/null; then
+            echo "$tool not found; run \`elmlings doctor\`"
+            return 1
+        fi
+    done
+    write_project
+    write_main "$name"
+    out=$(cd "$build" && timeout 120 elm make src/Main.elm --output=elm.js 2>&1 </dev/null)
+    rc=$?
+    if ((rc != 0)); then
+        # elm prints absolute paths and a progress prefix; trim both so errors name repo files.
+        printf '%s\n' "$out" | sed -e 's#^Compiling[^-]*##' -e "s#$PWD/##g"
+        return 1
+    fi
+    out=$(timeout 10 node scripts/harness.js "$build/elm.js" 2>&1)
+    rc=$?
+    if ((rc == 124)); then
+        [[ -n "$out" ]] && printf '%s\n' "$out"
+        echo "It ran for over 10 seconds and was stopped. Is something recomputed, or a loop never ending?"
+        return 1
+    fi
+    if ((rc != 0)); then
+        printf '%s\n' "$out"
+        return 1
+    fi
+}
+
+# Passes are remembered by file stamp so list is instant and editing re-queues an exercise.
+progress_file=.elmlings-progress
+
+cached_pass() {
+    local id=$1 s
+    s=$(stamp_of "$id")
+    [[ -f "$progress_file" ]] && grep -qxF "$id $s" "$progress_file"
+}
+
+record_pass() {
+    local id=$1 tmp
+    tmp=$(mktemp)
+    [[ -f "$progress_file" ]] && grep -v "^$id " "$progress_file" >"$tmp"
+    echo "$id $(stamp_of "$id")" >>"$tmp"
+    mv "$tmp" "$progress_file"
+}
+
+passes() {
+    local id=$1
+    cached_pass "$id" && return 0
+    check_one "$id" >/dev/null || return 1
+    record_pass "$id"
+}
+
+# hint_of prints the `{- HINT ... -}` block of a check without its comment markers.
+hint_of() {
+    local line on=0
+    while IFS= read -r line; do
+        if ((!on)); then
+            [[ "$line" == "{- HINT"* ]] || continue
+            on=1
+            line=${line#"{- HINT"}
+            [[ -z "${line// /}" ]] && continue
+        fi
+        local last=0
+        [[ "$line" == *"-}" ]] && { last=1; line=${line%"-}"}; }
+        # Hints are indented three spaces; anything deeper is a code sample and keeps its indent.
+        line=${line#"   "}
+        line="${line%"${line##*[![:space:]]}"}"
+        [[ -n "$line" ]] && echo "$line"
+        ((last)) && break
+    done <"checks/$1Check.elm"
+}
+
+resolve() {
+    local needle=${1%.elm}
+    needle=${needle#exercises/}
+    needle=${needle,,}
+    local id name
+    for id in $(exercises); do
+        name=${id#*/}
+        if [[ "${id,,}" == "$needle" || "${name,,}" == "$needle" ]]; then
+            echo "$id"
+            return
+        fi
+    done
+    say 31 "no exercise named \`$1\` (try \`elmlings list\`)" >&2
+    return 1
+}
+
+next_unsolved() {
+    local id
+    for id in $(exercises); do
+        if ! passes "$id"; then
+            echo "$id"
+            return
+        fi
+    done
+    return 1
+}
+
+# report prints one outcome and returns 0 when the learner may move on.
+report() {
+    local id=$1 out
+    if out=$(check_one "$id"); then
+        record_pass "$id"
+        say 32 "v $id passes!"
+        return 0
+    fi
+    say 31 "x $id fails."
+    echo "  File: $(file_link "exercises/$id.elm")"
+    printf '%s\n' "$out" | indent
+    echo
+    say 36 "Hint:"
+    hint_of "$id" | indent
+    return 1
+}
+
+cmd_verify() {
+    local ids i=0
+    mapfile -t ids < <(exercises "${1:-}")
+    if ((${#ids[@]} == 0)); then
+        say 31 "no exercises match"
+        return 2
+    fi
+    for id in "${ids[@]}"; do
+        if ! passes "$id"; then
+            progress_bar "$i" "${#ids[@]}"
+            echo
+            report "$id"
+            return 1
+        fi
+        i=$((i + 1))
+    done
+    progress_bar "${#ids[@]}" "${#ids[@]}"
+    say 32 "All ${#ids[@]} exercises complete. No runtime exceptions, as promised."
+}
+
+# stamp is a cheap change token over every exercise file: path, mtime and size.
+stamp() { stat -c '%n %Y.%y %s' exercises/*/*.elm; }
+
+cmd_watch() {
+    local last=""
+    while true; do
+        local now
+        now=$(stamp)
+        if [[ "$now" != "$last" ]]; then
+            last=$now
+            ((color)) && printf '\e[2J\e[H'
+            cmd_verify "${1:-}"
+            echo
+            say 2 "watching... (Ctrl-C to quit)"
+        fi
+        sleep 0.7
+    done
+}
+
+cmd_list() {
+    local done=0 total=0 id label
+    for id in $(exercises); do
+        total=$((total + 1))
+        # Compiling every exercise takes a while, so list trusts the progress file.
+        if cached_pass "$id"; then
+            label=$(paint 32 "DONE   ")
+            done=$((done + 1))
+        else
+            label=$(paint 33 PENDING)
+        fi
+        printf '%s  %-28s %s\n' "$label" "$id" "$(file_link "exercises/$id.elm")"
+    done
+    echo
+    progress_bar "$done" "$total"
+}
+
+cmd_doctor() {
+    local missing=0
+    if command -v elm >/dev/null; then
+        printf '%s elm   %s\n' "$(paint 32 'ok     ')" "$(elm --version)"
+    else
+        printf '%s elm   %s\n' "$(paint 31 missing)" "official binary (see README Setup) | npm install -g elm | brew install elm"
+        missing=1
+    fi
+    if command -v node >/dev/null; then
+        printf '%s node  %s\n' "$(paint 32 'ok     ')" "$(node --version)"
+    else
+        printf '%s node  %s\n' "$(paint 31 missing)" "sudo pacman -S nodejs | sudo apt install nodejs | sudo dnf install nodejs | brew install node"
+        missing=1
+    fi
+    echo
+    if ((missing)); then
+        say 33 "Something is missing; every exercise will fail until it is installed."
+        return 1
+    fi
+    say 32 "Everything is installed. The first check downloads elm/core and friends once."
+}
+
+main() {
+    local cmd=${1:-verify} arg=${2:-} id
+    case "$cmd" in
+    help | -h | --help) usage; return 0 ;;
+    doctor) cmd_doctor; return ;;
+    esac
+    find_root
+    case "$cmd" in
+    verify) cmd_verify "$arg" ;;
+    watch) cmd_watch "$arg" ;;
+    list) cmd_list ;;
+    run)
+        if [[ -z "$arg" ]]; then
+            id=$(next_unsolved) || { say 32 "Every exercise passes."; return 0; }
+        else
+            id=$(resolve "$arg") || return 2
+        fi
+        report "$id"
+        ;;
+    hint)
+        if [[ -z "$arg" ]]; then
+            id=$(next_unsolved) || { say 32 "Every exercise passes."; return 0; }
+        else
+            id=$(resolve "$arg") || return 2
+        fi
+        say 1 "$id"
+        say 36 "Hint:"
+        hint_of "$id" | indent
+        echo "  File: $(file_link "exercises/$id.elm")"
+        ;;
+    solution)
+        [[ -n "$arg" ]] || { say 31 "which exercise? (try \`elmlings list\`)"; return 2; }
+        id=$(resolve "$arg") || return 2
+        say 1 "Solution for $id:"
+        cat "solutions/$id.elm"
+        ;;
+    reset)
+        [[ -n "$arg" ]] || { say 31 "which exercise? (try \`elmlings list\`)"; return 2; }
+        id=$(resolve "$arg") || return 2
+        cp ".templates/$id.elm" "exercises/$id.elm" && say 33 "reset $id to its original state"
+        ;;
+    *) usage; return 2 ;;
+    esac
+}
+
+main "$@"

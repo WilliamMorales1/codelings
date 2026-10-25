@@ -79,14 +79,14 @@ click or ctrl-click it to open the current exercise in your editor. Set
 
 ## The exercises
 
-| Chapter | What it covers |
-| --- | --- |
-| `00_intro` | the workflow |
-| `01_node` | ES modules, `fs/promises` + JSON, paths and file URLs (`import.meta.dirname`), `EventEmitter`, streams (`Transform`, `pipeline`), an `http.createServer` JSON API, `util.parseArgs`, `Promise.all` + `AbortSignal` |
-| `02_react` | JSX pitfalls, props and defaults, lists and keys, `useState` updaters, controlled forms, `useEffect` fetching with cleanup, a custom hook (`useDebounce`), context, `useReducer` |
-| `03_vite` | `index.html` as entry, `VITE_` env vars, `base` and build options, `resolve.alias`, dev-server proxy, a plugin with a virtual module |
-| `04_postgres` | `SELECT`/`WHERE`/`ORDER BY`, constraints, `JOIN` + `GROUP BY`/`HAVING`, `ON CONFLICT` upserts, CTEs + window functions, JSONB, expression and partial indexes, PL/pgSQL triggers, parameterized queries from JS |
-| `05_sqlite` | prepared statements, `STRICT` tables + foreign keys, transactions, upsert + `RETURNING`, FTS5 full-text search, JSON functions + generated columns, migrations with `user_version` |
+| Chapter       | What it covers                                                                                                                                                                                                     |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `00_intro`    | the workflow                                                                                                                                                                                                       |
+| `01_node`     | ES modules, `fs/promises` + JSON, paths and file URLs (`import.meta.dirname`), `EventEmitter`, streams (`Transform`, `pipeline`), an `http.createServer` JSON API, `util.parseArgs`, `Promise.all` + `AbortSignal` |
+| `02_react`    | JSX pitfalls, props and defaults, lists and keys, `useState` updaters, controlled forms, `useEffect` fetching with cleanup, a custom hook (`useDebounce`), context, `useReducer`                                   |
+| `03_vite`     | `index.html` as entry, `VITE_` env vars, `base` and build options, `resolve.alias`, dev-server proxy, a plugin with a virtual module                                                                               |
+| `04_postgres` | `SELECT`/`WHERE`/`ORDER BY`, constraints, `JOIN` + `GROUP BY`/`HAVING`, `ON CONFLICT` upserts, CTEs + window functions, JSONB, expression and partial indexes, PL/pgSQL triggers, parameterized queries from JS    |
+| `05_sqlite`   | prepared statements, `STRICT` tables + foreign keys, transactions, upsert + `RETURNING`, FTS5 full-text search, JSON functions + generated columns, migrations with `user_version`                                 |
 
 40 exercises, named after their chapter (`node1` … `node8`, `react1` …) so
 they sort in teaching order. Chapters are independent: if you only care about
@@ -115,6 +115,7 @@ Some notes per chapter:
   ```
 
   (`pg4.sql` uses `$1`/`$2` placeholders; in psql use `PREPARE` or replace them.)
+
 - **05_sqlite**: `node:sqlite` is synchronous and built in. The `sqlite3`
   CLI (package `sqlite` or `sqlite3`) runs the `.sql` files too.
 
